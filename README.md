@@ -50,3 +50,7 @@ unexplored はユーザーの嗜好をもとに、まだ聴いたことがない
 - レコメンド楽曲のレーティング機能
   - レーティングの一覧
   - レーティングの詳細
+
+### figma
+
+https://www.figma.com/file/0AWuFuZdMZT0cTyp60BJGz/PF%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&mode=design&t=ijRtyQ2gDgpqgmb2-1
