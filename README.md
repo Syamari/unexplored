@@ -1,4 +1,5 @@
 # unexplored
+
 ## サービス概要
 
 unexplored はユーザーの嗜好をもとに、まだ聴いたことがない分野を
@@ -54,3 +55,6 @@ unexplored はユーザーの嗜好をもとに、まだ聴いたことがない
 
 https://www.figma.com/file/0AWuFuZdMZT0cTyp60BJGz/PF%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&mode=design&t=ijRtyQ2gDgpqgmb2-1
 
+### ER 図
+
+[![Image from Gyazo](https://i.gyazo.com/de645672a799f46dc4413bf8ab7da396.png)](https://gyazo.com/de645672a799f46dc4413bf8ab7da396)
