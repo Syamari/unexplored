@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>unexplored</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,7 +10,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="flex flex-col min-h-screen">
+      <%= render 'shared/header' %>
+
+    <div class="flex-grow bg-yellow-50">
+      <%= yield %>
+    </div>
+      <%= render 'shared/footer' %>
   </body>
 </html>
