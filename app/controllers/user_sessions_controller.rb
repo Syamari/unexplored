@@ -3,7 +3,6 @@ class UserSessionsController < ApplicationController
 
   def create
     @user = login(params[:email], params[:password])
-		binding.pry
     if @user
 			flash[:success] = 'ログインしました'
       redirect_back_or_to root_path
@@ -16,5 +15,6 @@ class UserSessionsController < ApplicationController
 	def destroy
     logout
     redirect_to root_path
+    flash.now.notice = '投稿を更新しました。'
   end
 end
