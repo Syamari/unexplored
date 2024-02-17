@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-		binding.pry
     if @user.save
 			flash[:success] = '登録しました'
       redirect_to login_path
