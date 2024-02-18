@@ -10,15 +10,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body>
       <% if logged_in? %>
         <%= render 'shared/header' %>
       <% else %>
         <%= render 'shared/before_login_header' %>
       <% end %>
-    <div class="flex-grow bg-yellow-50">
+
       <%= yield %>
-    </div>
+
       <%= render 'shared/footer' %>
   </body>
 </html>
