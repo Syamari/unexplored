@@ -57,4 +57,4 @@ https://www.figma.com/file/0AWuFuZdMZT0cTyp60BJGz/PF%E9%81%B7%E7%A7%BB%E5%9B%B3?
 
 ### ER 図
 
-[![Image from Gyazo](https://i.gyazo.com/de645672a799f46dc4413bf8ab7da396.png)](https://gyazo.com/de645672a799f46dc4413bf8ab7da396)
+[![Image from Gyazo](https://i.gyazo.com/924895ab479a9d6fbbed31984408796a.png)](https://gyazo.com/924895ab479a9d6fbbed31984408796a)
