@@ -6,11 +6,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-			flash[:success] = '登録しました'
+			flash[:success] = 'ユーザー登録しました'
       redirect_to login_path
     else
-			flash[:success] = '登録失敗'
-      render :new
+      respond_to do |format|
+        format.turbo_stream do
+              flash.now[:error] = "ユーザー登録に失敗しました！"
+              render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end   
+      end
     end
   end
 

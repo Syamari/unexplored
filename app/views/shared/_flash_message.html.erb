@@ -1,0 +1,16 @@
+<% flash.each do |message_type, message| %>
+  <div hidden>
+    <div role="alert" class="alert alert-info">
+    </div>
+    <div role="alert" class="alert alert-success">
+    </div>
+    <div role="alert" class="alert alert-warning">
+    </div>
+    <div role="alert" class="alert alert-error">
+    </div>
+  </div>
+  <%# 上記のdiv hiddenはDaisyUIのalertのクラスを動的に使うための記述　%>
+  <div role="alert" class="alert alert-<%= message_type %>">
+    <%= message %>
+  </div>
+<% end %>

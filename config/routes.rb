@@ -13,4 +13,10 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
 
   resources :users, only: %i[new create]
+
+  Rails.application.routes.draw do
+    resources :lists
+    # 他のルーティングもここに追加する
+  end
+
 end

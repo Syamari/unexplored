@@ -1,13 +1,13 @@
-<div class="container lg:max-w-700">
-  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+<div class="container mx-auto my-4 py-4 px-4 border border-red-500">
+  <div class="mx-auto max-w-sm px-4 border border-red-500">
       <h1 class="text-center text-3xl font-bold mb-6">ログイン</h1>
       <%= form_with url: login_path, local: true do |f| %>
         <div class="mb-4">
-          <%= f.label :email, class: "block text-gray-700" %>
+          <%= f.label :email %>
           <%= f.text_field :email, class: 'input input-bordered w-full', placeholder: "Email" %>
         </div>
         <div class="mb-4">
-          <%= f.label :password, class: "block text-gray-700" %>
+          <%= f.label :password %>
           <%= f.password_field :password, class: 'input input-bordered w-full', placeholder: "Password" %>
         </div>
         <div class="mb-4">
@@ -18,6 +18,5 @@
         <%= link_to '登録ページへ', new_user_path %>
         <a href="#">パスワードをお忘れの方はこちら</a>
       </div>
-    </div>
   </div>
 </div>

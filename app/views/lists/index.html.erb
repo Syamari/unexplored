@@ -1,0 +1,34 @@
+<div class="container mx-auto my-4 px-4 border border-red-500">
+
+	<h1 class="text-center text-4xl font-bold mb-4">リスト一覧</h1>
+
+	<div class='text-center'><button class="btn btn-primary">
+		<%= link_to '新しいリストを作成する', new_list_path %>
+	</button></div>
+
+<% @lists.each do |list| %>
+
+		<div class="mx-auto max-w-xl px-4 py-4 border border-red-500">
+
+			<div class="hero rounded-lg bg-gradient-to-r from-blue-500 to-fuchsia-500">
+				<div class="hero-content flex-col lg:flex-row">
+
+					<div class="w-32 rounded">
+						<img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+					</div>
+					<div>
+						<h1 class="text-4xl font-bold"><%= list.name %></h1>
+						<p class="py-2">
+							これは説明文です。これは説明文です。これは説明文です。
+						</p>
+						<button class="btn btn-primary">仮ボタン</button>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+<% end %>
+
+	</div>

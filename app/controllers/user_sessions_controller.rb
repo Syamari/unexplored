@@ -7,14 +7,18 @@ class UserSessionsController < ApplicationController
 			flash[:success] = 'ログインしました'
       redirect_back_or_to root_path
     else
-			flash[:success] = 'ログイン失敗'
-      render :new
+      respond_to do |format|
+        format.turbo_stream do
+              flash.now[:error] = "ログインに失敗しました！"
+              render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end   
+      end
     end
   end
 
 	def destroy
     logout
     redirect_to root_path
-    flash.now.notice = '投稿を更新しました。'
+    flash[:info] = 'ログアウトしました'
   end
 end

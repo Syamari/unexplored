@@ -24,4 +24,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Rails サーバ起動
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/dev"]
