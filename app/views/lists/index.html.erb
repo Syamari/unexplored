@@ -21,7 +21,12 @@
 						<p class="py-2">
 							これは説明文です。これは説明文です。これは説明文です。
 						</p>
-						<button class="btn btn-primary">仮ボタン</button>
+						<button class="btn btn-primary">
+							<%= link_to "削除", list_path(list), data: { turbo_method: :delete } %>
+						</button>
+						<button class="btn btn-primary">
+							<%= link_to "編集", edit_list_path(list) %>
+						</button>
 					</div>
 
 				</div>
