@@ -1,0 +1,21 @@
+<%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
+  <div class="flex flex-col">
+    <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
+    <%= form.text_field :name, class: "border-2 border-gray-300 p-2 rounded-md" %>
+  </div>
+  <%= form.submit "追加", class: "bg-blue-500 text-white p-2 rounded-md" %>
+<% end %>
+
+<% if @list.artists.present? %>
+  <ul class="mt-8 space-y-2">
+    <% @list.artists.each do |artist| %>
+      <li class="border-b border-gray-200 py-2 flex justify-between items-center">
+        <span><%= artist.name %></span>
+        <div>
+          <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'Are you sure?' }, class: "bg-red-500 text-white p-2 rounded-md" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
