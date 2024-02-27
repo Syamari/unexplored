@@ -14,9 +14,10 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create]
 
-  Rails.application.routes.draw do
-    resources :lists
-    # 他のルーティングもここに追加する
+
+  resources :lists do
+    resources :artists, controller: 'list_artists', only: [:create, :destroy]
   end
+
 
 end
