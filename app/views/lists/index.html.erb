@@ -2,9 +2,9 @@
 
 	<h1 class="text-center text-4xl font-bold mb-4">リスト一覧</h1>
 
-	<div class='text-center'><button class="btn btn-primary">
-		<%= link_to '新しいリストを作成する', new_list_path %>
-	</button></div>
+	<div class='text-center'>
+		<%= link_to '新しいリストを作成する', new_list_path, class: 'btn btn-primary' %>
+	</div>
 
 <% @lists.each do |list| %>
 
@@ -21,15 +21,9 @@
 						<p class="py-2">
 							これは説明文です。これは説明文です。これは説明文です。
 						</p>
-						<button class="btn btn-primary">
-							<%= link_to "削除", list_path(list), data: { turbo_method: :delete } %>
-						</button>
-						<button class="btn btn-primary">
-							<%= link_to "編集", edit_list_path(list) %>
-						</button>
-						<button class="btn btn-primary">
-							<%= link_to "詳細", list_path(list) %>
-						</button>
+							<%= link_to "削除", list_path(list), class: 'btn btn-primary', data: { turbo_method: :delete } %>
+							<%= link_to "編集", edit_list_path(list), class: 'btn btn-primary' %>
+							<%= link_to "詳細", list_path(list), class: 'btn btn-primary' %>
 					</div>
 
 				</div>
@@ -39,4 +33,4 @@
 
 <% end %>
 
-	</div>
+</div>
