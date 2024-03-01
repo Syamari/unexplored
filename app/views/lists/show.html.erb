@@ -1,6 +1,6 @@
 <div class="container mx-auto my-4 px-4 border border-red-500">
 	<h1 class="text-center text-4xl font-bold mb-4">リスト内のアーティスト一覧</h1>
-
+  
 		<div class="mx-auto max-w-xl px-4 border border-red-500">
       <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
         <div class="flex flex-col">
@@ -11,6 +11,7 @@
       <% end %>
       <div class='text-center p-4'>
         <%= link_to 'リスト一覧に戻る', lists_path, class: 'btn btn-primary' %>
+        <%= link_to "レコメンド", list_song_path(@list), class: 'btn btn-secondary' %>
       </div>
     </div>
 
