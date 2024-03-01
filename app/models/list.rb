@@ -3,5 +3,5 @@ class List < ApplicationRecord
 	has_many :list_artists, dependent: :destroy
 	has_many :artists, through: :list_artists, dependent: :destroy
 
-	validates :name, presence: true, length: { maximum: 255 }
+	validates :name, presence: true, length: { maximum: 255 }	
 end

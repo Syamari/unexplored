@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :lists do
     resources :artists, controller: 'list_artists', only: [:create, :destroy]
+    resources :songs
   end
 
 
