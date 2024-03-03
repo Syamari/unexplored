@@ -2,6 +2,8 @@ class SongsController < ApplicationController
   include ApplicationHelper
 
   before_action :set_list
+  #before_action :redirect_if_reloaded
+  #before_action :check_api_limit
 
 
   def show
@@ -14,10 +16,11 @@ class SongsController < ApplicationController
 			redirect_to @list
 			return
 		end
-
+    
     selected_song = searched_playlists.first(4).max_by { |playlist| playlist.followers['total'] }.tracks.sample
     url = selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
+    session[:visited] = true
   end
 
   private
@@ -26,7 +29,11 @@ class SongsController < ApplicationController
 		@list = List.find(params[:list_id])
 	end
 
-  private
+  def redirect_if_reloaded
+    if session[:visited]
+      redirect_to lists_path
+    end
+  end
 
 
 end

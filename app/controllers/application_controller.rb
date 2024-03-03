@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
 	require 'openai'
 
+	private
+
 	def get_recommend_genre(genres)
 		client = OpenAI::Client.new(access_token: ENV['OPENAI_CLIENT_ID'])
 		response = client.chat(
@@ -21,6 +23,27 @@ class ApplicationController < ActionController::Base
 			}
 		)
 		response.dig('choices', 0, 'message', 'content')
+	end
+
+	def check_api_limit
+		# sessionに保存された最初のタイムスタンプと回数を取得
+		first_timestamp = session[:first_timestamp]
+		count = session[:count] || 0
+	
+		# 最初のタイムスタンプがない、または15分経過している場合はリセット
+		if first_timestamp.nil? || Time.now.to_i - first_timestamp > 15 * 60
+			session[:first_timestamp] = Time.now.to_i
+			session[:count] = 1
+		else
+			# 制限を超えている場合はリダイレクト
+			if count >= 15
+				flash[:info] = 'しばらく時間を置いてから再度お試しください'
+				redirect_to lists_path
+			else
+				# 15分以内で制限を超えていない場合は回数を増やす
+				session[:count] = count + 1
+			end
+		end
 	end
 
 end

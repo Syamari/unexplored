@@ -28,6 +28,7 @@ class ListsController < ApplicationController
   end
 
   def show
+    session[:visited] = nil
     @list = List.find(params[:id])    
     @artists = @list.artists
   end
