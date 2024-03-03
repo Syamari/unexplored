@@ -3,6 +3,7 @@ class SongsController < ApplicationController
 
   before_action :set_list
 
+
   def show
     @unique_genres = get_unique_genre_names(@list)
     @recommend_genre = get_recommend_genre(@unique_genres)
@@ -14,9 +15,9 @@ class SongsController < ApplicationController
 			return
 		end
 
-    embed_url = searched_playlists.first(4).max_by { |playlist| playlist.followers['total'] }.tracks.sample.embed
-    url = embed_url.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
-    @song = "https://open.spotify.com/embed/track/#{url[1]}"
+    selected_song = searched_playlists.first(4).max_by { |playlist| playlist.followers['total'] }.tracks.sample
+    url = selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
+    @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
   end
 
   private
@@ -24,5 +25,8 @@ class SongsController < ApplicationController
 	def set_list
 		@list = List.find(params[:list_id])
 	end
+
+  private
+
 
 end
