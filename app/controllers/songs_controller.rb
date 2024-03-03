@@ -5,7 +5,6 @@ class SongsController < ApplicationController
   #before_action :redirect_if_reloaded
   #before_action :check_api_limit
 
-
   def show
     @unique_genres = get_unique_genre_names(@list)
     @recommend_genre = get_recommend_genre(@unique_genres)
@@ -34,6 +33,5 @@ class SongsController < ApplicationController
       redirect_to lists_path
     end
   end
-
 
 end
