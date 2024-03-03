@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   include ApplicationHelper
 
+  before_action :require_login
   before_action :set_list
   #before_action :redirect_if_reloaded
   #before_action :check_api_limit

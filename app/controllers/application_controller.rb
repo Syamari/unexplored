@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
 
 	private
 
+	def require_login
+    unless logged_in?
+			flash[:info] = 'ログインまたはユーザー登録してください'
+      redirect_to root_path
+    end
+  end
+
 	def get_recommend_genre(genres)
 		client = OpenAI::Client.new(access_token: ENV['OPENAI_CLIENT_ID'])
 		response = client.chat(
