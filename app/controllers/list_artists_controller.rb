@@ -1,11 +1,30 @@
 class ListArtistsController < ApplicationController
+	before_action :set_list
 
 	def create
-			artist_name = RSpotify::Artist.search(params[:name]).first.name
+		if params[:name].blank?
+			flash[:error] = 'アーティスト名が入力されていません'
+			redirect_to @list
+			return
+		end
+	
+		begin
+			searched_artist = RSpotify::Artist.search(params[:name])
+		rescue RestClient::BadRequest => e
+			flash[:error] = 'アーティスト名の検索に失敗しました'
+			redirect_to @list
+			return
+		end
+	
+		if searched_artist.empty?
+			flash[:info] = 'そのアーティストは見つかりませんでした'
+			redirect_to @list
+			return
+		end
+			#searched_artist = RSpotify::Artist.search(params[:name])
+      artist_name = searched_artist.first.name
 			artist = Artist.find_or_create_by(name: artist_name)
-			@list = List.find(params[:list_id])
 			@list.artists << artist unless @list.artists.include?(artist)
-
 			artist_genres = RSpotify::Artist.search(params[:name]).first.genres
 			genres = artist_genres.map do |artist_genre|
 				genre = Genre.find_or_create_by(name: artist_genre)
@@ -16,13 +35,17 @@ class ListArtistsController < ApplicationController
 	end
 
 	def destroy
-			@list = List.find(params[:list_id])
+
 			artist = Artist.find(params[:id])
 			@list.artists.delete(artist)
 			redirect_to @list
 	end
 
 	private
+
+	def set_list
+		@list = List.find(params[:list_id])
+	end
 
 	def list_params
 		params.require(:list_artist).permit(:artist_name)
