@@ -1,16 +1,21 @@
-<div class="navbar bg-neutral text-neutral-content">
-  <div class="flex-none">
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-    </button>
-  </div>
-  <div class="flex-1">
-  <%= link_to "unexplored", root_path, class: "btn btn-ghost text-xl" %>
+<div class="navbar bg-lime-50 px-4 md:px-8 lg:px-16">
+  <div class="flex-1 text-center font-bold">
+    <%= link_to "Unexplored Music", root_path, class: "btn btn-ghost text-xl" %>
   </div>
   <div class="flex-none">
-    <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-    </button>
+    <ul class="menu menu-horizontal px-1">
+      <li class="text-center font-bold"><%= link_to "マイリスト一覧へ", lists_path %></li>
+      <li>
+        <details>
+          <summary class="text-center font-bold">
+            Account Menu
+          </summary>
+          <ul class="p-2 bg-base-100 rounded-t-none w-auto">
+            <li class="text-center font-bold"><%= link_to "ログアウト", logout_path %></li>
+            <li class="text-center font-bold"><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
   </div>
 </div>

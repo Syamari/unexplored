@@ -33,7 +33,7 @@
                 <p class="py-2">
                   これはジャンルです。これはジャンルです。これはす。
                 </p>
-                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: "btn btn-primary" %>
               </div>
             </div>
           </div>
