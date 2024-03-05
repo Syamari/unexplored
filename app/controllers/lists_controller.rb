@@ -3,6 +3,7 @@ class ListsController < ApplicationController
 
 	def new
     @list = List.new
+    render layout: false
   end
 
 	def index
