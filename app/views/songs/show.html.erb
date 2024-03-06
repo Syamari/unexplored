@@ -1,5 +1,36 @@
-<iframe style="border-radius:12px" 
-src="<%= @player_url %>"  
-width="50%" height="300" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-<%= @unique_genres %>
-<%= @recommend_genre %>
+<% content_for :header_sub do %>
+<header class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-4">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド楽曲</h1>
+        <p class="text-sm text-amber-200">Here Comes Your Future Favorite Music!</p>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs">
+        <ul>
+          <li><%= link_to 'ホーム', lists_path %></li> 
+          <li><%= link_to @list.name, list_path(@list) %></li> 
+					<li><a>レコメンド</a></li> 
+        </ul>
+      </div>
+    </div>
+  </header>
+<% end %>
+<div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+  <h1 class="text-3xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @selected_song.name %> / <%= @selected_song.artists.first.name %></h1>
+</div>
+<div class="my-4 mx-4 flex justify-center">
+  <iframe class="w-full" src="<%= @player_url %>"  
+	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+<div class="my-4 mx-4 flex justify-center">
+  <%= link_to list_path(@list), class: "btn btn-wide bg-primary text-white font-bold py-2 px-4 rounded flex justify-center items-center" do %>
+    <i class="fa-solid fa-arrow-left"></i> 戻る
+  <% end %>
+</div>
+<div class="my-4 mx-4 flex justify-center">
+<%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、#{@selected_song.name}%20/%20#{@selected_song.artists.first.name}%20です！%20#{root_url}", target: "_blank" do %>
+  <button class="btn btn-wide bg-black hover:bg-slate-500 text-white font-bold py-2 px-4 rounded">
+    <i class="fa-brands fa-x-twitter"></i> この曲をシェア
+  </button>
+<% end %>
+</div>
