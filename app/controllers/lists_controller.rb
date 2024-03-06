@@ -7,11 +7,11 @@ class ListsController < ApplicationController
   end
 
 	def index
+    @list = List.new
     @lists = List.where(user_id: current_user.id).order(created_at: :desc)
   end
 
 	def create
-
     @list = List.new(list_params)
 		@list.user_id = current_user.id
 

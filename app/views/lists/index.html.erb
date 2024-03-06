@@ -15,27 +15,18 @@
 <% end %>
 <div class='py-4 text-center'>
   <!-- Open the modal using ID.showModal() method -->
-  <button class="btn btn-wide btn-accent btn-outline text-xl" onclick="openModal()">新規リストを作成</button>
+  <button class="btn btn-wide btn-accent btn-outline text-xl" onclick="my_modal_2.showModal()">新規リストを作成</button>
   <dialog id="my_modal_2" class="modal">
-    <div class="modal-box">
+    <div class="modal-box bg-slate-400">
       <div id="modal-content"></div>
-      <p class="py-4">Press ESC key or click outside to close</p>
+			<%= render 'lists/new' %>
     </div>
     <form method="dialog" class="modal-backdrop">
       <button>close</button>
     </form>
   </dialog>
 </div>
-<script>
-function openModal() {
-	fetch('<%= new_list_path %>')
-		.then(response => response.text())
-		.then(html => {
-			document.getElementById('modal-content').innerHTML = html;
-			my_modal_2.showModal();
-		});
-}
-</script>
+
 <div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
 	<div class="flex flex-wrap justify-center">
 		<% @lists.each do |list| %>
