@@ -1,7 +1,7 @@
 <% content_for :header_sub do %>
 	<header class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-4">
 		<div class="container mx-auto px-8 flex justify-between items-center">
-			<h1 class="text-3xl font-bold tracking-tight leading-tight">マイリストのページ</h1>
+			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> マイリストのページ</h1>
 			<div class="text-sm text-gray-300 breadcrumbs">
 				<ul>
 					<li><a>マイリスト(ホーム)</a></li> 
@@ -15,7 +15,7 @@
 <% end %>
 <div class='py-4 text-center'>
   <!-- Open the modal using ID.showModal() method -->
-  <button class="btn btn-secondary bg-pink-700 w-64 text-xl" onclick="openModal()">新規リストを作成</button>
+  <button class="btn btn-wide btn-accent btn-outline text-xl" onclick="openModal()">新規リストを作成</button>
   <dialog id="my_modal_2" class="modal">
     <div class="modal-box">
       <div id="modal-content"></div>
@@ -39,11 +39,11 @@ function openModal() {
 <div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
 	<div class="flex flex-wrap justify-center">
 		<% @lists.each do |list| %>
-			<div class="w-full  xl:w-1/2 p-4">
-				<div class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+			<div class="w-full xl:w-1/2 p-4">
+				<div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
 					<div class="flex p-6 justify-between">
 						<div>
-						<h1 class="text-4xl font-bold">
+						<h1 class="text-3xl font-bold">
 							<%= link_to list.name, edit_list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
 							<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
 								<i class="fa-regular fa-pen-to-square"></i>
@@ -68,4 +68,4 @@ function openModal() {
 	</div>
 </div>
 
-    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">
+<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">

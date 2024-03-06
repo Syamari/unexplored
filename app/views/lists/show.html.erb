@@ -1,45 +1,66 @@
-<div class="container mx-auto my-4 px-4 border border-red-500">
-	<h1 class="text-center text-4xl font-bold mb-4">リスト内のアーティスト一覧</h1>
-  
-		<div class="mx-auto max-w-xl px-4 border border-red-500">
-      <% if @list.artists.count >= 10 %>
-        <p>１つのリストに追加できるアーティストは合計10人までです</p>
-      <% else %>
-        <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
-          <div class="flex flex-col">
-            <%= form.label :name, "アーティストを追加する", class: "font-bold text-lg mb-2" %>
-            <%= form.text_field :name, class: "border-2 border-gray-300 p-2 rounded-md", placeholder: "追加するアーティスト名" %>
-          </div>
-          <%= form.submit "追加", class: "bg-blue-500 text-white p-2 rounded-md" %>
-        <% end %>
-      <% end %>
-      <div class='text-center p-4'>
-        <%= link_to 'リスト一覧に戻る', lists_path, class: 'btn btn-primary' %>
-        <%= link_to "レコメンド", list_song_path(@list), class: 'btn btn-secondary' %>
+<% content_for :header_sub do %>
+<header class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-4">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> <%= @list.name %></h1>
+        <p class="text-sm text-gray-300">ここにアーティストを追加すると自動でジャンル情報がまとめられます</p>
+        <p class="text-sm text-gray-300">AIがリストの情報から新奇性のあるジャンルを生成し、あなたへのレコメンド楽曲が取得されます</p>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs">
+        <ul>
+          <li><%= link_to 'マイリスト(ホーム)', lists_path %></li> 
+          <li><%= @list.name %></li> 
+        </ul>
       </div>
     </div>
+  </header>
+<% end %>
 
+<div class='text-center p-4'>
+  <%= link_to "レコメンド", list_song_path(@list), class: 'btn btn-wide btn-secondary btn-outline text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+</div>
+
+<div class="mx-auto max-w-xl py-4 px-4 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+  <% if @list.artists.count >= 10 %>
+    <p>１つのリストに追加できるアーティストは合計10人までです</p>
+  <% else %>
+    <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
+      <div class="flex flex-col">
+        <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
+        <%= form.text_field :name, class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+      </div>
+      <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+	<div class="flex flex-wrap justify-center">
     <% if @list.artists.present? %>
       <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
         <% artist = list_artist.artist %>
-        <div class="mx-auto max-w-xl px-4 py-4 border border-red-500">
-          <div class="hero rounded-lg bg-gradient-to-r from-blue-500 to-fuchsia-500">
-            <div class="hero-content flex-col lg:flex-row">
-              <div class="w-32 rounded">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-              <div>
-                <h1 class="text-4xl font-bold"><%= artist.name %></h1>
-                <p class="py-2">
-                  これはジャンルです。これはジャンルです。これはす。
-                </p>
-                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: "btn btn-primary" %>
+          <div class="w-full xl:w-1/2 p-4">
+            <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+              <div class="flex p-6 justify-between">
+                <div class="w-10 rounded">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+                <div>
+                <h1 class="text-2xl font-bold">
+                  <%= artist.name %>
+                </h1>
+                  <p class="text-gray-300 text-sm">
+                    <%= artist.artist_genres.take(2).map { |ag| ag.genre&.name }.compact.join(', ') %>...
+                  </p>
+                </div>
+                <div>
+                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-outline btn-error' %>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+					</div>
       <% end %>
     <% end %>
-
-  </div>
+	</div>
 </div>
+

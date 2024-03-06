@@ -1,5 +1,5 @@
-<div class="container mx-auto my-4 py-4 px-4 border border-red-500 rounded-lg shadow-lg flex items-center justify-center ">
-  <div class="mx-auto max-w-sm py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
+<div class="container mx-auto my-4 py-4 px-4 rounded-lg flex items-center justify-center ">
+  <div class="mx-auto max-w-sm py-4 px-4 rounded-lg shadow-xl m-auto">
       <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-user-cog"></i> ユーザー情報</h1>
       <%= form_with model: @user, local: true do |f| %>
         <div class="mb-4">
@@ -11,7 +11,7 @@
           <%= f.email_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
         </div>
         <div class="mb-4">
-          <%= f.submit 'ユーザー情報を更新する', class: 'btn btn-primary w-full', data: {turbo_confirm: 'この内容でユーザー情報を更新しますか?' } %>
+          <%= f.submit 'ユーザー情報を保存', class: 'btn btn-primary w-full', data: {turbo_confirm: 'この内容でユーザー情報を更新しますか?' } %>
         </div>
       <% end %>
       <div class='link-hover text-center'>
