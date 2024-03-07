@@ -2,7 +2,7 @@
 <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
     <div class="container mx-auto px-8 flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド楽曲</h1>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
         <p class="text-sm text-amber-600">Here Comes Your Future Favorite Music!</p>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs">
@@ -15,8 +15,13 @@
     </div>
   </header>
 <% end %>
+<% if @selected_song.artists.first.genres.first.present? %>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+    <h1 class="text-3xl font-bold tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-200">「<%= @selected_song.artists.first.genres.first %>」</a> です！</h1>
+  </div>
+<% end %>
 <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
-  <h1 class="text-3xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @selected_song.name %> / <%= @selected_song.artists.first.name %></h1>
+  <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @selected_song.artists.first.name %> - <%= @selected_song.name %></h1>
 </div>
 <div class="my-4 mx-4 flex justify-center">
   <iframe class="w-full" src="<%= @player_url %>"  
@@ -28,7 +33,7 @@
   <% end %>
 </div>
 <div class="my-8 mx-4 flex justify-center">
-<%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、#{@selected_song.name}%20/%20#{@selected_song.artists.first.name}%20です！%20#{root_url}", target: "_blank" do %>
+<%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first}」です%0A%23nowplaying%20#{@selected_song.artists.first.name}%20-%20#{@selected_song.name}%0A#{root_url}", target: "_blank" do %>
   <button class="btn btn-sm bg-black hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-xl">
     <i class="fa-brands fa-x-twitter"></i> この曲をシェア
   </button>
