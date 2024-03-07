@@ -1,0 +1,15 @@
+<div class="container mx-auto my-4 py-4 px-4 text-white bg-gradient-to-r from-purple-900 to-indigo-800 border border-gray-500 rounded-lg shadow-xl m-auto">
+  <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-circle-plus"></i> 新規リスト</h1>
+  <%= form_with model: @list, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :リストの名前 %>
+      <%= f.text_field :name, class: 'text-black input input-bordered w-full', placeholder: "New List Name" %>
+    </div>
+    <div class="mb-4">
+      <%= f.submit '登録', class: 'btn btn-primary w-full' %>
+    </div>
+  <% end %>
+  <div class='link-hover text-center'>
+    <%= link_to 'リスト一覧へ', lists_path %>
+  </div>
+</div>

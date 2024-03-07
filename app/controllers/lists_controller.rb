@@ -1,15 +1,17 @@
 class ListsController < ApplicationController
+  before_action :require_login
 
 	def new
     @list = List.new
+    render layout: false
   end
 
 	def index
-    @lists = List.all
+    @list = List.new
+    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
   end
 
 	def create
-
     @list = List.new(list_params)
 		@list.user_id = current_user.id
 
@@ -28,8 +30,9 @@ class ListsController < ApplicationController
   end
 
   def show
+    session[:visited] = nil
     @list = List.find(params[:id])    
-    @artists = @list.artists
+    @artists = @list.artists.order(created_at: :desc)
   end
 
 	def edit

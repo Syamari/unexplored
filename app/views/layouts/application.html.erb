@@ -8,20 +8,26 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/4f86ed297f.js" crossorigin="anonymous"></script>
   </head>
-
   <body>
-      <% if logged_in? %>
-        <%= render 'shared/header' %>
-      <% else %>
-        <%= render 'shared/before_login_header' %>
-      <% end %>
-
-      <div id="flash_message">
-        <%= render 'shared/flash_message' %>
-      </div>
-      <%= yield %>
-
-      <%= render 'shared/footer' %>
+    <div class="flex flex-col min-h-screen">
+      <header>
+        <% if logged_in? %>
+          <%= render 'shared/header' %>
+        <% else %>
+          <%= render 'shared/before_login_header' %>
+        <% end %>
+      </header>
+      <main class="flex-grow bg-gradient-to-r from-slate-400 to-gray-300">
+        <div id="flash_message">
+          <%= render 'shared/flash_message' %>
+        </div>
+        <%= yield %>
+      </main>
+      <footer>
+        <%= render 'shared/footer' %>
+      </footer>
+    </div>
   </body>
 </html>
