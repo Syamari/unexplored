@@ -10,18 +10,17 @@
 		</div>
 	</header>
 	<% if @lists.empty? %>
-  <%= render 'lists/empty' %>
+    <%= render 'lists/empty' %>
 	<% else %>
 	<%= render 'lists/user_info' %>
 	<% end %>
-
-	<% #if @lists.any? { |list| list.artists.empty? } %>
-  <%= render 'lists/artist_empty' %>
-	<% #end %>
+	<% if @lists.any? { |list| list.artists.empty? } %>
+    <%= render 'lists/artist_empty' %>
+	<% end %>
 <% end %>
 <div class='py-4 text-center'>
   <!-- Open the modal using ID.showModal() method -->
-  <button class="btn btn-wide btn-secondary btn-outline text-2xl" onclick="my_modal_2.showModal()">新規リストを作成</button>
+  <button class="btn btn-wide btn-secondary btn-outline text-xl" onclick="my_modal_2.showModal()"><i class="fa-regular fa-square-plus"></i>新規リスト作成</button>
   <dialog id="my_modal_2" class="modal">
     <div class="modal-box bg-slate-400">
       <div id="modal-content"></div>
@@ -41,6 +40,9 @@
 					<div class="flex p-6 justify-between">
 						<div>
 						<h1 class="text-3xl font-bold">
+							<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
+								<i class="fa-regular fa-square-minus"></i>
+							<% end %>
 							<%= link_to list.name, edit_list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
 							<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
 								<i class="fa-regular fa-pen-to-square"></i>
@@ -55,7 +57,6 @@
 							</p>
 						</div>
 						<div>
-							<%= link_to "リストを削除", list_path(list), class: 'btn btn-outline btn-error', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' } %>
 							<%= link_to "このリストへ", list_path(list), class: 'btn btn-outline btn-info' %>
 						</div>
 					</div>
@@ -63,4 +64,15 @@
 			</div>
 		<% end %>
 	</div>
+</div>
+
+<div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
+	<div class="z-10">
+		<h1 class="text-7xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
+		<h1 class="text-7xl font-bold tracking-tight leading-tight">MUSIC</h1>
+		<p class="mt-4 text-lg">Find Your Future Fav Music.</p>
+	</div>
+		<div class="flex flex-col justify-center max-w-xs">
+			<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
+		</div>
 </div>
