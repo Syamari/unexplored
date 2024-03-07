@@ -1,6 +1,9 @@
-<div class="navbar bg-gradient-to-r from-purple-700 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
+<div class="navbar bg-gradient-to-r from-purple-900 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
   <div class="flex-1 text-center font-bold">
-    <%= link_to "Unexplored Music", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to root_path do %>
+      <%= image_tag 'icon.png', alt: 'Icon', class: 'btn btn-ghost h-12 w-auto object-cover' %>
+    <% end %>
+    <%= link_to "Unexplored Music", root_path, class: "btn btn-ghost text-2xl" %>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
@@ -23,6 +26,6 @@
     </ul>
   </div>
 </div>
-<div class="header-sub bg-gradient-to-r from-purple-700 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
+<div class="header-sub bg-gradient-to-r from-purple-900 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
   <%= yield :header_sub %>
 </div>

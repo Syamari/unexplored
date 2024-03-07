@@ -1,21 +1,27 @@
 <% content_for :header_sub do %>
-	<header class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-4">
+	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
 		<div class="container mx-auto px-8 flex justify-between items-center">
-			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> マイリストのページ</h1>
+			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> ホーム</h1>
 			<div class="text-sm text-gray-300 breadcrumbs">
 				<ul>
-					<li><a>マイリスト(ホーム)</a></li> 
+					<li><a>ホーム(マイリスト一覧)</a></li> 
 				</ul>
 			</div>
 		</div>
 	</header>
 	<% if @lists.empty? %>
   <%= render 'lists/empty' %>
+	<% else %>
+	<%= render 'lists/user_info' %>
 	<% end %>
+
+	<% #if @lists.any? { |list| list.artists.empty? } %>
+  <%= render 'lists/artist_empty' %>
+	<% #end %>
 <% end %>
 <div class='py-4 text-center'>
   <!-- Open the modal using ID.showModal() method -->
-  <button class="btn btn-wide btn-accent btn-outline text-xl" onclick="my_modal_2.showModal()">新規リストを作成</button>
+  <button class="btn btn-wide btn-secondary btn-outline text-2xl" onclick="my_modal_2.showModal()">新規リストを作成</button>
   <dialog id="my_modal_2" class="modal">
     <div class="modal-box bg-slate-400">
       <div id="modal-content"></div>
@@ -58,5 +64,3 @@
 		<% end %>
 	</div>
 </div>
-
-<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">

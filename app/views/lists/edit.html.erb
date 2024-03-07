@@ -1,9 +1,9 @@
-<div class="md:w-2/3 mx-4 p-4 mx-auto my-4 py-4 px-4 text-white bg-gradient-to-r from-purple-700 to-indigo-800 border border-gray-500 rounded-lg shadow-xl m-auto">
-  <h1 class="text-center text-2xl font-bold mb-6"><i class="fa-solid fa-file-pen"></i> リスト名の編集</h1>
+<div class="md:w-1/2 mx-4 p-4 mx-auto my-4 py-4 px-4 text-white bg-gradient-to-r from-purple-900 to-indigo-800 border border-gray-500 rounded-lg shadow-xl m-auto">
+  <h1 class="text-center text-2xl font-bold mb-6"><i class="fa-solid fa-file-pen"></i> リスト名の変更</h1>
       <%= form_with model: @list, local: true do |f| %>
         <div class="mb-4">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: 'text-black input input-bordered w-full', placeholder: "リスト名" %>
+          <%= f.label :リスト名 %>
+          <%= f.text_field :name, class: 'text-black input input-bordered w-full', placeholder: "List Name" %>
         </div>
         <div class="mb-4">
           <%= f.submit 'リスト名を保存する', class: 'btn btn-primary w-full' %>

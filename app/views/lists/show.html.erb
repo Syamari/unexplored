@@ -1,14 +1,14 @@
 <% content_for :header_sub do %>
-<header class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-4">
+<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
     <div class="container mx-auto px-8 flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> <%= @list.name %></h1>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
         <p class="text-sm text-gray-300">好きなアーティストをフォームに入力し、リストに追加しましょう</p>
         <p class="text-sm text-gray-300">リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs">
         <ul>
-          <li><%= link_to 'マイリスト(ホーム)', lists_path %></li> 
+          <li><%= link_to 'ホーム(マイリスト)', lists_path %></li> 
           <li><%= @list.name %></li> 
         </ul>
       </div>

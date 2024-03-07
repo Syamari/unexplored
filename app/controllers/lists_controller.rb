@@ -8,7 +8,7 @@ class ListsController < ApplicationController
 
 	def index
     @list = List.new
-    @lists = List.where(user_id: current_user.id).order(created_at: :desc)
+    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
   end
 
 	def create
