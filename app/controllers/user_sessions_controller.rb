@@ -4,8 +4,8 @@ class UserSessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])
     if @user
-			flash[:success] = 'ログインしました'
-      redirect_back_or_to root_path
+			flash[:info] = 'ログインしました'
+      redirect_back_or_to lists_path
     else
       respond_to do |format|
         format.turbo_stream do

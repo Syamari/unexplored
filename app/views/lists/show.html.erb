@@ -28,6 +28,7 @@
       <div class="flex flex-col">
         <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
         <%= form.text_field :name, class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+        <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
       </div>
       <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
     <% end %>
@@ -62,3 +63,6 @@
 	</div>
 </div>
 
+<div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
+	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
+</div>
