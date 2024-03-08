@@ -1,0 +1,22 @@
+<div class="container mx-auto my-4 py-4 px-4 rounded-lg flex items-center justify-center ">
+  <div class="bg-gradient-to-r from-slate-400 to-purple-200 mx-auto max-w-sm py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
+      <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-user"></i> ログイン</h1>
+      <%= form_with url: login_path, local: true do |f| %>
+        <div class="mb-4">
+          <%= f.label :メールアドレス %>
+          <%= f.text_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
+        </div>
+        <div class="mb-4">
+          <%= f.label :パスワード %>
+          <%= f.password_field :password, class: 'input input-bordered w-full', placeholder: "Password" %>
+        </div>
+        <div class="mb-4">
+          <%= f.submit 'ログイン', class: 'btn btn-primary w-full' %>
+        </div>
+      <% end %>
+      <p class="text-center text-rose-500"><i class="fa-solid fa-circle-info"></i> ユーザー登録がまだの方は、以下のリンクからご登録できます</p>
+      <div class='link-hover font-bold text-center text-xl'>
+        <%= link_to '登録ページへ', new_user_path %>
+      </div>
+  </div>
+</div>

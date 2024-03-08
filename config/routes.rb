@@ -8,4 +8,19 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get 'login', to: 'user_sessions#new'
+  post 'login', to: 'user_sessions#create'
+  delete 'logout', to: 'user_sessions#destroy'
+  get 'terms', to: 'tops#terms'
+  get 'policy', to: 'tops#policy'
+
+  resources :users, only: %i[new create edit update]
+
+
+  resources :lists do
+    resources :artists, controller: 'list_artists', only: [:create, :destroy]
+    resources :songs
+  end
+
+
 end

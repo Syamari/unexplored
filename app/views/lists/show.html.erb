@@ -1,0 +1,68 @@
+<% content_for :header_sub do %>
+<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
+        <p class="text-sm text-gray-300">好きなアーティストをフォームに入力し、リストに追加しましょう</p>
+        <p class="text-sm text-gray-300">リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs">
+        <ul>
+          <li><%= link_to 'ホーム(マイリスト)', lists_path %></li> 
+          <li><%= @list.name %></li> 
+        </ul>
+      </div>
+    </div>
+  </header>
+<% end %>
+
+<div class='text-center p-4'>
+  <%= link_to "レコメンド", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-wide btn-secondary btn-outline text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+</div>
+
+<div class="mx-auto max-w-xl py-4 px-4 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+  <% if @list.artists.count >= 10 %>
+    <p class="text-center text-amber-50">1つのリストに追加できるアーティストは合計で10です。新たなアーティストを追加したい場合、1つ以上削除すると再び追加できるようになります</p>
+  <% else %>
+    <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
+      <div class="flex flex-col">
+        <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
+        <%= form.text_field :name, class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+        <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
+      </div>
+      <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+	<div class="flex flex-wrap justify-center">
+    <% if @list.artists.present? %>
+      <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
+        <% artist = list_artist.artist %>
+          <div class="w-full xl:w-1/2 p-4">
+            <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+              <div class="flex p-6 justify-between">
+
+                <div>
+                <h1 class="text-2xl font-bold">
+                  <%= artist.name %>
+                </h1>
+                  <p class="text-gray-300 text-sm">
+                    <%= artist.artist_genres.take(2).map { |ag| ag.genre&.name }.compact.join(', ') %>...
+                  </p>
+                </div>
+                <div>
+                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-outline btn-error' %>
+                </div>
+              </div>
+            </div>
+					</div>
+      <% end %>
+    <% end %>
+	</div>
+</div>
+
+<div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
+	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
+</div>

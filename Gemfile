@@ -47,6 +47,15 @@ gem "bootsnap", require: false
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 
+gem 'sorcery'
+gem 'pry-byebug'
+gem 'pry-rails'
+
+gem 'rspotify'
+gem 'dotenv-rails'
+
+gem 'ruby-openai'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]

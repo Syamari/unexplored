@@ -1,0 +1,43 @@
+<% content_for :header_sub do %>
+<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
+        <p class="text-sm font-semibold text-amber-600">Here Comes Your Future Favorite Music!</p>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs">
+        <ul>
+          <li><%= link_to 'ホーム', lists_path %></li> 
+          <li><%= link_to @list.name, list_path(@list) %></li> 
+					<li><a>レコメンド</a></li> 
+        </ul>
+      </div>
+    </div>
+  </header>
+<% end %>
+<% if @selected_song.artists.first.genres.first.present? %>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+    <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-300">「<%= @selected_song.artists.first.genres.first %>」</a></h1>
+  </div>
+<% end %>
+<div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+  <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @selected_song.artists.first.name %> - <%= @selected_song.name %></h1>
+</div>
+<div class="my-4 mx-4 flex justify-center">
+  <iframe class="w-full" src="<%= @player_url %>"  
+	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+<div class="my-2 mx-4 flex justify-center">
+  <%= link_to list_path(@list), class: "btn btn-wide font-bold py-2 px-4 rounded-lg flex justify-center items-center" do %>
+    <i class="fa-solid fa-arrow-left"></i> 戻る
+  <% end %>
+</div>
+<div class="my-8 mx-4 flex justify-center">
+  <% if @selected_song.artists.first.genres.first.present? %>
+    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first}」です%0A%23nowplaying%20#{@selected_song.artists.first.name}%20-%20#{@selected_song.name}%0A#{root_url}", target: "_blank" do %>
+      <button class="btn btn-sm bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
+        <i class="fa-brands fa-x-twitter"></i> この曲をシェア
+      </button>
+    <% end %>
+  <% end %>
+</div>
