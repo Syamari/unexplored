@@ -2,7 +2,14 @@ class ApplicationController < ActionController::Base
 	add_flash_types :success, :info, :warning, :error
 
 	require 'rspotify'
-  RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
+
+	begin
+		RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
+  rescue SocketError => e
+    flash[:error] = "APIへの接続に失敗しました"
+    redirect_to root_path
+	end
+
 	ENV['ACCEPT_LANGUAGE'] = 'ja'
 
 	require 'openai'

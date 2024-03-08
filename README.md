@@ -1,8 +1,8 @@
-# unexplored
+# Unexplored Music
 
 ## サービス概要
 
-unexplored はユーザーの嗜好をもとに、まだ聴いたことがない分野を
+Unexplored Music はユーザーの嗜好をもとに、まだ聴いたことがない分野を
 推定して提供する音楽のレコメンドサービスです。
 
 ## 想定されるユーザー層
