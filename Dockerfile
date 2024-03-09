@@ -15,6 +15,11 @@ COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 # bundlerバージョンを上げないとエラーになる対策
 RUN gem update --system 3.3.20 && bundle install
+
+# Add this before copying the entire app
+COPY package.json yarn.lock ./
+RUN yarn install
+
 COPY . /myapp
 
 # コンテナ起動時に実行させるentrypoint.shを追加
