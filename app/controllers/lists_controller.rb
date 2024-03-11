@@ -1,15 +1,25 @@
 class ListsController < ApplicationController
   before_action :require_login
 
+	def index
+    @list = List.new
+    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
+  end
+
+  def show
+    session[:visited] = nil
+    @list = List.find(params[:id])    
+    @artists = @list.artists.order(created_at: :desc)
+  end
+
 	def new
     @list = List.new
     render layout: false
   end
 
-	def index
-    @list = List.new
-    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
-  end
+	def edit
+		@list = List.find(params[:id])
+	end
 
 	def create
     @list = List.new(list_params)
@@ -28,16 +38,6 @@ class ListsController < ApplicationController
       end
     end
   end
-
-  def show
-    session[:visited] = nil
-    @list = List.find(params[:id])    
-    @artists = @list.artists.order(created_at: :desc)
-  end
-
-	def edit
-		@list = List.find(params[:id])
-	end
 
 	def update
     @list = List.find(params[:id])

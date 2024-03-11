@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 	require 'rspotify'
 
 	begin
-		RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_SECRET_ID'])
+		RSpotify.authenticate(ENV.fetch('SPOTIFY_CLIENT_ID', nil), ENV.fetch('SPOTIFY_SECRET_ID', nil))
   rescue SocketError => e
     flash[:error] = "APIへの接続に失敗しました"
     redirect_to root_path
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
 	def get_recommend_genre(genres)
-		client = OpenAI::Client.new(access_token: ENV['OPENAI_CLIENT_ID'])
+		client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_CLIENT_ID', nil))
 		response = client.chat(
 			parameters: {
 				model: 'gpt-3.5-turbo',
