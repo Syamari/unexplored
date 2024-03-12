@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 				messages: [
 					{
 						role: 'user',
-						content: "You are a music recommender AI that handles a wide range of genres. The following array represents a set of music genres preferred by a certain user. Taking into account the granularity, BPM, and dynamics tendencies of the music genres in this array, please guess a popular music genre that is less related to the genres in this array, i.e., a popular music genre that this user has not yet listened to. Output one genre from it as a string in 1-3 words. However, please do not output genres that are too minor or too major. #{genres}"
+						content: "You are a music recommender AI that handles a wide range of genres. The following array represents a set of music genres preferred by me. Taking into account the granularity, BPM, and dynamics tendencies of the music genres in this array, please guess 13 popular music genre that can be expressed in 1-3 words and is less related to the genres in this array, i.e., a popular music genre that I has not yet listened to. And output only one genre from these 13 genres as a string in 1-3 words. Please note that you only have to output one genre, although there are 13 genres to guess. However, please do not output genres that are too minor or too major. #{genres}"
 					}
 				]
 			}
