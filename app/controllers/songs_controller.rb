@@ -19,7 +19,14 @@ class SongsController < ApplicationController
     @unique_genres = get_unique_genre_names(@list)
     #一時的にコメントアウトして代わりにダミーのコードを使えます
     @recommend_genre = get_recommend_genre(@unique_genres)
-    searched_playlists = RSpotify::Playlist.search(@recommend_genre)
+
+    begin
+      searched_playlists = RSpotify::Playlist.search(@recommend_genre)
+    rescue RestClient::BadRequest => e
+      flash[:info] = '今回はレコメンドジャンルの取得に失敗しました'
+      redirect_to @list
+      return
+    end  
 
     if searched_playlists.empty?
 			flash[:info] = 'レコメンドの生成に失敗しました'

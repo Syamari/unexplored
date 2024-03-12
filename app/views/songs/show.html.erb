@@ -15,13 +15,13 @@
     </div>
   </header>
 <% end %>
-<% if @genre_description.present? %>
+<% if @selected_song.artists.first.genres.first.present? %>
   <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
-    <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-300">「<%= @genre_description %>」</a></h1>
+    <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-300">「<%= @selected_song.artists.first.genres.first.titleize %>」</a></h1>
   </div>
 <% end %>
 <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
-  <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2">このジャンルのおすすめ曲 <i class="fa-solid fa-music"></i> : <%= @selected_song.artists.first.name %> - <%= @selected_song.name %></h1>
+  <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2">おすすめの曲 <i class="fa-solid fa-music"></i> : <%= @selected_song.artists.first.name %> - <%= @selected_song.name %></h1>
 </div>
 <div class="my-4 mx-4 flex justify-center">
   <iframe class="w-full" src="<%= @player_url %>"  
@@ -34,7 +34,7 @@
 </div>
 <div class="my-8 mx-4 flex justify-center">
   <% if @selected_song.artists.first.genres.first.present? %>
-    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@genre_description}」です！%0A#{root_url}", target: "_blank" do %>
+    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first.titleize}」です！%0A#{root_url}", target: "_blank" do %>
       <button class="btn btn-sm bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
         <i class="fa-brands fa-x-twitter"></i> 結果をシェア
       </button>
