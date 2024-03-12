@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      auto_login(@user) # ユーザー登録が成功したら、ユーザーを自動的にログインさせます
+      auto_login(@user)
 			flash[:info] = 'ユーザー登録 & ログインしました'
       redirect_to lists_path
     else
