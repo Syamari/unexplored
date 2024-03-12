@@ -3,11 +3,16 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
-			flash[:success] = 'ユーザー登録しました'
-      redirect_to login_path
+      auto_login(@user)
+			flash[:info] = 'ユーザー登録 & ログインしました'
+      redirect_to lists_path
     else
       respond_to do |format|
         format.turbo_stream do
@@ -16,10 +21,6 @@ class UsersController < ApplicationController
         end   
       end
     end
-  end
-
-  def edit
-    @user = User.find(params[:id])
   end
 
   def update

@@ -1,5 +1,5 @@
 <div class="container mx-auto my-4 py-4 px-4 rounded-lg flex items-center justify-center ">
-  <div class="bg-gradient-to-r from-slate-400 to-purple-200 mx-auto max-w-sm py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
+  <div class="bg-gradient-to-r from-slate-400 to-purple-200 font-medium mx-auto max-w-sm py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
       <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-user-plus"></i> ユーザー登録</h1>
       <%= form_with model: @user, local: true do |f| %>
         <div class="mb-4">
@@ -11,7 +11,7 @@
           <%= f.email_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
         </div>
         <div class="mb-4">
-          <%= f.label :パスワード %>
+          <%= f.label :パスワード（英数字8文字以上） %>
           <%= f.password_field :password, class: 'input input-bordered w-full', placeholder: "Password" %>
         </div>
         <div class="mb-4">
