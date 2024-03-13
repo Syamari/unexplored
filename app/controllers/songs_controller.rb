@@ -22,7 +22,7 @@ class SongsController < ApplicationController
 
     begin
       searched_playlists = RSpotify::Playlist.search(@recommend_genre)
-    rescue RestClient::BadRequest => e
+    rescue RestClient::BadRequest
       flash[:info] = '今回はレコメンドジャンルの取得に失敗しました'
       redirect_to @list
       return
@@ -57,13 +57,13 @@ class SongsController < ApplicationController
     genre1 = @selected_song.artists.first&.genres&.first&.titleize
     genre2 = @recommend_genre.titleize
   
-    if genre1.blank?
-      @genre_description = genre2
-    elsif genre1 == genre2
-      @genre_description = genre1
-    else
-      @genre_description = "#{genre1} / #{genre2}"
-    end
+    @genre_description = if genre1.blank?
+      genre2
+                         elsif genre1 == genre2
+      genre1
+                         else
+      "#{genre1} / #{genre2}"
+                         end
   end
 
 end
