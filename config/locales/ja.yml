@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+        email: 'メールアドレス'
+        user_name: 'ユーザー名'
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: 'は8文字以上で入力してください'
+              confirmation: 'が一致しません'
+            password_confirmation:
+              blank: 'を入力してください'
+            email:
+              blank: 'を入力してください'
+              taken: 'はすでに存在します'
+            user_name:
+              blank: 'を入力してください'
+              too_long: 'は255文字以内で入力してください'

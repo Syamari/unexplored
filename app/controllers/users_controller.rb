@@ -16,8 +16,13 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.turbo_stream do
-              flash.now[:error] = "ユーザー登録に失敗しました！"
-              render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+          flash.clear
+          if @user.errors.messages[:password].any?
+            flash.now[:error] = "ユーザー登録に失敗しました (パスワードは英数字8文字以上です)"
+          else
+            flash.now[:error] = "ユーザー登録に失敗しました "
+          end
+          render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
         end   
       end
     end
