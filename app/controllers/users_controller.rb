@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         format.turbo_stream do
           flash.clear
           if @user.errors.messages[:password].any?
-            flash.now[:error] = "ユーザー登録に失敗しました (パスワードは英数字8文字以上です)"
+            flash.now[:error] = "ユーザー登録に失敗しました (なお、パスワードは英小文字と数字を含む8文字以上が必要です)"
           else
             flash.now[:error] = "ユーザー登録に失敗しました "
           end
