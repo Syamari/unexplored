@@ -3,8 +3,8 @@ class SongsController < ApplicationController
 
   before_action :require_login
   before_action :set_list
-  before_action :redirect_if_reloaded
-  before_action :check_api_limit
+  #before_action :redirect_if_reloaded
+  #before_action :check_api_limit
 
   def show
     if @list.artists.count < 3
@@ -18,7 +18,7 @@ class SongsController < ApplicationController
 
     @unique_genres = get_unique_genre_names(@list)
     #一時的にコメントアウトして代わりにダミーのコードを使えます
-    @recommend_genre = get_recommend_genre(@unique_genres)
+    #@recommend_genre = get_recommend_genre(@unique_genres)
 
     begin
       searched_playlists = RSpotify::Playlist.search(@recommend_genre)
