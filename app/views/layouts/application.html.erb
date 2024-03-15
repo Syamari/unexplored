@@ -10,6 +10,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://kit.fontawesome.com/4f86ed297f.js" crossorigin="anonymous"></script>
+    <meta name=”twitter:card” content=”summary_large_image” />
+    <meta name=”twitter:site” content=”@SyamriTech” />
+    <meta name=”twitter:domain” content=”<%= request.protocol + request.host_with_port + root_path %>” />
+    <meta name=”twitter:title” content=”Unexplored Music” />
+    <meta name=”twitter:description” content=”まだユーザーが知らない音楽ジャンルを推定して提供するサービスです。” />
+    <meta name="twitter:image" content="<%= image_url('card2.jpg') %>" />
   </head>
   <body>
     <div class="flex flex-col min-h-screen">
