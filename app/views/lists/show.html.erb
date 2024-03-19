@@ -27,7 +27,10 @@
     <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
       <div class="flex flex-col">
         <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
-        <%= form.text_field :name, class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+        <%= form.text_field :name, id: 'artist-name-input', list: 'artist-datalist', class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+<div id="artist-dropdown" class="relative">
+  <div id="artist-dropdown-list" class="absolute w-full text-amber-100 bg-gradient-to-r from-slate-500 to-slate-400 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
+</div>
         <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
       </div>
       <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
