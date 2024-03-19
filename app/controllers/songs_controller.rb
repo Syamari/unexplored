@@ -3,6 +3,7 @@ class SongsController < ApplicationController
 
   before_action :require_login
   before_action :set_list
+  # APIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
   #before_action :redirect_if_reloaded
   #before_action :check_api_limit
 
@@ -13,11 +14,10 @@ class SongsController < ApplicationController
       return
     end
 
-    #ダミーロジック用のコードです
-    @recommend_genre = "indie rock"
-
     @unique_genres = get_unique_genre_names(@list)
-    #一時的にコメントアウトして代わりにダミーのコードを使えます
+    # 開発用のダミーロジック用のコードです、デプロイ時にはコメントアウトしてください
+    @recommend_genre = "alternative"
+    # 一時的にコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
     #@recommend_genre = get_recommend_genre(@unique_genres)
 
     begin
