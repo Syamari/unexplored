@@ -28,9 +28,9 @@
       <div class="flex flex-col">
         <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
         <%= form.text_field :name, id: 'artist-name-input', list: 'artist-datalist', class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
-<div id="artist-dropdown" class="relative">
-  <div id="artist-dropdown-list" class="absolute w-full text-amber-100 bg-gradient-to-r from-slate-500 to-slate-400 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
-</div>
+        <div id="artist-dropdown" class="relative">
+          <div id="artist-dropdown-list" class="absolute w-full text-amber-600 bg-opacity-90 bg-slate-900 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
+        </div>
         <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
       </div>
       <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
@@ -64,6 +64,17 @@
       <% end %>
     <% end %>
 	</div>
+</div>
+
+<div class="container mx-auto my-4 px-2">
+  <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-lg p-4">
+    <h2 class="text-xl text-gray-300 font-bold mb-4"><i class="fa-solid fa-circle-exclamation"></i> 現在このリストに含まれるジャンル:</h2>
+    <div class="flex flex-wrap">
+      <% @unique_genres.sort.each do |genre| %>
+        <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm mr-2 mb-2"><%= genre.titleize %></span>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">

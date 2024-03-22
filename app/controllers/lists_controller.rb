@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  include ApplicationHelper
+
   before_action :require_login
 
 	def index
@@ -10,6 +12,7 @@ class ListsController < ApplicationController
     session[:visited] = nil
     @list = List.find(params[:id])    
     @artists = @list.artists.order(created_at: :desc)
+    @unique_genres = get_unique_genre_names(@list)
   end
 
 	def new
