@@ -9,16 +9,7 @@ window.Stimulus   = application
 
 export { application }
 
-document.getElementById('RecommendButton').addEventListener('click', function() {
-    this.outerHTML = `
-      <div class="flex justify-center" aria-label="Loading">
-        <div class="animate-ping h-2 w-2 bg-blue-500 rounded-full"></div>
-        <div class="animate-ping h-2 w-2 bg-purple-500 rounded-full mx-4"></div>
-        <div class="animate-ping h-2 w-2 bg-rose-500 rounded-full"></div>
-      </div>
-    `;
-  });
-
+//リストにアーティストを追加するための検索サジェストのドロップダウン機能
 // 検索サジェスト用の、turbo:loadが発生したとき（ページが読み込まれたとき）に実行する関数として設定
 document.addEventListener('turbo:load', function() {
   var inputElement = document.getElementById('artist-name-input');
@@ -62,12 +53,26 @@ document.addEventListener('turbo:load', function() {
           console.error('There has been a problem with your fetch operation:', error);
         });
     });
-
     // ドロップダウンリスト以外の場所をクリックしたときにリストを非表示にする
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('#artist-dropdown')) {
-        document.getElementById('artist-dropdown-list').classList.add('hidden');
+      var dropdownList = document.getElementById('artist-dropdown-list');
+      if (dropdownList && !e.target.closest('#artist-dropdown')) {
+        dropdownList.classList.add('hidden');
       }
     });
   }
 });
+
+//レコメンドボタンをクリックしたときのローディングアニメーション
+let recommendButton = document.getElementById('RecommendButton');
+if (recommendButton) {
+  recommendButton.addEventListener('click', function() {
+    this.outerHTML = `
+      <div class="flex justify-center" aria-label="Loading">
+        <div class="animate-ping h-2 w-2 bg-blue-500 rounded-full"></div>
+        <div class="animate-ping h-2 w-2 bg-purple-500 rounded-full mx-4"></div>
+        <div class="animate-ping h-2 w-2 bg-rose-500 rounded-full"></div>
+      </div>
+    `;
+  });
+}
