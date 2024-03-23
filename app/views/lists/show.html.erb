@@ -17,9 +17,13 @@
 <% end %>
 
 <% if current_user.bookmarked_lists.include?(@list) %>
-  <%= button_to 'ブックマークを解除', list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete %>
+  <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button' do %>
+    <i class="fa-solid fa-heart"></i> ブックマークを解除
+  <% end %>
 <% else %>
-  <%= button_to 'ブックマークする', list_bookmark_path(@list) %>
+  <%= button_to list_bookmark_path(@list), class: 'bookmark-button' do %>
+    <i class="fa-regular fa-heart"></i> ブックマークする
+  <% end %>
 <% end %>
 
 <div class='text-center p-4'>

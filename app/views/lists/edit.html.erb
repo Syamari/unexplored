@@ -5,8 +5,9 @@
           <%= f.label :リスト名 %>
           <%= f.text_field :name, class: 'text-black input input-bordered w-full', placeholder: "List Name" %>
         </div>
-          <%= f.label :public, "公開する" %>
-          <%= f.check_box :public %>
+        <i class="fa-solid fa-lock"></i>
+          <%= f.label :public, "非公開設定" %>
+          <%= f.check_box :public, {}, false, true %>
         <div class="mb-4">
           <%= f.submit 'リスト名を保存する', class: 'btn btn-primary w-full' %>
         </div>

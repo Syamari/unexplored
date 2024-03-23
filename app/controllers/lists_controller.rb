@@ -4,6 +4,8 @@ class ListsController < ApplicationController
   before_action :require_login
 
 	def index
+    @list = List.new
+
     case params[:view]
     when 'own'
       @lists = current_user.lists
@@ -75,6 +77,6 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name, :public)
   end
 end

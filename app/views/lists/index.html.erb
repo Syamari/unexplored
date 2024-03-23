@@ -63,7 +63,7 @@
 							<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
 								<i class="fa-regular fa-square-minus"></i>
 							<% end %>
-							<%= link_to list.name, edit_list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+							<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
 							<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
 								<i class="fa-regular fa-pen-to-square"></i>
 							<% end %>
