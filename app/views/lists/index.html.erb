@@ -18,6 +18,9 @@
     <%= render 'lists/artist_empty' %>
 	<% end %>
 <% end %>
+<%= link_to '自分のリスト', lists_path(view: 'own') %>
+<%= link_to '公開リスト', lists_path(view: 'public') %>
+<%= link_to 'ブックマークしたリスト', lists_path(view: 'bookmarked') %>
 <div class='py-4 text-center'>
   <!-- Open the modal using ID.showModal() method -->
 <% if current_user.lists.count < 9 %>

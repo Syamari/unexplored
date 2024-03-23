@@ -4,8 +4,18 @@ class ListsController < ApplicationController
   before_action :require_login
 
 	def index
-    @list = List.new
-    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
+    case params[:view]
+    when 'own'
+      @lists = current_user.lists
+    when 'public'
+      @lists = List.where(public: true)
+    when 'bookmarked'
+      # ブックマーク機能は未実装
+      # ここでは一時的にすべてのリストを表示しとく
+      @lists = List.all
+    else
+      @lists = current_user.lists
+    end
   end
 
   def show
