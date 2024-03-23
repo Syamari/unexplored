@@ -3,8 +3,8 @@
 		<div class="container mx-auto px-8 flex justify-between items-center">
 			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</h1>
 			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center space-x-2 py-2">
-				<a href="<%= lists_path(view: 'own') %>" class="btn btn-sm btn-primary  <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own' %>">自分のリスト</a>
-				<a href="<%= lists_path(view: 'public') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public' %>">公開リスト</a>
+				<a href="<%= lists_path(view: 'own') %>" class="btn btn-sm btn-primary  <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own' %>">マイリスト一覧</a>
+				<a href="<%= lists_path(view: 'public') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public' %>">一般リスト一覧</a>
 				<a href="<%= lists_path(view: 'bookmarked') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked' %>">ブックマーク</a>
 			</div>
 			<div class="text-sm text-gray-300 breadcrumbs">
@@ -60,12 +60,16 @@
 					<div class="flex p-6 justify-between">
 						<div>
 						<h1 class="text-3xl font-bold">
-							<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
-								<i class="fa-regular fa-square-minus"></i>
-							<% end %>
-							<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
-							<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
-								<i class="fa-regular fa-pen-to-square"></i>
+							<% if current_user == list.user %>
+								<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
+									<i class="fa-regular fa-square-minus"></i>
+								<% end %>
+								<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+								<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
+									<i class="fa-regular fa-pen-to-square"></i>
+								<% end %>
+							<% else %>
+								<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
 							<% end %>
 						</h1>
 							<p class="text-gray-300 text-sm">
