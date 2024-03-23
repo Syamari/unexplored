@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       end
     end
     resources :songs
+    resource :bookmark, only: [:create, :destroy]
   end
 
 

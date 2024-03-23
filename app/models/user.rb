@@ -2,6 +2,8 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :lists, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_lists, through: :bookmarks, source: :list
 
   validates :password, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   validate :password_complexity

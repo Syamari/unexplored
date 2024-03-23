@@ -10,9 +10,7 @@ class ListsController < ApplicationController
     when 'public'
       @lists = List.where(public: true)
     when 'bookmarked'
-      # ブックマーク機能は未実装
-      # ここでは一時的にすべてのリストを表示しとく
-      @lists = List.all
+      @lists = current_user.bookmarked_lists
     else
       @lists = current_user.lists
     end

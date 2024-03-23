@@ -16,6 +16,12 @@
   </header>
 <% end %>
 
+<% if current_user.bookmarked_lists.include?(@list) %>
+  <%= button_to 'ブックマークを解除', list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete %>
+<% else %>
+  <%= button_to 'ブックマークする', list_bookmark_path(@list) %>
+<% end %>
+
 <div class='text-center p-4'>
   <%= link_to "レコメンド", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-wide btn-secondary btn-outline text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
 </div>
@@ -79,4 +85,4 @@
 
 <div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
 	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
-</div>
+</div>#
