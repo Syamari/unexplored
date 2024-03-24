@@ -9,7 +9,7 @@ class SongsController < ApplicationController
 
   def show
     if @list.artists.count < 3
-      flash[:info] = 'レコメンドを行うにはアーティストを3人以上追加してください'
+      flash[:info] = 'レコメンドを行うにはリスト内にアーティストが3人以上必要です'
       redirect_to @list
       return
     end
