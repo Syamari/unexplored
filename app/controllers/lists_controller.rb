@@ -5,7 +5,17 @@ class ListsController < ApplicationController
 
 	def index
     @list = List.new
-    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
+
+    case params[:view]
+    when 'own'
+      @lists = current_user.lists
+    when 'public'
+      @lists = List.where(public: true)
+    when 'bookmarked'
+      @lists = current_user.bookmarked_lists
+    else
+      @lists = current_user.lists
+    end
   end
 
   def show
@@ -67,6 +77,6 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name, :public)
   end
 end

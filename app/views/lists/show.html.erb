@@ -2,7 +2,18 @@
 <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
     <div class="container mx-auto px-8 flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
+          <% if current_user.bookmarked_lists.include?(@list) %>
+            <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
+              <i class="fa-solid fa-bookmark"></i>
+            <% end %>
+          <% else %>
+            <%= button_to list_bookmark_path(@list), class: 'bookmark-button bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
+              <i class="fa-regular fa-bookmark"></i>
+            <% end %>
+          <% end %>
+        </div>
         <p class="text-sm text-gray-300">好きなアーティストをフォームに入力し、リストに追加しましょう</p>
         <p class="text-sm text-gray-300">リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
       </div>
@@ -16,27 +27,30 @@
   </header>
 <% end %>
 
+
 <div class='text-center p-4'>
   <%= link_to "レコメンド", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-wide btn-secondary btn-outline text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
 </div>
 
-<div class="mx-auto max-w-xl py-4 px-4 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
-  <% if @list.artists.count >= 10 %>
-    <p class="text-center text-slate-300"><i class="fa-solid fa-check"></i> リストに追加できるアーティストは合計で10までです</p>
-  <% else %>
-    <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
-      <div class="flex flex-col">
-        <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
-        <%= form.text_field :name, id: 'artist-name-input', list: 'artist-datalist', class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
-        <div id="artist-dropdown" class="relative">
-          <div id="artist-dropdown-list" class="absolute w-full text-amber-600 bg-opacity-90 bg-slate-900 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
+<% if current_user == @list.user %>
+  <div class="mx-auto max-w-xl py-4 px-4 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+    <% if @list.artists.count >= 10 %>
+      <p class="text-center text-slate-300"><i class="fa-solid fa-check"></i> リストに追加できるアーティストは合計で10までです</p>
+    <% else %>
+      <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
+        <div class="flex flex-col">
+          <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
+          <%= form.text_field :name, id: 'artist-name-input', list: 'artist-datalist', class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
+          <div id="artist-dropdown" class="relative">
+            <div id="artist-dropdown-list" class="absolute w-full text-amber-600 bg-opacity-90 bg-slate-900 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
+          </div>
+          <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
         </div>
-        <p class="py-2 text-xs text-amber-300">入力した名前に最も近いアーティストが取得されます</p>
-      </div>
-      <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
+        <%= form.submit "このアーティストをリストに追加", class: "btn btn-accent btn-outline text-xl text-white p-2 rounded-md" %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
 <div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
 	<div class="flex flex-wrap justify-center">
@@ -79,4 +93,4 @@
 
 <div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
 	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
-</div>
+</div>#
