@@ -35,6 +35,17 @@ class SongsController < ApplicationController
 		end
     
     @selected_song = searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
+
+    # アーティスト名をgetして、作成または取得
+    artist_name = @selected_song.artists.first.name
+    artist = Artist.find_or_create_by(name: artist_name)
+
+    # 曲名を取得
+    song_name = @selected_song.name
+    # 新しいSongオブジェクトを作成し保存
+    @song = Song.new(name: song_name, artist: artist)
+    @song.save
+
     url = @selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
     generate_genre_description
