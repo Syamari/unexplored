@@ -38,7 +38,7 @@ class SongsController < ApplicationController
     # 一時的にコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
     #@recommend_genre = get_recommend_genre(@unique_genres)
 
-    select_song    
+    select_song
     save_song
 
     url = @selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
@@ -52,7 +52,7 @@ class SongsController < ApplicationController
     artist_name = @selected_song.artists.first.name
     artist = Artist.find_or_create_by(name: artist_name)
     song_name = @selected_song.name
-    @song = Song.find_or_create_by(name: song_name, artist: artist)
+    @song = Song.find_or_create_by(name: song_name, artist:)
   end
 
   private

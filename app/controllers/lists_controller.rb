@@ -6,16 +6,16 @@ class ListsController < ApplicationController
 	def index
     @list = List.new
 
-    case params[:view]
-    when 'own'
-      @lists = current_user.lists
-    when 'public'
-      @lists = List.where(public: true)
-    when 'bookmarked'
-      @lists = current_user.bookmarked_lists
+    @lists = case params[:view]
+             when 'own'
+      current_user.lists
+             when 'public'
+      List.where(public: true)
+             when 'bookmarked'
+      current_user.bookmarked_lists
     else
-      @lists = current_user.lists
-    end
+      current_user.lists
+             end
   end
 
   def show
