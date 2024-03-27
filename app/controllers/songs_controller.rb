@@ -7,6 +7,24 @@ class SongsController < ApplicationController
   #before_action :redirect_if_reloaded
   #before_action :check_api_limit
 
+  def select_song
+    begin
+      @searched_playlists = RSpotify::Playlist.search(@recommend_genre)
+    rescue RestClient::BadRequest
+      flash[:info] = '今回はレコメンドジャンルの取得に失敗しました'
+      redirect_to @list
+      return
+    end  
+
+    if @searched_playlists.empty?
+			flash[:info] = 'レコメンドの生成に失敗しました'
+			redirect_to @list
+			return
+		end
+
+    @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
+  end
+
   def show
     if @list.artists.count < 3
       flash[:info] = 'レコメンドを行うにはリスト内にアーティストが3人以上必要です'
@@ -20,36 +38,21 @@ class SongsController < ApplicationController
     # 一時的にコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
     #@recommend_genre = get_recommend_genre(@unique_genres)
 
-    begin
-      searched_playlists = RSpotify::Playlist.search(@recommend_genre)
-    rescue RestClient::BadRequest
-      flash[:info] = '今回はレコメンドジャンルの取得に失敗しました'
-      redirect_to @list
-      return
-    end  
-
-    if searched_playlists.empty?
-			flash[:info] = 'レコメンドの生成に失敗しました'
-			redirect_to @list
-			return
-		end
-    
-    @selected_song = searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
-
-    # アーティスト名をgetして、作成または取得
-    artist_name = @selected_song.artists.first.name
-    artist = Artist.find_or_create_by(name: artist_name)
-
-    # 曲名を取得
-    song_name = @selected_song.name
-    # 新しいSongオブジェクトを作成し保存
-    @song = Song.new(name: song_name, artist: artist)
-    @song.save
+    select_song    
+    save_song
 
     url = @selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
     generate_genre_description
+
     session[:visited] = true
+  end
+
+  def save_song
+    artist_name = @selected_song.artists.first.name
+    artist = Artist.find_or_create_by(name: artist_name)
+    song_name = @selected_song.name
+    @song = Song.find_or_create_by(name: song_name, artist: artist)
   end
 
   private
