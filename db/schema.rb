@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_23_125910) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_29_182553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_23_125910) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "rates", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "song_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_rates_on_song_id"
+    t.index ["user_id"], name: "index_rates_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_songs_on_artist_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -80,4 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_23_125910) do
   add_foreign_key "list_artists", "artists"
   add_foreign_key "list_artists", "lists"
   add_foreign_key "lists", "users"
+  add_foreign_key "rates", "songs"
+  add_foreign_key "rates", "users"
+  add_foreign_key "songs", "artists"
 end

@@ -33,5 +33,5 @@ module ApplicationHelper
         image: image_url('card3.jpg') # 配置するパスやファイル名によって変更すること
       }
     }
-  end
+ end
 end

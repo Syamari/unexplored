@@ -7,7 +7,7 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get update -qq \
     && apt-get install -y nodejs yarn
 
-# ここを追加[Rails環境を本番環境にする]
+# Rails環境を本番環境にする
 #ENV RAILS_ENV=production
 
 # データベース用にPostgreSQLをインストール

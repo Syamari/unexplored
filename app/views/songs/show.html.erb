@@ -27,16 +27,25 @@
   <iframe class="w-full" src="<%= @player_url %>"  
 	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
-<div class="my-2 mx-4 flex justify-center">
+<%= form_with(url: rate_list_song_path(@list, @song), method: :post, class: "flex flex-col items-center justify-center space-y-4") do |form| %>
+  <%= form.hidden_field :song_id, value: @song.id %>
+  <div class="rating">
+    <% (1..3).each do |i| %>
+      <%= form.radio_button :score, i, class: "mask mask-star", checked: i == 1 %>
+    <% end %>
+  </div>
+  <%= form.submit "レーティングを保存", class: "btn btn-wide bg-amber-300 hover:bg-amber-500 font-bold py-2 px-4 rounded-lg flex justify-center items-center" %>
+<% end %>
+<div class="my-4 mx-4 flex justify-center">
   <%= link_to list_path(@list), class: "btn btn-wide font-bold py-2 px-4 rounded-lg flex justify-center items-center" do %>
     <i class="fa-solid fa-arrow-left"></i> 戻る
   <% end %>
 </div>
-<div class="my-8 mx-4 flex justify-center">
+<div class="my-6 mx-4 flex justify-center">
   <% if @selected_song.artists.first.genres.first.present? %>
     <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first.titleize}」です！%0A#{root_url}", target: "_blank" do %>
-      <button class="btn btn-sm bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
-        <i class="fa-brands fa-x-twitter"></i> 結果をシェア
+      <button class="btn btn-xs bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
+        <i class="fa-brands fa-x-twitter"></i> に結果をポスト
       </button>
     <% end %>
   <% end %>
