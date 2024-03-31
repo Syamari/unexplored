@@ -23,7 +23,9 @@ Rails.application.routes.draw do
         get 'search'
       end
     end
-    resources :songs
+    resources :songs do
+      post 'rate', on: :member
+    end
     resource :bookmark, only: [:create, :destroy]
   end
 

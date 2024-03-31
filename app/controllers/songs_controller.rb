@@ -55,6 +55,15 @@ class SongsController < ApplicationController
     @song = Song.find_or_create_by(name: song_name, artist:)
   end
 
+  def rate
+    @rate = Rate.find_or_initialize_by(song_id: params[:song_id], user_id: current_user.id)
+    @rate.score = params[:score]
+    unless @rate.save
+      redirect_to list_path(params[:list_id])
+      flash[:info] = 'レーティングに失敗しました'
+    end
+  end
+
   private
 
 	def set_list

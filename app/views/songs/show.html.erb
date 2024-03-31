@@ -27,6 +27,12 @@
   <iframe class="w-full" src="<%= @player_url %>"  
 	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
+<%= form_with(url: rate_list_song_path(@list, @song), method: :post) do |form| %>
+  <%= form.hidden_field :song_id, value: @song.id %>
+  <%= form.label :score, "レーティング" %>
+  <%= form.select :score, options_for_select([['1', 1], ['2', 2], ['3', 3]]) %>
+  <%= form.submit "レーティングを保存" %>
+<% end %>
 <div class="my-2 mx-4 flex justify-center">
   <%= link_to list_path(@list), class: "btn btn-wide font-bold py-2 px-4 rounded-lg flex justify-center items-center" do %>
     <i class="fa-solid fa-arrow-left"></i> 戻る
