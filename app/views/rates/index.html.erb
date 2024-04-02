@@ -22,8 +22,26 @@
 	</header>
 <% end %>
 
-<% @rates.each do |rate| %>
-  <p>アーティスト名: <%= rate.song.artist.name %></p>
-  <p>曲名: <%= rate.song.name %></p>
-  <p>レーティング: <%= rate.score %></p>
-<% end %>
+<div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+  <div class="flex flex-wrap justify-center">
+    <% @rates.each do |rate| %>
+      <div class="w-full xl:w-1/2 p-4">
+        <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+          <div class="flex p-6 justify-between flex-col space-y-2">
+            <div class="flex text-yellow-400">
+              <% rate.score.times do %>
+                <i class="fa-solid fa-star"></i>
+              <% end %>
+              <% (3 - rate.score).times do %>
+                <i class="fa-regular fa-star"></i>
+              <% end %>
+            </div>
+            <h1 class="text-3xl font-bold">
+              <%= link_to "#{rate.song.artist.name} - #{rate.song.name}", rate_path(rate), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+            </h1>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

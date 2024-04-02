@@ -29,6 +29,6 @@ Rails.application.routes.draw do
     resource :bookmark, only: [:create, :destroy]
   end
 
-  resources :rates, only: [:index]
+  resources :rates, only: [:index, :show]
 
 end
