@@ -3,10 +3,18 @@
 		<div class="container mx-auto px-8 flex justify-between items-center">
 			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</h1>
 			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center space-x-2 py-2">
-				<a href="<%= lists_path(view: 'own') %>" class="btn btn-sm btn-primary  <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own' %>">マイリスト</a>
-				<a href="<%= lists_path(view: 'public') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public' %>">一般リスト</a>
-				<a href="<%= lists_path(view: 'bookmarked') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked' %>">ブックマーク</a>
-				<a href="<%= rates_path %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked' %>">レート一覧</a>
+				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
+					マイリスト
+				<% end %>
+				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
+					公開リスト
+				<% end %>
+				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
+					<i class="fa-solid fa-bookmark"></i>リスト
+				<% end %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+					<i class="fa-solid fa-star"></i>楽曲
+				<% end %>
 			</div>
 			<div class="text-sm text-gray-300 breadcrumbs">
 			</div>
