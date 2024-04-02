@@ -6,6 +6,7 @@
 				<a href="<%= lists_path(view: 'own') %>" class="btn btn-sm btn-primary  <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own' %>">マイリスト</a>
 				<a href="<%= lists_path(view: 'public') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public' %>">一般リスト</a>
 				<a href="<%= lists_path(view: 'bookmarked') %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked' %>">ブックマーク</a>
+				<a href="<%= rates_path %>" class="btn btn-sm btn-primary <%= 'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked' %>">レート一覧</a>
 			</div>
 			<div class="text-sm text-gray-300 breadcrumbs">
 			</div>

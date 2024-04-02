@@ -1,0 +1,5 @@
+<% @rates.each do |rate| %>
+  <p>アーティスト名: <%= rate.song.artist.name %></p>
+  <p>曲名: <%= rate.song.name %></p>
+  <p>レーティング: <%= rate.score %></p>
+<% end %>
