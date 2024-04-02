@@ -11,4 +11,18 @@ class RatesController < ApplicationController
     url = @selected_song.embed.match(/https:\/\/embed\.spotify\.com\/\?uri=spotify:track:(\w+)/)
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
   end
+
+	def update
+    @rate = Rate.find(params[:id])
+    unless @rate.update(rate_params)
+      redirect_to rates_path
+      flash[:info] = 'レーティングの更新に失敗しました'
+    end
+  end
+
+  private
+
+  def rate_params
+    params.require(:rate).permit(:score)
+  end
 end
