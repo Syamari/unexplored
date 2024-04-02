@@ -19,6 +19,27 @@
 			<div class="text-sm text-gray-300 breadcrumbs">
 			</div>
 		</div>
+		<% if params[:view].nil? || params[:view] == 'own' %>
+			<div class="container mx-auto px-10">
+				<div class="mx-auto flex flex-col">
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> マイリスト一覧</p>
+				</div>
+			</div>
+		<% end %>
+		<% if params[:view] == 'public' %>
+			<div class="container mx-auto px-10">
+				<div class="mx-auto flex flex-col">
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> 公開されているリスト一覧</p>
+				</div>
+			</div>
+		<% end %>
+		<% if params[:view] == 'bookmarked' %>
+			<div class="container mx-auto px-10">
+				<div class="mx-auto flex flex-col">
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> ブックマークしたリスト一覧</p>
+				</div>
+			</div>
+		<% end %>
 	</header>
 	<% if params[:view].nil? || params[:view] == 'own' %>
 		<% if @lists.empty? %>
@@ -30,6 +51,7 @@
 			<%= render 'lists/artist_empty' %>
 		<% end %>
 	<% end %>
+
 <% end %>
 
 <% if params[:view].nil? || params[:view] == 'own' %>
