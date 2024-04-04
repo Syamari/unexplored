@@ -32,13 +32,14 @@ class SongsController < ApplicationController
       return
     end
 
-    @unique_genres = get_unique_genre_names(@list)
-    @related_artists_names = get_related_artists_names(@list)
     # 開発用のダミーロジック用のコードです、デプロイ時にはコメントアウトしてください
-    #@recommend_genre = "alternative"
+    @recommend_genres = ["alternative"]
     # 一時的にコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
-    @recommend_genre = get_recommend_genre(@unique_genres, @related_artists_names)
+    #@unique_genres = get_unique_genre_names(@list)
+    #@related_artists_names = get_related_artists_names(@list)
+    #@recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
 
+    @recommend_genre = @recommend_genres.sample
     select_song
     save_song
 
