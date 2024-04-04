@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-	def get_recommend_genre(genres)
+	def get_recommend_genre(genres, names)
 		client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_CLIENT_ID', nil))
 		response = client.chat(
 			parameters: {
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 				messages: [
 					{
 						role: 'user',
-						content: "You are a pop music genre recommendation professional familiar with the 15 major musics of Pop, R&B, Soul, Rock, Alternative, Indie, Country, Electronic, Folk, Hiphop, Jazz, Metal, Punk, Blues, Experimental. The following array represents a set of music genres preferred by a certain user. Taking into account the granularity, BPM, and dynamics tendencies of the music genres in this array, please guess 10 popular music genre that can be expressed in 1-3 words and is less related to the genres in this array, i.e., a popular music genre that this user has not yet listened to. And output only one genre from these 10 genres as a string in 1-3 words. Please note that you only have to output one genre, although there are 10 genres to guess. However, please do not output genres that are too minor or too major. #{genres}"
+						content: "You are a pop music genre recommendation professional familiar with the 15 major musics of Pop, R&B, Soul, Rock, Alternative, Indie, Country, Electronic, Folk, Hiphop, Jazz, Metal, Punk, Blues, Experimental. The following array represents a set of music genres preferred by a certain user. Taking into account the granularity, BPM, and dynamics tendencies of the music genres in this array, please guess 10 popular music genre that can be expressed in 1-3 words and is less related to the genres in this array, i.e., a popular music genre that this user has not yet listened to. And output only one genre from these 10 genres as a string in 1-3 words. Please note that you only have to output one genre, although there are 10 genres to guess. However, please do not output genres that are too minor or too major. #{genres}  Also, for additional information, please consider that this user may prefer the following artists. #{names}"
 					}
 				]
 			}
