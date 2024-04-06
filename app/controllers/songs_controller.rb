@@ -17,10 +17,10 @@ class SongsController < ApplicationController
     end  
 
     if @searched_playlists.empty?
-			flash[:info] = 'レコメンドの生成に失敗しました'
-			redirect_to @list
-			return
-		end
+      flash[:info] = 'レコメンドの生成に失敗しました'
+      redirect_to @list
+      return
+    end
 
     @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
   end
@@ -68,9 +68,9 @@ class SongsController < ApplicationController
 
   private
 
-	def set_list
-		@list = List.find(params[:list_id])
-	end
+  def set_list
+    @list = List.find(params[:list_id])
+  end
 
   def redirect_if_reloaded
     if session[:visited]
