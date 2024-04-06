@@ -6,6 +6,7 @@ class SongsController < ApplicationController
   # APIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
   #before_action :redirect_if_reloaded
   #before_action :check_api_limit
+  MIN_ARTISTS_FOR_RECOMMEND = 3
 
   def select_song
     begin
@@ -21,12 +22,12 @@ class SongsController < ApplicationController
       redirect_to @list
       return
     end
-
+    # 最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
     @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
   end
 
   def show
-    if @list.artists.count < 3
+    if @list.artists.count < MIN_ARTISTS_FOR_RECOMMEND
       flash[:info] = 'レコメンドを行うにはリスト内にアーティストが3人以上必要です'
       redirect_to @list
       return

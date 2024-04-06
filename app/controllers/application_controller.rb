@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   require 'rspotify'
 
+  API_LIMIT = 15 # API制限回数の設定
+  API_LIMIT_DURATION = 15 * 60 # API制限の時間間隔の設定
+
   begin
     RSpotify.authenticate(ENV.fetch('SPOTIFY_CLIENT_ID', nil), ENV.fetch('SPOTIFY_SECRET_ID', nil))
   rescue SocketError => e
@@ -49,12 +52,12 @@ class ApplicationController < ActionController::Base
     first_timestamp = session[:first_timestamp]
     count = session[:count] || 0
     # 最初のタイムスタンプがない、または15分経過している場合はリセット
-    if first_timestamp.nil? || Time.now.to_i - first_timestamp > 15 * 60
+    if first_timestamp.nil? || Time.now.to_i - first_timestamp > API_LIMIT_DURATION
       session[:first_timestamp] = Time.now.to_i
       session[:count] = 1
     else
       # 制限を超えている場合はリダイレクト
-      if count >= 15
+      if count >= API_LIMIT
         flash[:info] = 'しばらく時間を置いてから再度お試しください'
         redirect_to lists_path
       else
@@ -63,5 +66,4 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
 end
