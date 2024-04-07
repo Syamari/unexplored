@@ -18,9 +18,17 @@ Rails.application.routes.draw do
 
 
   resources :lists do
-    resources :artists, controller: 'list_artists', only: [:create, :destroy]
-    resources :songs
+    resources :artists, controller: 'list_artists', only: [:create, :destroy] do
+      collection do
+        get 'search'
+      end
+    end
+    resources :songs do
+      post 'rate', on: :member
+    end
+    resource :bookmark, only: [:create, :destroy]
   end
 
+  resources :rates, only: [:index, :show, :update]
 
 end

@@ -41,6 +41,27 @@ class ListArtistsController < ApplicationController
 			redirect_to @list
 	end
 
+	def search
+		if params[:name].blank?
+			render json: { error: 'アーティスト名が入力されていません' }, status: :bad_request
+			return
+		end
+	
+		begin
+			searched_artists = RSpotify::Artist.search(params[:name], limit: 5)
+		rescue RestClient::BadRequest => e
+			render json: { error: 'アーティスト名の取得に失敗しました' }, status: :bad_request
+			return
+		end
+
+		if searched_artists.empty?
+			render json: { error: 'そのアーティストは取得できませんでした' }, status: :not_found
+			return
+		end
+	
+		render json: searched_artists.map { |artist| { name: artist.name, id: artist.id } }
+	end
+
 	private
 
 	def set_list

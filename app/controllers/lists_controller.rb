@@ -1,15 +1,36 @@
 class ListsController < ApplicationController
+  include ApplicationHelper
+
   before_action :require_login
+
+def index
+  @list = List.new
+
+  @lists = case params[:view]
+           when 'public'
+             List.where(public: true)
+           when 'bookmarked'
+             current_user.bookmarked_lists
+           else
+             current_user.lists
+           end
+end
+
+  def show
+    session[:visited] = nil
+    @list = List.find(params[:id])    
+    @artists = @list.artists.order(created_at: :desc)
+    @unique_genres = get_unique_genre_names(@list)
+  end
 
 	def new
     @list = List.new
     render layout: false
   end
 
-	def index
-    @list = List.new
-    @lists = List.where(user_id: current_user.id).order(updated_at: :desc)
-  end
+	def edit
+		@list = List.find(params[:id])
+	end
 
 	def create
     @list = List.new(list_params)
@@ -28,16 +49,6 @@ class ListsController < ApplicationController
       end
     end
   end
-
-  def show
-    session[:visited] = nil
-    @list = List.find(params[:id])    
-    @artists = @list.artists.order(created_at: :desc)
-  end
-
-	def edit
-		@list = List.find(params[:id])
-	end
 
 	def update
     @list = List.find(params[:id])
@@ -64,6 +75,6 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name, :public)
   end
 end

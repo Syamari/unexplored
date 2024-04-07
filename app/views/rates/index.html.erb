@@ -1,0 +1,63 @@
+<% content_for :header_sub do %>
+	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
+		<div class="container mx-auto px-8 flex justify-between items-center">
+			<div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
+			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary " do %>
+					マイリスト
+				<% end %>
+				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary" do %>
+					公開リスト
+				<% end %>
+				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary" do %>
+					<i class="fa-solid fa-bookmark"></i>リスト
+				<% end %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+					<i class="fa-solid fa-star"></i>楽曲
+				<% end %>
+			</div>
+			<div class="text-sm text-gray-300 breadcrumbs">
+			</div>
+		</div>
+		<div class="container mx-auto px-10">
+			<div class="mx-auto flex flex-col">
+				<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i>  レーティングした楽曲の一覧</p>
+			</div>
+		</div>
+	</header>
+<% end %>
+
+
+<div class="container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
+  <div class="flex flex-wrap justify-center">
+    <% @rates.each do |rate| %>
+      <div class="w-full xl:w-1/2 md:p-4 p-2">
+        <div class="bg-gradient-to-r from-purple-950 to-indigo-900 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+          <div class="flex md:p-6 p-4 justify-between flex-col space-y-2">
+            <div class="text-xl flex text-yellow-400">
+              <% rate.score.times do %>
+                <i class="fa-solid fa-star"></i>
+              <% end %>
+              <% (3 - rate.score).times do %>
+                <i class="fa-regular fa-star"></i>
+              <% end %>
+            </div>
+            <h1 class="md:text-2xl text-xl font-bold">
+              <%= link_to "#{rate.song.artist.name} - #{rate.song.name}", rate_path(rate), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+            </h1>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
+	<div class="z-10">
+		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
+		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
+	</div>
+		<div class="flex flex-col justify-center max-w-xs">
+			<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
+		</div>
+</div>

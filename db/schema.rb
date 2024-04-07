@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_153051) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_29_182553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_153051) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_bookmarks_on_list_id"
+    t.index ["user_id", "list_id"], name: "index_bookmarks_on_user_id_and_list_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -49,7 +59,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_153051) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "public", default: false
     t.index ["user_id"], name: "index_lists_on_user_id"
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "song_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_rates_on_song_id"
+    t.index ["user_id"], name: "index_rates_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_songs_on_artist_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,7 +93,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_153051) do
 
   add_foreign_key "artist_genres", "artists"
   add_foreign_key "artist_genres", "genres"
+  add_foreign_key "bookmarks", "lists"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "list_artists", "artists"
   add_foreign_key "list_artists", "lists"
   add_foreign_key "lists", "users"
+  add_foreign_key "rates", "songs"
+  add_foreign_key "rates", "users"
+  add_foreign_key "songs", "artists"
 end
