@@ -7,15 +7,15 @@ module ApplicationHelper
 		unique_genre_names
 	end
 
-  def get_related_artists_names(list)
-    artist_names = list.artists.sample(3).map(&:name) # 発火の都度ランダムに取得
-    related_artists_names = []
-    artist_names.each do |name|
-      related_artists = RSpotify::Artist.search(name).first.related_artists.first(4) # 関連アーティストをまず4人取得
-      related_artists_names += related_artists.sample(2).map(&:name) # そこから2人だけ配列に追加(4C2)
-    end
-    related_artists_names
-  end
+ def get_related_artists_names(list)
+   artist_names = list.artists.sample(3).map(&:name) # 発火の都度ランダムに取得
+   related_artists_names = []
+   artist_names.each do |name|
+     related_artists = RSpotify::Artist.search(name).first.related_artists.first(4) # 関連アーティストをまず4人取得
+     related_artists_names += related_artists.sample(2).map(&:name) # そこから2人だけ配列に追加(4C2)
+   end
+   related_artists_names
+ end
 
 	def default_meta_tags
     {
@@ -33,14 +33,13 @@ module ApplicationHelper
         description: :description,
         type: 'website',
         url: request.original_url,
-        image: image_url('card3.jpg'), # 配置するパスやファイル名によって変更すること
+        image: image_url('card3.jpg'),
         local: 'ja-JP'
       },
-      # Twitter用の設定を個別で設定する
       twitter: {
-        card: 'summary_large_image', # Twitterで表示する場合は大きいカードにする
-        site: '@SyamariTech', # アプリの公式Twitterアカウントがあれば、アカウント名を書く
-        image: image_url('card3.jpg') # 配置するパスやファイル名によって変更すること
+        card: 'summary_large_image',
+        site: '@SyamariTech',
+        image: image_url('card3.jpg')
       }
     }
  end

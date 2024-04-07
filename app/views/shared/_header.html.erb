@@ -1,13 +1,18 @@
 <div class="navbar bg-gradient-to-r from-purple-900 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
-  <div class="flex-1 text-center font-bold">
+  <div class="flex-1 text-left font-bold md:block hidden">
     <%= link_to root_path do %>
       <%= image_tag 'icon.png', alt: 'Icon', class: 'btn btn-ghost h-12 w-auto object-cover' %>
     <% end %>
     <%= link_to "Unexplored Music", root_path, class: "btn btn-ghost text-2xl" %>
   </div>
-  <div class="flex-none">
+    <div class="flex-1 text-left font-bold md:hidden">
+    <%= link_to root_path do %>
+      <%= image_tag 'icon.png', alt: 'Icon', class: 'btn btn-ghost h-8 w-auto object-cover' %>
+    <% end %>
+  </div>
+  <div class="flex-none md:block hidden">
     <ul class="menu menu-horizontal px-1">
-      <li class="text-center font-bold">
+      <li class="text-right font-bold">
         <%= link_to lists_path do %>
           <i class="fa-solid fa-mug-saucer"></i> ホーム
         <% end %>
@@ -25,7 +30,28 @@
       </li>
     </ul>
   </div>
+  <div class="flex-none md:hidden">
+    <ul class="menu menu-horizontal px-1">
+      <li>
+        <details>
+          <summary class="text-center font-bold">
+            <i class="fa-solid fa-circle-user"></i>アカウント
+          </summary>
+          <ul class="bg-gradient-to-r from-purple-700 to-indigo-700  p-2 bg-base-100 rounded-t-none w-auto">
+            <li class="text-center font-bold"><%= link_to "ユーザー情報", edit_user_path(current_user) %></li>
+            <li class="text-center font-bold"><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
+          </ul>
+        </details>
+      </li>
+      <li class="text-right font-bold">
+        <%= link_to lists_path do %>
+          <i class="fa-solid fa-house"></i> ホーム
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </div>
+
 <div class="header-sub bg-gradient-to-r from-purple-900 to-indigo-800 text-white px-4 md:px-8 lg:px-16">
   <%= yield :header_sub %>
 </div>

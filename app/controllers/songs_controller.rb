@@ -4,8 +4,9 @@ class SongsController < ApplicationController
   before_action :require_login
   before_action :set_list
   # APIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  #before_action :redirect_if_reloaded
-  #before_action :check_api_limit
+  before_action :redirect_if_reloaded
+  before_action :check_api_limit
+  MIN_ARTISTS_FOR_RECOMMEND = 3
 
   def select_song
     begin
@@ -17,27 +18,27 @@ class SongsController < ApplicationController
     end  
 
     if @searched_playlists.empty?
-			flash[:info] = 'レコメンドの生成に失敗しました'
-			redirect_to @list
-			return
-		end
-
+      flash[:info] = 'レコメンドの生成に失敗しました'
+      redirect_to @list
+      return
+    end
+    # 最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
     @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
   end
 
   def show
-    if @list.artists.count < 3
+    if @list.artists.count < MIN_ARTISTS_FOR_RECOMMEND
       flash[:info] = 'レコメンドを行うにはリスト内にアーティストが3人以上必要です'
       redirect_to @list
       return
     end
 
     # 開発用のダミーロジック用のコードです、デプロイ時にはコメントアウトしてください
-    @recommend_genres = ["alternative"]
+    #@recommend_genres = ["alternative"]
     # 一時的に以下の３行をコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
-    #@unique_genres = get_unique_genre_names(@list)
-    #@related_artists_names = get_related_artists_names(@list)
-    #@recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
+    @unique_genres = get_unique_genre_names(@list)
+    @related_artists_names = get_related_artists_names(@list)
+    @recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
 
     @recommend_genre = @recommend_genres.sample
     select_song
@@ -68,9 +69,9 @@ class SongsController < ApplicationController
 
   private
 
-	def set_list
-		@list = List.find(params[:list_id])
-	end
+  def set_list
+    @list = List.find(params[:list_id])
+  end
 
   def redirect_if_reloaded
     if session[:visited]
