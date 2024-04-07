@@ -1,8 +1,8 @@
 <% content_for :header_sub do %>
-	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
+	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
 		<div class="container mx-auto px-8 flex justify-between items-center">
-			<h1 class="text-2xl font-bold tracking-tight leading-tight"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</h1>
-			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center space-x-2 py-2">
+			<div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
+			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
 				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
 					マイリスト
 				<% end %>
@@ -51,7 +51,6 @@
 			<%= render 'lists/artist_empty' %>
 		<% end %>
 	<% end %>
-
 <% end %>
 
 <% if params[:view].nil? || params[:view] == 'own' %>
@@ -83,14 +82,14 @@
 	</div>
 <% end %>
 
-<div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
 	<div class="flex flex-wrap justify-center">
 		<% @lists.each do |list| %>
-			<div class="w-full xl:w-1/2 p-4">
+			<div class="w-full xl:w-1/2 md:p-4 p-2">
 				<div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
-					<div class="flex p-6 justify-between">
+					<div class="flex md:p-6 p-4 justify-between">
 						<div>
-						<h1 class="text-3xl font-bold">
+						<h1 class="md:text-3xl text-2xl font-bold">
 							<% if current_user == list.user %>
 								<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
 									<i class="fa-regular fa-square-minus"></i>
@@ -103,15 +102,15 @@
 								<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
 							<% end %>
 						</h1>
-							<p class="text-gray-300 text-sm">
+							<p class="text-gray-300 md:text-sm text-xs">
 								<% if list.artists.first %>
 									<%= list.artists.first.name %> ...
 								<% else %>
-									空白のリストです
+									まだ空白のリストです
 								<% end %>
 							</p>
 						</div>
-						<div>
+						<div class="md:block hidden">
 							<%= link_to "このリストへ", list_path(list), class: 'btn btn-outline btn-info' %>
 						</div>
 					</div>
@@ -123,8 +122,8 @@
 
 <div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
 	<div class="z-10">
-		<h1 class="text-7xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
-		<h1 class="text-7xl font-bold tracking-tight leading-tight">MUSIC</h1>
+		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
+		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
 	</div>
 		<div class="flex flex-col justify-center max-w-xs">
 			<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
