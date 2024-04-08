@@ -1,9 +1,17 @@
 <% content_for :header_sub do %>
-<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+      <%= link_to lists_path do %>
+        <i class="fa-solid fa-arrow-left"></i>戻る
+      <% end %>
+    </div>
+  </div>
+  <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
     <div class="container mx-auto md:px-8 px-2 flex justify-between items-center">
       <div>
         <div class="flex items-center justify-between">
-          <h1 class="md:text-2xl text-xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
+          <h1 class="md:block hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
+          <h1 class="md:hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> <%= @list.name %></h1>
           <% if current_user.bookmarked_lists.include?(@list) %>
             <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
               <i class="fa-solid fa-bookmark"></i>
@@ -14,8 +22,8 @@
             <% end %>
           <% end %>
         </div>
-        <p class="text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 好きなアーティストをフォームに入力し、リストに追加しましょう</p>
-        <p class="text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
+        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 好きなアーティストをフォームに入力し、リストに追加しましょう</p>
+        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
         <ul>
@@ -28,18 +36,18 @@
 <% end %>
 
 
-<div class='text-center p-4'>
+<div class='text-center p-2 md:p-4'>
   <%= link_to "レコメンド", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-wide btn-secondary btn-outline text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
 </div>
 <div class="px-2">
   <% if current_user == @list.user %>
-    <div class="mx-auto max-w-xl p-4 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+    <div class="mx-auto max-w-xl md:p-4 p-2 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
       <% if @list.artists.count >= 10 %>
         <p class="text-center text-slate-300"><i class="fa-solid fa-check"></i> リストに追加できるアーティストは合計で10までです</p>
       <% else %>
         <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
           <div class="flex flex-col">
-            <%= form.label :name, "アーティスト名", class: "font-bold text-lg mb-2" %>
+            <%= form.label :name, "アーティスト名:", class: "font-bold text-lg mb-2" %>
             <%= form.text_field :name, id: 'artist-name-input', list: 'artist-datalist', class: "text-black border-2 border-gray-300 p-2 rounded-md", placeholder: "Artist Name" %>
             <div id="artist-dropdown" class="relative">
               <div id="artist-dropdown-list" class="absolute w-full text-amber-600 bg-opacity-90 bg-slate-900 border border-gray-300 rounded-md overflow-auto max-h-60 hidden"></div>
@@ -53,7 +61,7 @@
   <% end %>
 </div>
 
-<div class="container mx-auto my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
 	<div class="flex flex-wrap justify-center">
     <% if @list.artists.present? %>
       <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
@@ -65,12 +73,12 @@
                 <h1 class="md:text-2xl text-xl font-bold">
                   <%= artist.name %>
                 </h1>
-                  <p class="text-gray-300 text-sm">
+                  <p class="text-gray-300 text-xs md:text-sm">
                     <%= artist.artist_genres.take(2).map { |ag| ag.genre&.name }.compact.join(', ') %>...
                   </p>
                 </div>
                 <div>
-                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-outline btn-error' %>
+                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-xs sm:btn-sm md:btn-md btn-outline btn-error whitespace-nowrap' %>
                 </div>
               </div>
             </div>
@@ -82,10 +90,10 @@
 
 <div class="container mx-auto my-4 px-2">
   <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-lg p-4">
-    <h2 class="text-xl text-gray-300 font-bold mb-4"><i class="fa-solid fa-circle-exclamation"></i> 現在このリストに含まれるジャンル:</h2>
+    <h2 class="text-md md:text-xl text-gray-300 font-bold mb-4"><i class="fa-solid fa-circle-exclamation"></i> 現在このリストに含まれるジャンル:</h2>
     <div class="flex flex-wrap">
       <% @unique_genres.sort.each do |genre| %>
-        <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm mr-2 mb-2"><%= genre.titleize %></span>
+        <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs md:text-sm mr-2 mb-2"><%= genre.titleize %></span>
       <% end %>
     </div>
   </div>
@@ -93,4 +101,4 @@
 
 <div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
 	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
-</div>#
+</div>

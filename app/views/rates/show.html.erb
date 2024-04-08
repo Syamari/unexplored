@@ -1,10 +1,21 @@
 <% content_for :header_sub do %>
+<div class="md:hidden">
+  <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+    <%= link_to rates_path do %>
+      <i class="fa-solid fa-arrow-left"></i>戻る
+    <% end %>
+  </div>
+</div>
 <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
     <div class="container mx-auto px-8 flex justify-between items-center">
-      <div>
+      <div class="md:block hidden">
         <h1 class="text-xl text-rose-200 font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @rate.song.artist.name %> - <%= @rate.song.name %></h1>
       </div>
-      <div class="text-xs text-gray-300 breadcrumbs">
+      <div class="md:hidden">
+        <h1 class="text-lg text-rose-500 font-semibold tracking-tight leading-tight pb-2"><%= @rate.song.artist.name %> : </h1>
+        <h1 class="text-center text-xl text-rose-300 font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> <%= @rate.song.name %></h1>
+      </div>
+      <div class="text-xs text-gray-300 breadcrumbs md:block hidden">
         <ul>
 					<li><%= link_to raw('ホーム(<i class="fa-solid fa-star"></i>楽曲)'), rates_path %></li> 
           <li><a>リプレイ</a></li> 

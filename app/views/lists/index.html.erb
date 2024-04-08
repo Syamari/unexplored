@@ -1,8 +1,13 @@
 <% content_for :header_sub do %>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+			<i class="fa-solid fa-location-dot"></i> <%=current_user.user_name%> のホーム
+    </div>
+  </div>
 	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
 		<div class="container mx-auto px-8 flex justify-between items-center">
 			<div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
-			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+			<div class="md:block hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
 				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
 					マイリスト
 				<% end %>
@@ -13,30 +18,44 @@
 					<i class="fa-solid fa-bookmark"></i>リスト
 				<% end %>
 				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
-					<i class="fa-solid fa-star"></i>楽曲
+					<i class="fa-solid fa-star"></i> 楽曲
+				<% end %>
+			</div>
+			<div class="md:hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
+					マイリスト
+				<% end %>
+				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
+					公開リスト
+				<% end %>
+				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
+					<i class="fa-solid fa-bookmark"></i>リスト
+				<% end %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+					<i class="fa-solid fa-star"></i>
 				<% end %>
 			</div>
 			<div class="text-sm text-gray-300 breadcrumbs">
 			</div>
 		</div>
 		<% if params[:view].nil? || params[:view] == 'own' %>
-			<div class="container mx-auto px-10">
+			<div class="container mx-auto md:px-10">
 				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> マイリスト一覧</p>
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> マイリスト一覧</p>
 				</div>
 			</div>
 		<% end %>
 		<% if params[:view] == 'public' %>
-			<div class="container mx-auto px-10">
+			<div class="container mx-auto md:px-10">
 				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> 公開されているリスト一覧</p>
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> 公開されているリスト一覧</p>
 				</div>
 			</div>
 		<% end %>
 		<% if params[:view] == 'bookmarked' %>
-			<div class="container mx-auto px-10">
+			<div class="container mx-auto md:px-10">
 				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> ブックマークしたリスト一覧</p>
+					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> ブックマークしたリスト一覧</p>
 				</div>
 			</div>
 		<% end %>
@@ -49,6 +68,22 @@
 		<% end %>
 		<% if @lists.any? { |list| list.artists.empty? } %>
 			<%= render 'lists/artist_empty' %>
+		<% end %>
+	<% end %>
+	<% if params[:view] == 'public' %>
+		<div class="container mx-auto md:px-10 px-2">
+			<div class="flex flex-col">
+				<p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> 公開・非公開はリストの <i class="fa-solid fa-pen-to-square"></i> アイコンから設定できます</p>
+			</div>
+		</div>
+	<% end %>
+	<% if params[:view] == 'bookmarked' %>
+		<% if @lists.empty? %>
+			<div class="container mx-auto md:px-10 px-2">
+				<div class="flex flex-col">
+					<p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> まだブックマークしたリストはありません</p>
+				</div>
+			</div>
 		<% end %>
 	<% end %>
 <% end %>
@@ -89,7 +124,7 @@
 				<div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
 					<div class="flex md:p-6 p-4 justify-between">
 						<div>
-						<h1 class="md:text-3xl text-2xl font-bold">
+						<h1 class="md:text-3xl sm:text-2xl text-xl font-bold">
 							<% if current_user == list.user %>
 								<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
 									<i class="fa-regular fa-square-minus"></i>
