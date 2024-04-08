@@ -3,9 +3,9 @@ class SongsController < ApplicationController
 
   before_action :require_login
   before_action :set_list
-  # APIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  #before_action :redirect_if_reloaded
-  #before_action :check_api_limit
+  # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
+  before_action :redirect_if_reloaded, only: [:show]
+  before_action :check_api_limit, only: [:show]
   MIN_ARTISTS_FOR_RECOMMEND = 3
 
   def select_song
