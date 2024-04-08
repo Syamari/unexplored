@@ -4,8 +4,8 @@ class SongsController < ApplicationController
   before_action :require_login
   before_action :set_list
   # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  before_action :redirect_if_reloaded, only: [:show]
-  before_action :check_api_limit, only: [:show]
+  #before_action :redirect_if_reloaded, only: [:show]
+  #before_action :check_api_limit, only: [:show]
   MIN_ARTISTS_FOR_RECOMMEND = 3
 
   def select_song
@@ -34,11 +34,11 @@ class SongsController < ApplicationController
     end
 
     # 開発用のダミーロジック用のコードです、デプロイ時にはコメントアウトしてください
-    #@recommend_genres = ["alternative"]
+    @recommend_genres = ["alternative"]
     # 一時的に以下の３行をコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
-    @unique_genres = get_unique_genre_names(@list)
-    @related_artists_names = get_related_artists_names(@list)
-    @recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
+    #@unique_genres = get_unique_genre_names(@list)
+    #@related_artists_names = get_related_artists_names(@list)
+    #@recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
 
     @recommend_genre = @recommend_genres.sample
     select_song
