@@ -17,7 +17,7 @@ document.addEventListener('turbo:load', function() {
     inputElement.addEventListener('input', function(e) {
       var name = e.target.value;
       var listId = document.body.dataset.listId;
-      if (name.length < 5) { // この文字数未満の場合は検索しない
+      if (name.length < 4) { // この文字数未満の場合は検索しない
         return;
       }
 

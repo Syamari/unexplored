@@ -44,9 +44,9 @@ Spotify API によって、登録されたアーティストから音楽ジャ�
 - Spotify API
 - OpenAI API
 
-## 実装予定機能
+## アプリの機能
 
-### MVP
+### メイン機能
 
 - 会員登録
 - ログイン
@@ -59,7 +59,7 @@ Spotify API によって、登録されたアーティストから音楽ジャ�
 - リストに基づいた新規ジャンルからのレコメンド機能：OpenAI API, Spotify API
 - 楽曲の再生：Spotify API
 
-### その後の機能
+### その他の機能
 
 - リストに含まれるジャンルをまとめて表示する機能：Spotify API
 - 他ユーザーが作ったリストの閲覧
@@ -70,7 +70,7 @@ Spotify API によって、登録されたアーティストから音楽ジャ�
   - レーティングの一覧
   - レーティングの詳細
 
-### figma
+### 画面遷移図 - Figma
 
 https://www.figma.com/file/0AWuFuZdMZT0cTyp60BJGz/PF%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&mode=design&t=ijRtyQ2gDgpqgmb2-1
 

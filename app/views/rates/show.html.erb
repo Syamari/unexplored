@@ -7,13 +7,13 @@
   </div>
 </div>
 <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
-    <div class="container mx-auto px-8 flex justify-between items-center">
+    <div class="container mx-auto px-12 md:px-8 flex justify-between items-center">
       <div class="md:block hidden">
         <h1 class="text-xl text-rose-200 font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @rate.song.artist.name %> - <%= @rate.song.name %></h1>
       </div>
       <div class="md:hidden">
-        <h1 class="text-lg text-rose-500 font-semibold tracking-tight leading-tight pb-2"><%= @rate.song.artist.name %> : </h1>
-        <h1 class="text-center text-xl text-rose-300 font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> <%= @rate.song.name %></h1>
+        <h1 class="text-center text-2xl text-white font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-music"></i> : <%= @rate.song.name %></h1>
+        <h1 class="text-center text-md text-slate-300 tracking-tight leading-tight pb-2">  <%= @rate.song.artist.name %></h1>
       </div>
       <div class="text-xs text-gray-300 breadcrumbs md:block hidden">
         <ul>
