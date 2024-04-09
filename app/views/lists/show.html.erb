@@ -62,7 +62,7 @@
 </div>
 
 <div class="container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
-	<div class="flex flex-wrap justify-center">
+  <div class="flex flex-wrap justify-center">
     <% if @list.artists.present? %>
       <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
         <% artist = list_artist.artist %>
@@ -82,10 +82,10 @@
                 </div>
               </div>
             </div>
-					</div>
+          </div>
       <% end %>
     <% end %>
-	</div>
+  </div>
 </div>
 
 <div class="container mx-auto my-4 px-2">
@@ -100,5 +100,5 @@
 </div>
 
 <div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
-	<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
 </div>

@@ -1,23 +1,23 @@
 module ApplicationHelper
 
-	def get_unique_genre_names(list)
-		artists = list.artists
-		all_genre_names = artists.map { |artist| artist.genres.limit(6).map(&:name) }.flatten
-		unique_genre_names = all_genre_names.uniq
-		unique_genre_names
-	end
+  def get_unique_genre_names(list)
+    artists = list.artists
+    all_genre_names = artists.map { |artist| artist.genres.limit(6).map(&:name) }.flatten
+    unique_genre_names = all_genre_names.uniq
+    unique_genre_names
+  end
 
- def get_related_artists_names(list)
-   artist_names = list.artists.sample(3).map(&:name) # 発火の都度ランダムに取得
-   related_artists_names = []
-   artist_names.each do |name|
-     related_artists = RSpotify::Artist.search(name).first.related_artists.first(4) # 関連アーティストをまず4人取得
-     related_artists_names += related_artists.sample(2).map(&:name) # そこから2人だけ配列に追加(4C2)
-   end
-   related_artists_names
- end
+  def get_related_artists_names(list)
+    artist_names = list.artists.sample(3).map(&:name) # 発火の都度ランダムに取得
+    related_artists_names = []
+    artist_names.each do |name|
+      related_artists = RSpotify::Artist.search(name).first.related_artists.first(4) # 関連アーティストをまず4人取得
+      related_artists_names += related_artists.sample(2).map(&:name) # そこから2人だけ配列に追加(4C2)
+    end
+    related_artists_names
+  end
 
-	def default_meta_tags
+  def default_meta_tags
     {
       site: 'Unexplored Music',
       title: '新ジャンル開拓のための音楽レコメンドサービス',
@@ -42,5 +42,5 @@ module ApplicationHelper
         image: image_url('card3.jpg')
       }
     }
- end
+  end
 end

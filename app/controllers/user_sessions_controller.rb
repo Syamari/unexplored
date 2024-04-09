@@ -1,10 +1,10 @@
 class UserSessionsController < ApplicationController
-	def new; end
+  def new; end
 
   def create
     @user = login(params[:email], params[:password])
     if @user
-			flash[:info] = 'ログインしました'
+      flash[:info] = 'ログインしました'
       redirect_back_or_to lists_path
     else
       respond_to do |format|
@@ -16,7 +16,7 @@ class UserSessionsController < ApplicationController
     end
   end
 
-	def destroy
+  def destroy
     logout
     flash[:info] = 'ログアウトしました'
     redirect_to root_path
