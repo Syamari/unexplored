@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  skip_before_action :require_login
+
 
   def new; end
 
@@ -26,11 +26,19 @@ class PasswordResetsController < ApplicationController
     end
 
     @user.password_confirmation = params[:user][:password_confirmation]
-    if @user.change_password(params[:user][:password])
+    if params[:user][:password].present? && @user.change_password(params[:user][:password])
+      @user.update(reset_password_token: nil)
+      logger.debug "Password has been successfully updated."
       redirect_to login_path
       flash[:success]= 'パスワードがリセットされました'
     else
-      render action: 'edit'
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:error] = "パスワードのリセットに失敗しました。パスワードは英小文字と数字を含む8文字以上が必要です。"
+          render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end   
+      end
+      logger.debug "Failed to update password."
     end
   end
 end

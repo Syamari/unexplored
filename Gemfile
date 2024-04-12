@@ -77,6 +77,7 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'letter_opener_web', '~> 2.0'
 end
 
 group :test do
@@ -86,3 +87,6 @@ group :test do
 end
 
 gem "dockerfile-rails", ">= 1.6", :group => :development
+
+gem 'config'
+
