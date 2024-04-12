@@ -25,7 +25,7 @@ Unexplored Music はユーザーがまだ知らないジャンルを推定して
 
 自分自身は、それまでの自らの嗜好から離れた音楽を聴いてみるのが好きで、
 そのような体験がより簡単に出来る方法はないかと以前から考えており、
-Unexplored Music というサービス名での制作を決めました。  
+Unexplored Music の制作を決めました。  
 新奇な音楽体験をより身近に感じられるための一助になれば幸いです。
 
 ## 想定ユーザー
@@ -106,7 +106,7 @@ Spotify API によって、登録されたアーティストから関連アー�
 | CSS フレームワーク | Tailwind CSS                    |
 | Web API            | OpenAI API・Spotify API         |
 | データベース       | PostgreSQL                      |
-| サーバー           | Fly.io・Fly Postgres            |
+| インフラ           | Fly.io・Fly Postgres            |
 | バージョン管理     | GitHub                          |
 
 <br />
