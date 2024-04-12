@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :password_resets, only: [:create, :edit, :update]
+
   root 'tops#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
