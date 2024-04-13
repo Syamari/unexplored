@@ -1,2 +1,2 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server -b 0.0.0.0 -p 3000
-css: yarn build:css css: yarn build:css && while true; do sleep 1; done
+css: yarn build:css css: yarn build:css --watch
