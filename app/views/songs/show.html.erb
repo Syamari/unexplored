@@ -64,7 +64,7 @@
 </div>
 <div class="my-6 mx-4 flex justify-center">
   <% if @selected_song.artists.first.genres.first.present? %>
-    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first.titleize}」です！%0A#{root_url}", target: "_blank" do %>
+    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめの音楽ジャンルは「#{@selected_song.artists.first.genres.first.titleize}」です！%0A%23UnexploredMusic%0A#{root_url}", target: "_blank" do %>
       <button class="btn btn-xs bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
         <i class="fa-brands fa-x-twitter"></i> に結果をポスト
       </button>
