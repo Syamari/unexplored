@@ -20,10 +20,10 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Unexplored Music',
-      title: '新ジャンル開拓のための音楽レコメンドサービス',
+      title: 'まだ知らない音楽ジャンルを推定してくれる音楽レコメンドAIサービス',
       reverse: true,
       charset: 'utf-8',
-      description: 'Unexplored Musicは未知の音楽ジャンルのレコメンドを体験できるサービスです。',
+      description: 'Unexplored Music はユーザーがまだ知らないジャンルを推定して 新鮮な音楽体験を提供する、 AI を使った音楽レコメンドサービスです。',
       keywords: '音楽,ジャンル,楽曲',
       canonical: request.original_url,
       separator: '|',
@@ -33,13 +33,13 @@ module ApplicationHelper
         description: :description,
         type: 'website',
         url: request.original_url,
-        image: image_url('card3.jpg'),
+        image: image_url('card5.jpg'),
         local: 'ja-JP'
       },
       twitter: {
         card: 'summary_large_image',
         site: '@SyamariTech',
-        image: image_url('card3.jpg')
+        image: image_url('card5.jpg')
       }
     }
   end

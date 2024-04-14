@@ -30,13 +30,13 @@ class ApplicationController < ActionController::Base
 		client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_CLIENT_ID', nil))
 		response = client.chat(
 			parameters: {
-				model: 'gpt-3.5-turbo',
+				model: 'gpt-4-turbo',
 				messages: [
 					{
 						role: 'user',
 						content: "You are a pop music genre recommendation professional familiar with the 15 major musics of Pop, R&B, Soul, Rock, Alternative, Indie, Country, Electronic, Folk, Hiphop, Jazz, Metal, Punk, Blues, Experimental.
 						Now, I provide you with information on the genres that a given user likes and the artists they are most likely to like. So please perform the following task considering the granularity of the music genres, BPM, and dynamics tendencies contained in those pieces of information as professional.
-						Task: Guess, with rigorous deliberation, 10 popular music genres that can be expressed in 1-3 words and that have little relevance to the genres contained in this array, i.e., that this user has not yet listened to. Then, output these 10 genres in the specified format. Do not write any text. Be sure to output only the specified format data to me.
+						Task: Guess, with rigorous deliberation, 10 popular music genres that can be expressed in 1-3 words and that have little relevance to the genres contained in this array, i.e., that this user HAS NOT YET listened to. Then, output these 10 genres in the specified format. Do not write any text. Be sure to output only the specified format data to me.
 						##this User's favorite music genres: #{genres}
 						##Artists this user is likely to like: #{names}
 						##Specified format: genre1, genre2, genre3, ... , genre10  "
