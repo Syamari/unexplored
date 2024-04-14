@@ -9,7 +9,7 @@
   <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
     <div class="container mx-auto md:px-8 px-2 flex justify-between items-center">
       <div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between md:py-2">
           <h1 class="md:block hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
           <h1 class="md:hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> <%= @list.name %></h1>
           <% if current_user.bookmarked_lists.include?(@list) %>
@@ -22,7 +22,8 @@
             <% end %>
           <% end %>
         </div>
-        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 好きなアーティストをフォームに入力し、リストに追加しましょう</p>
+        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 様々な好きなアーティストをフォームに入力し、リストに追加しましょう !</p>
+        <p class="py-1"></p>
         <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
@@ -42,8 +43,11 @@
 <div class="px-2">
   <% if current_user == @list.user %>
     <div class="mx-auto max-w-xl md:p-4 p-2 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
-      <% if @list.artists.count >= 10 %>
-        <p class="text-center text-slate-300"><i class="fa-solid fa-check"></i> リストに追加できるアーティストは合計で10までです</p>
+      <% if @list.artists.count >= 15 %>
+        <p class="text-base md:text-lg text-center text-slate-100"><i class="fa-solid fa-check"></i></p>
+        <p class="text-xs md:text-base text-center text-slate-300">・追加できるアーティストは合計15までです</p>
+        <p class="py-1"></p>
+        <p class="text-xs md:text-base text-center text-slate-300">・類似ジャンルで共通リスナーが多い、関連アーティストも考慮される可能性があります</p>
       <% else %>
         <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
           <div class="flex flex-col">
