@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  resources :password_resets, only: [:create, :edit, :update]
+  get 'password_resets/new', to: 'password_resets#new', as: 'new_password_reset'
+
   root 'tops#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

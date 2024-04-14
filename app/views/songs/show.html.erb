@@ -1,11 +1,18 @@
 <% content_for :header_sub do %>
-<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-4">
-    <div class="container mx-auto px-8 flex justify-between items-center">
-      <div>
-        <h1 class="text-2xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
-        <p class="text-sm font-semibold text-amber-600">Here Comes Your Future Favorite Music!</p>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+      <%= link_to list_path(@list) do %>
+        <i class="fa-solid fa-arrow-left"></i>戻る
+      <% end %>
+    </div>
+  </div>
+  <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-1 md:py-4">
+    <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+      <div class="md:block hidden ">
+        <h1 class="md:text-2xl text-xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
+        <p class="text-xs md:text-sm font-semibold text-amber-600">Here Comes Your Future Favorite Music!</p>
       </div>
-      <div class="text-sm text-gray-300 breadcrumbs">
+      <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
         <ul>
           <li><%= link_to 'ホーム', lists_path %></li> 
           <li><%= link_to @list.name, list_path(@list) %></li> 
@@ -17,14 +24,27 @@
 <% end %>
 <% @recommend_genre %> <% @recommend_genres %>
 <% if @selected_song.artists.first.genres.first.present? %>
-  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:block hidden">
     <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-300">「<%= @selected_song.artists.first.genres.first.titleize %>」</a></h1>
   </div>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:hidden">
+    <p class="py-2 text-xs md:text-sm font-semibold text-amber-600"><i class="fa-solid fa-caret-right"></i> Here Comes Your Future Favorite Music!</p>
+    <h1 class="text-xl font-bold text-slate-300 tracking-tight leading-tight pb-2">あなたへのレコメンドは... </h1>
+    <h1 class="text-xl font-bold text-slate-200 tracking-tight leading-tight pb-2"><a class="text-amber-600">「<%= @selected_song.artists.first.genres.first.titleize %>」</a></h1>
+  </div>
+<% else%>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:block hidden">
+    <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... </h1>
+  </div>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:hidden">
+    <p class="py-2 text-xs md:text-sm font-semibold text-amber-600"><i class="fa-solid fa-caret-right"></i> Here Comes Your Future Favorite Music!</p>
+    <h1 class="text-xl font-bold text-slate-300 tracking-tight leading-tight pb-2">あなたへのレコメンドは... </h1>
+  </div>
 <% end %>
-<div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2">
+<div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2 md:block hidden">
   <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2">おすすめの曲 <i class="fa-solid fa-music"></i> : <%= @selected_song.artists.first.name %> - <%= @selected_song.name %></h1>
 </div>
-<div class="my-4 mx-4 flex justify-center">
+<div class="m-2 md:m-4 flex justify-center">
   <iframe class="w-full" src="<%= @player_url %>"  
 	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
@@ -44,7 +64,7 @@
 </div>
 <div class="my-6 mx-4 flex justify-center">
   <% if @selected_song.artists.first.genres.first.present? %>
-    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめのUnexplored%20Musicは、「#{@selected_song.artists.first.genres.first.titleize}」です！%0A#{root_url}", target: "_blank" do %>
+    <%= link_to "https://twitter.com/intent/tweet?text=あなたにおすすめの音楽ジャンルは「#{@selected_song.artists.first.genres.first.titleize}」です！%0A%23UnexploredMusic%0A#{root_url}", target: "_blank" do %>
       <button class="btn btn-xs bg-black hover:bg-slate-500 text-white font-bold px-4 rounded-xl">
         <i class="fa-brands fa-x-twitter"></i> に結果をポスト
       </button>

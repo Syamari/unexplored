@@ -35,17 +35,17 @@
       <li>
         <details>
           <summary class="text-center font-bold">
-            <i class="fa-solid fa-circle-user"></i>アカウント
+            Logged in<i class="fa-solid fa-circle-user"></i>
           </summary>
           <ul class="bg-gradient-to-r from-purple-700 to-indigo-700  p-2 bg-base-100 rounded-t-none w-auto">
-            <li class="text-center font-bold"><%= link_to "ユーザー情報", edit_user_path(current_user) %></li>
+            <li class="text-center font-bold"><%= link_to "情報", edit_user_path(current_user) %></li>
             <li class="text-center font-bold"><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
           </ul>
         </details>
       </li>
       <li class="text-right font-bold">
         <%= link_to lists_path do %>
-          <i class="fa-solid fa-house"></i> ホーム
+          <i class="fa-solid fa-house"></i>
         <% end %>
       </li>
     </ul>

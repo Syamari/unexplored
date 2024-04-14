@@ -33,8 +33,8 @@ module.exports = {
            'base-300' : '#ced3d9',
            'base-content' : '#1e2734',
 
-           'info' : '#bddfff',
-           'success' : '#8aff97',
+           'info' : '#ddb3ff',
+           'success' : '#c0b8ff',
            'warning' : '#ffc266',
            'error' : '#ff61a0',
 

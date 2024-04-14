@@ -41,6 +41,16 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :letter_opener_web # 送信方法を指定
+
+  config.action_mailer.perform_deliveries = true # メールを実際に送信するかどうかを指定
+
+  config.action_mailer.default_url_options = Settings.default_url_options.to_h
+
+  LetterOpenerWeb.configure do |config|
+    config.letters_location = Rails.root.join('.letter_openner')
+  end
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
