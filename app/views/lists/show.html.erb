@@ -38,7 +38,7 @@
 
 
 <div class='text-center p-2 md:p-4'>
-  <%= link_to "レコメンド楽曲", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+  <%= link_to "レコメンド！", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
 </div>
 <div class="px-2">
   <% if current_user == @list.user %>
