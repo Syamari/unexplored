@@ -1,4 +1,8 @@
 class ArtistsController < ApplicationController
+  include ApplicationHelper
+  # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
+  before_action :redirect_if_reloaded, only: [:top_tracks]
+
   def top_tracks
 		@list = List.find(session[:list_id])
     @artist = Artist.find(params[:id])
@@ -10,6 +14,7 @@ class ArtistsController < ApplicationController
 		@player_url = "https://open.spotify.com/embed/track/#{url[1]}"
 		generate_genre_description_artist
 
+		session[:visited] = true
 	end
 
 def save_song
@@ -32,7 +37,7 @@ end
 
   def redirect_if_reloaded
     if session[:visited]
-      redirect_to lists_path
+      redirect_to list_path(session[:list_id])
     end
   end
 
