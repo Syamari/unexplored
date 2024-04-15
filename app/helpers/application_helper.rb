@@ -20,7 +20,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Unexplored Music',
-      title: 'まだ知らない音楽ジャンルを推定してくれる音楽レコメンドAIサービス',
+      title: 'まだ知らない音楽ジャンルを見つけるための音楽レコメンドAIサービス',
       reverse: true,
       charset: 'utf-8',
       description: 'Unexplored Music はユーザーがまだ知らないジャンルを推定して 新鮮な音楽体験を提供する、 AI を使った音楽レコメンドサービスです。',
