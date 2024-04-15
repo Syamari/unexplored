@@ -18,9 +18,11 @@ end
 
   def show
     session[:visited] = nil
+    
     @list = List.find(params[:id])    
     @artists = @list.artists.order(created_at: :desc)
     @unique_genres = get_unique_genre_names(@list)
+    session[:list_id] = @list.id
   end
 
   def new

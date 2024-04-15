@@ -33,6 +33,13 @@ Rails.application.routes.draw do
     resource :bookmark, only: [:create, :destroy]
   end
 
+  resources :artists do
+    member do
+      get 'top_tracks'
+    end
+    post 'rate', on: :member
+  end
+
   resources :rates, only: [:index, :show, :update]
 
 end
