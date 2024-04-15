@@ -10,8 +10,18 @@
     <div class="container mx-auto md:px-8 px-2 flex justify-between items-center">
       <div>
         <div class="flex items-center justify-between md:py-2">
-          <h1 class="md:block hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %></h1>
-          <h1 class="md:hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> <%= @list.name %></h1>
+          <h1 class="md:block hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2">
+            <i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %>
+            <% unless @list.user == current_user %>
+              <span class="font-light text-slate-400  text-base whitespace-nowrap">by <%= @list.user.user_name %></span>
+            <% end %>
+            </h1>
+          <h1 class="md:hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2">
+            <i class="fa-solid fa-location-dot"></i> <%= @list.name %>
+            <% unless @list.user == current_user %>
+              <span class="font-light text-slate-400 text-sm whitespace-nowrap">by <%= @list.user.user_name %></span>
+            <% end %>
+          </h1>
           <% if current_user.bookmarked_lists.include?(@list) %>
             <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
               <i class="fa-solid fa-bookmark"></i>
@@ -22,9 +32,15 @@
             <% end %>
           <% end %>
         </div>
-        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 様々な好きなアーティストをフォームに入力し、リストに追加しましょう !</p>
-        <p class="py-1"></p>
-        <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
+        <% if @list.user == current_user %>
+          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 様々な好きなアーティストをフォームに入力し、リストに追加しましょう !</p>
+          <p class="py-1"></p>
+          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
+        <% else %>
+          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 非公開設定になってない他ユーザーのリストもレコメンドに使用できます </p>
+          <p class="py-1"></p>
+          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> アーティスト名をタップ・クリックすると人気楽曲が聴けます</p>
+        <% end %>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
         <ul>
@@ -35,7 +51,6 @@
     </div>
   </header>
 <% end %>
-
 
 <div class='text-center p-2 md:p-4'>
   <%= link_to "レコメンド！", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
