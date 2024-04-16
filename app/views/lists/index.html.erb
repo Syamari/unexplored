@@ -12,7 +12,7 @@
           マイリスト
         <% end %>
         <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
-          公開リスト
+          一般リスト
         <% end %>
         <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
           <i class="fa-solid fa-bookmark"></i>リスト
@@ -26,7 +26,7 @@
           マイリスト
         <% end %>
         <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
-          公開リスト
+          一般リスト
         <% end %>
         <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
           <i class="fa-solid fa-bookmark"></i>リスト
@@ -48,7 +48,7 @@
     <% if params[:view] == 'public' %>
       <div class="container mx-auto md:px-10">
         <div class="mx-auto flex flex-col">
-          <p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> 公開されているリスト一覧</p>
+          <p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> 現在閲覧できる一般リスト</p>
         </div>
       </div>
     <% end %>
@@ -73,7 +73,7 @@
   <% if params[:view] == 'public' %>
     <div class="container mx-auto md:px-10 px-2">
       <div class="flex flex-col">
-        <p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> 公開・非公開はリストの <i class="fa-solid fa-pen-to-square"></i> アイコンから設定できます</p>
+        <p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> マイリストの公開・非公開は <i class="fa-solid fa-pen-to-square"></i> アイコンから設定できます</p>
       </div>
     </div>
   <% end %>
