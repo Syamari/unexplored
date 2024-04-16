@@ -10,13 +10,13 @@
     <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
       <div class="md:block hidden ">
         <h1 class="md:text-2xl text-xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
-        <p class="text-xs md:text-sm font-semibold text-amber-600"> Here Comes Someone's Favorite!</p>
+        <p class="text-xs md:text-sm font-semibold text-amber-600"> Artist's Popular Track</p>
       </div>
       <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
         <ul>
           <li><%= link_to 'ホーム', lists_path %></li> 
           <li><%= link_to @list.name, list_path(@list) %></li> 
-					<li><a>レコメンド</a></li> 
+					<li><a><%= @artist.name %> の人気曲</a></li> 
         </ul>
       </div>
     </div>
@@ -32,7 +32,7 @@
 		</h1>
   </div>
   <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:hidden">
-    <p class="py-2 text-xs md:text-sm font-semibold text-amber-600"><i class="fa-solid fa-caret-right"></i> Here Comes Someone's Favorite!</p>
+    <p class="py-2 text-xs md:text-sm font-semibold text-amber-600"><i class="fa-solid fa-caret-right"></i> Artist's Popular Track</p>
     <h1 class="text-xl font-bold text-slate-300 tracking-tight leading-tight pb-2">
 			<div class="divider divider-primary font-base text-sm">Genres</div>
       <% @artist.genres.each do |genre| %>

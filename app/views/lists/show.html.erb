@@ -97,7 +97,13 @@
                   </p>
                 </div>
                 <div>
-                  <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-xs sm:btn-sm md:btn-md btn-outline btn-error whitespace-nowrap' %>
+                  <% if @list.user == current_user%>
+                    <%= link_to '削除', list_artist_path(@list, artist), data: { turbo_method: :delete , turbo_confirm: 'このアーティストを削除しますか?' }, class: 'btn btn-xs sm:btn-sm md:btn-md btn-outline btn-error whitespace-nowrap' %>
+                  <% else %>
+                    <%= link_to top_tracks_artist_path(artist.id), class: 'btn btn-xs sm:btn-sm md:btn-md btn-outline btn-error whitespace-nowrap' do %>
+                      <i class="fa-solid fa-headphones"></i> <div class="md:block hidden">Popular Track</div>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </div>
