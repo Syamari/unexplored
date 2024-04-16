@@ -124,26 +124,46 @@
         <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
           <div class="flex md:p-6 p-4 justify-between">
             <div>
-            <h1 class="md:text-3xl sm:text-2xl text-xl font-bold">
-              <% if current_user == list.user %>
-                <%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
-                  <i class="fa-regular fa-square-minus"></i>
-                <% end %>
-                <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
-                <%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
-                  <i class="fa-regular fa-pen-to-square"></i>
-                <% end %>
-              <% else %>
-                <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
-              <% end %>
-            </h1>
-              <p class="text-gray-300 md:text-sm text-xs">
-                <% if list.artists.first %>
-                  <%= list.artists.first.name %> ...
+              <h1 class="md:text-3xl sm:text-2xl text-xl font-bold">
+                <% if current_user == list.user %>
+                  <%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
+                    <i class="fa-regular fa-square-minus"></i>
+                  <% end %>
+                  <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+                  <%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
                 <% else %>
+                  <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+                <% end %>
+              </h1>
+              <p class="text-gray-300 md:text-sm text-xs">
+                <% if list.artists.first && current_user == list.user %>
+                  <%= list.artists.first.name %> ...
+                <% elsif current_user == list.user %>
                   まだ空白のリストです
                 <% end %>
               </p>
+              <%unless current_user == list.user%>
+                <p>
+                  <div class="md:block hidden">
+                    <p class="py-2 text-xs md:text-sm font-semibold text-slate-400"><i class="fa-solid fa-caret-down"></i> genres</p>
+                    <h1 class="text-xl font-base text-slate-200 tracking-tight leading-tight pb-2">
+                      <% get_unique_genre_names(list).sort.sample(6).each do |genre| %>
+                        <span class="bg-gradient-to-r from-slate-900 to-indigo-800 px-2 py-1 rounded-full text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.titleize %></span>
+                      <% end %>...
+                    </h1>
+                  </div>
+                  <div class="md:hidden ">
+                    <p class="py-1 text-xs md:text-sm font-semibold text-slate-400"><i class="fa-solid fa-caret-down"></i> genres</p>
+                    <h1 class="text-lg font-base text-slate-300 tracking-tight leading-tight pb-2">
+                      <% get_unique_genre_names(list).sort.sample(4).each do |genre| %>
+                        <span class="bg-gradient-to-r from-slate-900 to-indigo-800 px-2 md:p-2 rounded-lg text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.titleize %></span>
+                      <% end %>...
+                    </h1>
+                  </div>
+                </p>
+              <%end%>
             </div>
             <div class="md:block hidden">
               <%= link_to "このリストへ", list_path(list), class: 'btn btn-outline btn-info' %>
@@ -154,7 +174,6 @@
     <% end %>
   </div>
 </div>
-
 <div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
   <div class="z-10">
     <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
