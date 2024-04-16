@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
 	require 'rspotify'
 
-	API_LIMIT = 15 # API制限回数の設定
+	API_LIMIT = 20 # API制限回数の設定
 	API_LIMIT_DURATION = 15 * 60 # API制限の時間間隔の設定
 
 	begin
