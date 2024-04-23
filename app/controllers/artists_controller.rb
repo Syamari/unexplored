@@ -1,7 +1,5 @@
 class ArtistsController < ApplicationController
   include ApplicationHelper
-  # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  # before_action :redirect_if_reloaded, only: [:top_tracks]
 
   def top_tracks
     @list = List.find(session[:list_id])
