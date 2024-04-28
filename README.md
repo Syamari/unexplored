@@ -113,7 +113,7 @@ Spotify API によって、登録されたアーティストから関連アー�
 
 ### ER 図
 
-[![Image from Gyazo](https://i.gyazo.com/924895ab479a9d6fbbed31984408796a.png)](https://gyazo.com/924895ab479a9d6fbbed31984408796a)
+[![Image from Gyazo](https://i.gyazo.com/fd61c3f7ed97078c7da2ae5b7c5b17dc.jpg)](https://gyazo.com/fd61c3f7ed97078c7da2ae5b7c5b17dc)
 
 ### 画面遷移図 - Figma
 
