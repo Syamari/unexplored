@@ -11,8 +11,6 @@ class ArtistsController < ApplicationController
     url = @selected_song.embed.match(%r{https://embed\.spotify\.com/\?uri=spotify:track:(\w+)})
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
     generate_genre_description_artist
-
-    session[:visited] = true
   end
 
   def save_song
@@ -32,10 +30,6 @@ class ArtistsController < ApplicationController
   end
 
   private
-
-  def redirect_if_reloaded
-    redirect_to list_path(session[:list_id]) if session[:visited]
-  end
 
   def generate_genre_description_artist
     genre1 = @artist.genres.first.name.titleize
