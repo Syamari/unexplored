@@ -8,19 +8,19 @@ def index
 
   @lists = case params[:view]
            when 'public'
-             List.where(public: true)
+    List.includes(:artists).where(public: true)
            when 'bookmarked'
-             current_user.bookmarked_lists
-           else
-             current_user.lists
+    current_user.bookmarked_lists.includes(:artists)
+  else
+    current_user.lists.includes(:artists)
            end
 end
 
   def show
     session[:visited] = nil
     
-    @list = List.find(params[:id])    
-    @artists = @list.artists.order(created_at: :desc)
+    @list = List.includes(artists: { artist_genres: :genre }).find(params[:id])
+    @artists = @list.artists.includes(:list_artists, artist_genres: :genre).order(created_at: :desc)
     @unique_genres = get_unique_genre_names(@list)
     session[:list_id] = @list.id
   end
