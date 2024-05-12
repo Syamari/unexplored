@@ -10,4 +10,17 @@ RSpec.feature "UserLogins", type: :feature do
     expect(page).to have_content "ログインしました"
     @list_name = 'Test List'
   end
+
+  scenario "一覧ページで新規リストを作成する" do
+    visit lists_path
+    expect(page).to have_content "マイリスト一覧"
+
+    click_button "新規リスト作成"
+    expect(page).to have_content "新規リスト"
+
+    fill_in "list_name", with: @list_name
+    click_button "登録"
+
+    expect(page).to have_content @list_name
+  end
 end
