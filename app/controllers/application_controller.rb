@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 		client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_CLIENT_ID', nil))
 		response = client.chat(
 			parameters: {
-				model: 'gpt-4-turbo',
+				model: 'gpt-4o',
 				messages: [
 					{
 						role: 'user',
