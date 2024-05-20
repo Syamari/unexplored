@@ -1,0 +1,66 @@
+<% content_for :header_sub do %>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+      <%= link_to list_path(@list) do %>
+        <i class="fa-solid fa-arrow-left"></i>戻る
+      <% end %>
+    </div>
+  </div>
+  <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-1 md:py-4">
+    <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+      <div class="md:block hidden ">
+        <h1 class="md:text-2xl text-xl font-bold tracking-tight leading-tight pb-2"><i class="fa-solid fa-location-dot"></i> レコメンド</h1>
+        <p class="text-xs md:text-sm font-semibold text-amber-600"> Artist's Popular Track</p>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs md:block hidden">
+        <ul>
+          <li><%= link_to 'ホーム', lists_path %></li> 
+          <li><%= link_to @list.name, list_path(@list) %></li> 
+					<li><a><%= @artist.name %> の人気曲</a></li> 
+        </ul>
+      </div>
+    </div>
+  </header>
+<% end %>
+<% @recommend_genre %> <% @recommend_genres %>
+<% if @artist.genres.first.present? %>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:block hidden">
+    <h1 class="text-3xl font-semibold text-slate-200 tracking-tight leading-tight pb-2">
+      <% @artist.genres.each do |genre| %>
+        <span class="bg-gradient-to-r from-purple-900 to-indigo-800 p-2 rounded-lg text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.name.titleize %></span>
+      <% end %>
+		</h1>
+  </div>
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:hidden">
+    <p class="py-2 text-xs md:text-sm font-semibold text-amber-600"><i class="fa-solid fa-caret-right"></i> Artist's Popular Track</p>
+    <h1 class="text-xl font-bold text-slate-300 tracking-tight leading-tight pb-2">
+			<div class="divider divider-primary font-base text-sm">Genres</div>
+      <% @artist.genres.each do |genre| %>
+        <span class="bg-gradient-to-r from-purple-900 to-indigo-800 p-1 md:p-2 rounded-lg text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.name.titleize %></span>
+      <% end %>
+		</h1>
+  </div>
+<% end %>
+<div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2 md:block hidden">
+  <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2"> <i class="fa-solid fa-music"></i> : <%= @artist.name %> - <%= @selected_song.name %></h1>
+</div>
+<div class="m-2 md:m-4 flex justify-center">
+  <iframe class="w-full" src="<%= @player_url %>"  
+	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+<%= form_with(url: rate_list_song_path(@list, @song), method: :post, class: "flex flex-col items-center justify-center space-y-4") do |form| %>
+  <%= form.hidden_field :song_id, value: @song.id %>
+  <div class="rating">
+    <% (1..3).each do |i| %>
+      <%= form.radio_button :score, i, class: "mask mask-star", checked: i == 1 %>
+    <% end %>
+  </div>
+  <%= form.submit "レーティングを保存", class: "btn btn-wide bg-amber-300 hover:bg-amber-500 font-bold py-2 px-4 rounded-lg flex justify-center items-center" %>
+<% end %>
+<div class="my-4 mx-4 flex justify-center">
+  <%= link_to list_path(@list), class: "btn btn-wide font-bold py-2 px-4 rounded-lg flex justify-center items-center" do %>
+    <i class="fa-solid fa-arrow-left"></i> 戻る
+  <% end %>
+</div>
+<div class="my-6 mx-4 flex justify-center">
+</div>

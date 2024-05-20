@@ -1,131 +1,185 @@
 <% content_for :header_sub do %>
-	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
-		<div class="container mx-auto px-8 flex justify-between items-center">
-			<div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
-			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
-				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
-					マイリスト
-				<% end %>
-				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
-					公開リスト
-				<% end %>
-				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
-					<i class="fa-solid fa-bookmark"></i>リスト
-				<% end %>
-				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
-					<i class="fa-solid fa-star"></i>楽曲
-				<% end %>
-			</div>
-			<div class="text-sm text-gray-300 breadcrumbs">
-			</div>
-		</div>
-		<% if params[:view].nil? || params[:view] == 'own' %>
-			<div class="container mx-auto px-10">
-				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> マイリスト一覧</p>
-				</div>
-			</div>
-		<% end %>
-		<% if params[:view] == 'public' %>
-			<div class="container mx-auto px-10">
-				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> 公開されているリスト一覧</p>
-				</div>
-			</div>
-		<% end %>
-		<% if params[:view] == 'bookmarked' %>
-			<div class="container mx-auto px-10">
-				<div class="mx-auto flex flex-col">
-					<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i> ブックマークしたリスト一覧</p>
-				</div>
-			</div>
-		<% end %>
-	</header>
-	<% if params[:view].nil? || params[:view] == 'own' %>
-		<% if @lists.empty? %>
-			<%= render 'lists/empty' %>
-		<% else %>
-			<%= render 'lists/user_info' %>
-		<% end %>
-		<% if @lists.any? { |list| list.artists.empty? } %>
-			<%= render 'lists/artist_empty' %>
-		<% end %>
-	<% end %>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+      <i class="fa-solid fa-location-dot"></i> <%=current_user.user_name%> のホーム
+    </div>
+  </div>
+  <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
+    <div class="container mx-auto px-8 flex justify-between items-center">
+      <div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
+      <div class="md:block hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+        <%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
+          マイリスト
+        <% end %>
+        <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
+          一般リスト
+        <% end %>
+        <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
+          <i class="fa-solid fa-bookmark"></i>リスト
+        <% end %>
+        <%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+          <i class="fa-solid fa-star"></i> 楽曲
+        <% end %>
+      </div>
+      <div class="md:hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+        <%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
+          マイリスト
+        <% end %>
+        <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
+          一般リスト
+        <% end %>
+        <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
+          <i class="fa-solid fa-bookmark"></i>リスト
+        <% end %>
+        <%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+          <i class="fa-solid fa-star"></i>
+        <% end %>
+      </div>
+      <div class="text-sm text-gray-300 breadcrumbs">
+      </div>
+    </div>
+    <% if params[:view].nil? || params[:view] == 'own' %>
+      <div class="container mx-auto md:px-10">
+        <div class="mx-auto flex flex-col">
+          <p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> マイリスト一覧</p>
+        </div>
+      </div>
+    <% end %>
+    <% if params[:view] == 'public' %>
+      <div class="container mx-auto md:px-10">
+        <div class="mx-auto flex flex-col">
+          <p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> 現在閲覧できる一般リスト</p>
+        </div>
+      </div>
+    <% end %>
+    <% if params[:view] == 'bookmarked' %>
+      <div class="container mx-auto md:px-10">
+        <div class="mx-auto flex flex-col">
+          <p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i> ブックマークしたリスト一覧</p>
+        </div>
+      </div>
+    <% end %>
+  </header>
+  <% if params[:view].nil? || params[:view] == 'own' %>
+    <% if @lists.empty? %>
+      <%= render 'lists/empty' %>
+    <% else %>
+      <%= render 'lists/user_info' %>
+    <% end %>
+    <% if @lists.any? { |list| list.artists.empty? } %>
+      <%= render 'lists/artist_empty' %>
+    <% end %>
+  <% end %>
+  <% if params[:view] == 'public' %>
+    <div class="container mx-auto md:px-10 px-2">
+      <div class="flex flex-col">
+        <p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> マイリストの公開・非公開は <i class="fa-solid fa-pen-to-square"></i> アイコンから設定できます</p>
+      </div>
+    </div>
+  <% end %>
+  <% if params[:view] == 'bookmarked' %>
+    <% if @lists.empty? %>
+      <div class="container mx-auto md:px-10 px-2">
+        <div class="flex flex-col">
+          <p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> まだブックマークしたリストはありません</p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if params[:view].nil? || params[:view] == 'own' %>
-	<div class='py-4 text-center'>
-		<% if current_user.lists.count < 9 %>
-			<button class="btn btn-wide btn-secondary btn-outline text-xl" onclick="my_modal_2.showModal()"><i class="fa-regular fa-square-plus"></i>新規リスト作成</button>
-			<dialog id="my_modal_2" class="modal">
-				<div class="modal-box bg-slate-400">
-					<div id="modal-content"></div>
-					<%= render 'lists/new' %>
-				</div>
-				<form method="dialog" class="modal-backdrop">
-					<button>close</button>
-				</form>
-			</dialog>
-		<% else %>
-			<button class="btn btn-wide btn-secondary btn-outline text-xl" onclick="my_modal_3.showModal()"><i class="fa-solid fa-ban"></i>新規リスト作成</button>
-			<dialog id="my_modal_3" class="modal">
-				<div class="modal-box bg-slate-300 text-slate-600 font-medium">
-					<div id="modal-content"></div>
-					<div>info: 一度に持てるリストは9つまでです</div>
-					<div class="text-amber-700" >既存のリストは左端のアイコンから削除できます</div>
-				</div>
-				<form method="dialog" class="modal-backdrop">
-					<button>close</button>
-				</form>
-			</dialog>
-		<% end %>
-	</div>
+  <div class='py-4 text-center'>
+    <% if current_user.lists.count < 9 %>
+      <button class="btn btn-wide btn-secondary btn-outline text-xl" onclick="my_modal_2.showModal()"><i class="fa-regular fa-square-plus"></i>新規リスト作成</button>
+      <dialog id="my_modal_2" class="modal">
+        <div class="modal-box bg-slate-400">
+          <div id="modal-content"></div>
+          <%= render 'lists/new' %>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    <% else %>
+      <button class="btn btn-wide btn-secondary btn-outline text-xl" onclick="my_modal_3.showModal()"><i class="fa-solid fa-ban"></i>新規リスト作成</button>
+      <dialog id="my_modal_3" class="modal">
+        <div class="modal-box bg-slate-300 text-slate-600 font-medium">
+          <div id="modal-content"></div>
+          <div>info: 一度に持てるリストは9つまでです</div>
+          <div class="text-amber-700" >既存のリストは左端のアイコンから削除できます</div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    <% end %>
+  </div>
 <% end %>
 
 <div class="container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
-	<div class="flex flex-wrap justify-center">
-		<% @lists.each do |list| %>
-			<div class="w-full xl:w-1/2 md:p-4 p-2">
-				<div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
-					<div class="flex md:p-6 p-4 justify-between">
-						<div>
-						<h1 class="md:text-3xl text-2xl font-bold">
-							<% if current_user == list.user %>
-								<%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
-									<i class="fa-regular fa-square-minus"></i>
-								<% end %>
-								<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
-								<%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
-									<i class="fa-regular fa-pen-to-square"></i>
-								<% end %>
-							<% else %>
-								<%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
-							<% end %>
-						</h1>
-							<p class="text-gray-300 md:text-sm text-xs">
-								<% if list.artists.first %>
-									<%= list.artists.first.name %> ...
-								<% else %>
-									まだ空白のリストです
-								<% end %>
-							</p>
-						</div>
-						<div class="md:block hidden">
-							<%= link_to "このリストへ", list_path(list), class: 'btn btn-outline btn-info' %>
-						</div>
-					</div>
-				</div>
-			</div>
-		<% end %>
-	</div>
+  <div class="flex flex-wrap justify-center">
+    <% @lists.each do |list| %>
+      <div class="w-full xl:w-1/2 md:p-4 p-2">
+        <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+          <div class="flex md:p-6 p-4 justify-between">
+            <div>
+              <h1 class="md:text-3xl sm:text-2xl text-xl font-bold">
+                <% if current_user == list.user %>
+                  <%= link_to list_path(list), class: 'text-rose-500 hover:text-error active:text-rose-600 active:shadow-inner', data: { turbo_method: :delete , turbo_confirm: 'このリストを削除しますか?' }  do %>
+                    <i class="fa-regular fa-square-minus"></i>
+                  <% end %>
+                  <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+                  <%= link_to edit_list_path(list), class: 'text-indigo-400 hover:text-blue-300 active:text-blue-500 active:shadow-inner text-xl' do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to list.name, list_path(list), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
+                <% end %>
+              </h1>
+              <p class="text-gray-300 md:text-sm text-xs">
+                <% if list.artists.first && current_user == list.user %>
+                  <%= list.artists.first.name %> ...
+                <% elsif current_user == list.user %>
+                  まだ空白のリストです
+                <% end %>
+              </p>
+              <%unless current_user == list.user%>
+                <p>
+                  <div class="md:block hidden">
+                    <p class="py-2 text-xs md:text-sm font-semibold text-slate-400"><i class="fa-solid fa-caret-down"></i> genres</p>
+                    <h1 class="text-xl font-base text-slate-200 tracking-tight leading-tight pb-2">
+                      <% get_unique_genre_names(list).sort.sample(6).each do |genre| %>
+                        <span class="bg-gradient-to-r from-slate-900 to-indigo-800 px-2 py-1 rounded-full text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.titleize %></span>
+                      <% end %>...
+                    </h1>
+                  </div>
+                  <div class="md:hidden ">
+                    <p class="py-1 text-xs md:text-sm font-semibold text-slate-400"><i class="fa-solid fa-caret-down"></i> genres</p>
+                    <h1 class="text-lg font-base text-slate-300 tracking-tight leading-tight pb-2">
+                      <% get_unique_genre_names(list).sort.sample(4).each do |genre| %>
+                        <span class="bg-gradient-to-r from-slate-900 to-indigo-800 px-2 md:p-2 rounded-lg text-xs md:text-sm mr-2 mb-2 whitespace-nowrap"><%= genre.titleize %></span>
+                      <% end %>...
+                    </h1>
+                  </div>
+                </p>
+              <%end%>
+            </div>
+            <div class="md:block hidden">
+              <%= link_to "このリストへ", list_path(list), class: 'btn btn-outline btn-info' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-
 <div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
-	<div class="z-10">
-		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
-		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
-	</div>
-		<div class="flex flex-col justify-center max-w-xs">
-			<%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
-		</div>
+  <div class="z-10">
+    <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
+    <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
+  </div>
+    <div class="flex flex-col justify-center max-w-xs">
+      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
+    </div>
 </div>

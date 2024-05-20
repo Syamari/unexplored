@@ -21,3 +21,6 @@ ja:
             user_name:
               blank: 'を入力してください'
               too_long: 'は255文字以内で入力してください'
+  defaults:
+    password_reset: 'パスワードリセット'
+    password_reset_subject: 'パスワード再設定のご案内'

@@ -1,30 +1,56 @@
 <% content_for :header_sub do %>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
+			<i class="fa-solid fa-location-dot"></i> <%=current_user.user_name%> のホーム
+    </div>
+  </div>
 	<header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
 		<div class="container mx-auto px-8 flex justify-between items-center">
 			<div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
-			<div class="bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+			<div class="md:block hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
 				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary " do %>
 					マイリスト
 				<% end %>
 				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary" do %>
-					公開リスト
+					一般リスト
 				<% end %>
 				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary" do %>
 					<i class="fa-solid fa-bookmark"></i>リスト
 				<% end %>
 				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
-					<i class="fa-solid fa-star"></i>楽曲
+					<i class="fa-solid fa-star"></i> 楽曲
+				<% end %>
+			</div>
+			<div class="md:hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+				<%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary " do %>
+					マイリスト
+				<% end %>
+				<%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary" do %>
+					一般リスト
+				<% end %>
+				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary" do %>
+					<i class="fa-solid fa-bookmark"></i>リスト
+				<% end %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+					<i class="fa-solid fa-star"></i>
 				<% end %>
 			</div>
 			<div class="text-sm text-gray-300 breadcrumbs">
 			</div>
 		</div>
-		<div class="container mx-auto px-10">
+		<div class="container mx-auto md:px-10">
 			<div class="mx-auto flex flex-col">
-				<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-right"></i>  レーティングした楽曲の一覧</p>
+				<p class="text-sm text-slate-300"><i class="fa-solid fa-caret-down"></i>  レーティングした楽曲の一覧</p>
 			</div>
 		</div>
 	</header>
+	<% if @rates.empty? %>
+		<div class="container mx-auto md:px-10 px-2">
+			<div class="flex flex-col">
+				<p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> まだレーティングした曲はありません</p>
+			</div>
+		</div>
+	<% end %>
 <% end %>
 
 
@@ -42,7 +68,7 @@
                 <i class="fa-regular fa-star"></i>
               <% end %>
             </div>
-            <h1 class="md:text-2xl text-xl font-bold">
+            <h1 class="md:text-2xl text-lg font-bold">
               <%= link_to "#{rate.song.artist.name} - #{rate.song.name}", rate_path(rate), class: 'text-white hover:text-blue-300 active:text-blue-500 active:shadow-inner' %>
             </h1>
           </div>

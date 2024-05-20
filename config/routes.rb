@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  resources :password_resets, only: [:create, :edit, :update]
+  get 'password_resets/new', to: 'password_resets#new', as: 'new_password_reset'
+
   root 'tops#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -27,6 +31,13 @@ Rails.application.routes.draw do
       post 'rate', on: :member
     end
     resource :bookmark, only: [:create, :destroy]
+  end
+
+  resources :artists do
+    member do
+      get 'top_tracks'
+    end
+    post 'rate', on: :member
   end
 
   resources :rates, only: [:index, :show, :update]

@@ -1,3 +1,12 @@
+<% content_for :header_sub do %>
+  <div class="md:hidden">
+    <div class="text-left font-bold btn btn-xs btn-primary my-2">
+      <%= link_to lists_path do %>
+        <i class="fa-solid fa-arrow-left"></i> 戻る
+      <% end %>
+    </div>
+  </div>
+<% end %>
 <div class="md:w-1/2 mx-4 p-4 mx-auto my-4 py-4 px-4 text-white bg-gradient-to-r from-purple-900 to-indigo-800 border border-gray-500 rounded-lg shadow-xl m-auto">
   <h1 class="text-center text-2xl font-bold mb-6"><i class="fa-solid fa-file-pen"></i> リスト名の変更</h1>
       <%= form_with model: @list, local: true do |f| %>

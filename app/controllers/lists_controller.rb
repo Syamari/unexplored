@@ -8,36 +8,38 @@ def index
 
   @lists = case params[:view]
            when 'public'
-             List.where(public: true)
+    List.includes(:artists).where(public: true)
            when 'bookmarked'
-             current_user.bookmarked_lists
-           else
-             current_user.lists
+    current_user.bookmarked_lists.includes(:artists)
+  else
+    current_user.lists.includes(:artists)
            end
 end
 
   def show
     session[:visited] = nil
-    @list = List.find(params[:id])    
-    @artists = @list.artists.order(created_at: :desc)
+    
+    @list = List.includes(artists: { artist_genres: :genre }).find(params[:id])
+    @artists = @list.artists.includes(:list_artists, artist_genres: :genre).order(created_at: :desc)
     @unique_genres = get_unique_genre_names(@list)
+    session[:list_id] = @list.id
   end
 
-	def new
+  def new
     @list = List.new
     render layout: false
   end
 
-	def edit
-		@list = List.find(params[:id])
-	end
+  def edit
+    @list = List.find(params[:id])
+  end
 
-	def create
+  def create
     @list = List.new(list_params)
-		@list.user_id = current_user.id
+    @list.user_id = current_user.id
 
     if @list.save
-			flash[:success] = 'リストを作成しました'
+      flash[:success] = 'リストを作成しました'
       redirect_to lists_path
 
     else
@@ -50,12 +52,12 @@ end
     end
   end
 
-	def update
+  def update
     @list = List.find(params[:id])
     if @list.update(list_params)
-			flash[:success] = 'リストを編集しました'
+      flash[:success] = 'リストを編集しました'
       redirect_to lists_path
-		else
+    else
       respond_to do |format|
         format.turbo_stream do
               flash.now[:error] = "リストの編集に失敗しました"
@@ -65,11 +67,11 @@ end
     end
   end
 
-	def destroy
+  def destroy
     list = List.find(params[:id])
     list.destroy
-		flash[:success] = 'リストを削除しました'
-		redirect_to lists_path
+    flash[:success] = 'リストを削除しました'
+    redirect_to lists_path
   end
 
   private
