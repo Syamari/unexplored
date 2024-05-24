@@ -53,7 +53,17 @@
 <% end %>
 
 <div class='text-center p-2 md:p-4'>
-  <%= link_to "レコメンド！", list_song_path(@list), id: 'RecommendButton', remote: true, class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+  <%= form_with url: list_song_path(@list), method: :get, local: true, class: 'flex flex-col space-y-4' do |form| %>
+    <div>
+      <%= form.label :language, "音楽の言語を選択:", class: "font-bold text-md md:text-lg mb-2" %>
+      <%= form.select :language, options_for_select([['英語', 'en'], ['日本語', 'ja']], selected: params[:language]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
+    </div>
+    <div>
+      <%= form.label :genre, "レコメンドジャンルを選択:", class: "font-bold text-md md:text-lg mb-2" %>
+      <%= form.select :genre, options_for_select([['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー', 'Indie/Alternative'], ['アイドル', 'Idol'], ['EDM', 'Electronic Dance Music'], ['アコースティック', 'Acoustic/Folk']], selected: params[:genre]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
+    </div>
+    <%= form.submit "レコメンド！", id: 'RecommendButton', class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+  <% end %>
 </div>
 <div class="px-2">
   <% if current_user == @list.user %>
