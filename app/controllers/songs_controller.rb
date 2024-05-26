@@ -23,8 +23,17 @@ class SongsController < ApplicationController
       redirect_to @list
       return
     end
-    # 最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
-    @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
+
+    # プレイリストの検索数を言語に応じて設定
+    if @language == 'Japanese'
+      search_number = 1
+    else
+      search_number = 3
+    end
+
+    # 上記の設定に応じてサーチ、基本的には最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
+    @searched_playlist = @searched_playlists.first(search_number).max_by { |playlist| playlist.followers['total'] }
+    @selected_song = @searched_playlist.tracks.sample
   end
 
   def show
@@ -45,6 +54,7 @@ class SongsController < ApplicationController
     @recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names, @language, @genre).split(", ")
 
     @recommend_genre = @recommend_genres.sample
+
     select_song
     save_song
 

@@ -56,11 +56,11 @@
   <%= form_with url: list_song_path(@list), method: :get, local: true, class: 'flex flex-col space-y-4' do |form| %>
     <div>
       <%= form.label :language, "音楽の言語を選択:", class: "font-bold text-md md:text-lg mb-2" %>
-      <%= form.select :language, options_for_select([['英語', 'en'], ['日本語', 'ja']], selected: params[:language]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
+      <%= form.select :language, options_for_select([['英語', 'English'], ['日本語', 'Japanese']], selected: params[:language]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
     </div>
     <div>
       <%= form.label :genre, "レコメンドジャンルを選択:", class: "font-bold text-md md:text-lg mb-2" %>
-      <%= form.select :genre, options_for_select([['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー', 'Indie/Alternative'], ['アイドル', 'Idol'], ['EDM', 'Electronic Dance Music'], ['アコースティック', 'Acoustic/Folk']], selected: params[:genre]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
+      <%= form.select :genre, options_for_select([['指定なし', 'All Genre'],['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー/オルタナティブ', 'Indie/Alternative'], ['エレクトロニック', 'Electronic Music'], ['アコースティック', 'Acoustic/Folk'], ['エクスペリメンタル', 'Experimental']], selected: params[:genre]), class: "text-black border-2 border-gray-300 p-2 rounded-md" %>
     </div>
     <%= form.submit "レコメンド！", id: 'RecommendButton', class: 'btn btn-sm md:btn-md btn-wide btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
   <% end %>

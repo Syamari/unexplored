@@ -36,11 +36,12 @@ class ApplicationController < ActionController::Base
             role: 'user',
             content: "You are a pop music genre recommendation professional familiar with the 15 major musics of Pop, R&B, Soul, Rock, Alternative, Indie, Country, Electronic, Folk, Hiphop, Jazz, Metal, Punk, Blues, Experimental.
             Now, I provide you with information on the genres that a given user likes and the artists they are most likely to like. So please perform the following task considering the granularity of the music genres, BPM, and dynamics tendencies contained in those pieces of information as professional.
-            Task: Guess, with rigorous deliberation, 10 popular music genres that can be expressed in 1-3 words and that have little relevance to the genres contained in this array, i.e., that this user HAS NOT YET listened to. Then, output these 10 genres in the Specified Format. However, the 10 genres must be selected from the Designated Genre described below. Similarly, if there are instructions for the Designated Language, please follow it. Do not write any text. Be sure to output only the Specified Format data to me.
+            Task: Guess, with rigorous deliberation, 10 popular music genres that can be expressed in 1-3 words and that have little relevance to the genres contained in this array, i.e., that this user HAS NOT YET listened to. Then, output these 10 genres in the Specified Format. These 10 genres must be strictly selected from the designated genres described below. If there are instructions for the Designated Country, be sure to adhere strictly to follow it. Do not write any text. Be sure to output only the Specified Format data to me. The name of the genre must be written in English.
+						This is a complex task where multiple conditions may overlap, so always be with caution and strict adherence to the status of all conditions.
             ##this User's favorite music genres: #{genres}
             ##Artists this user is likely to like: #{names}
             ##Designated Genre : #{genre}
-            ##Designated Language: #{language}
+            ##Designated Country: #{language}
             ##Specified format: genre1, genre2, genre3, ... , genre1"
           }
         ]

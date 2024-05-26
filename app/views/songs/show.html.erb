@@ -22,7 +22,9 @@
     </div>
   </header>
 <% end %>
-<% @recommend_genre %> <% @recommend_genres %>
+<%= @searched_playlist.name %>
+・言語:<%= @language %> ・選択ジャンル:<%= @genre %>
+・アウトプット：<%= @recommend_genre %>←<%= @recommend_genres %>
 <% if @selected_song.artists.first.genres.first.present? %>
   <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center p-2 md:block hidden">
     <h1 class="text-3xl font-bold text-slate-200 tracking-tight leading-tight pb-2">あなたへのレコメンドは... <a class="text-amber-300">「<%= @selected_song.artists.first.genres.first.titleize %>」</a></h1>
