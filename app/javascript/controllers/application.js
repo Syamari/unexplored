@@ -61,18 +61,15 @@ document.addEventListener('turbo:load', function() {
       }
     });
   }
-});
 
-//レコメンドボタンをクリックしたときのローディングアニメーション
-let recommendButton = document.getElementById('RecommendButton');
-if (recommendButton) {
-  recommendButton.addEventListener('click', function() {
-    this.outerHTML = `
-      <div class="flex justify-center" aria-label="Loading">
-        <div class="animate-ping h-2 w-2 bg-blue-500 rounded-full"></div>
-        <div class="animate-ping h-2 w-2 bg-purple-500 rounded-full mx-4"></div>
-        <div class="animate-ping h-2 w-2 bg-rose-500 rounded-full"></div>
-      </div>
-    `;
-  });
-}
+  // レコメンドボタンのクリックイベント
+  let recommendButton = document.getElementById('RecommendButton');
+  if (recommendButton) {
+    recommendButton.addEventListener('click', function() {
+      // hiddenになっているローディング画面を表示する
+      document.getElementById('loading-screen').classList.remove('hidden');
+    });
+  }
+
+//end
+});
