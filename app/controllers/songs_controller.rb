@@ -4,8 +4,8 @@ class SongsController < ApplicationController
   before_action :require_login
   before_action :set_list
   # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  before_action :redirect_if_reloaded, only: [:show]
-  before_action :check_api_limit, only: [:show]
+  #before_action :redirect_if_reloaded, only: [:show]
+  #before_action :check_api_limit, only: [:show]
 
   MIN_ARTISTS_FOR_RECOMMEND = 3
 
@@ -23,8 +23,17 @@ class SongsController < ApplicationController
       redirect_to @list
       return
     end
-    # 最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
-    @selected_song = @searched_playlists.first(3).max_by { |playlist| playlist.followers['total'] }.tracks.sample
+
+    # プレイリストの検索数を言語に応じて設定
+    if @language == 'Japanese'
+      search_number = 1
+    else
+      search_number = 3
+    end
+
+    # 上記の設定に応じてサーチ、基本的には最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
+    @searched_playlist = @searched_playlists.first(search_number).max_by { |playlist| playlist.followers['total'] }
+    @selected_song = @searched_playlist.tracks.sample
   end
 
   def show
@@ -39,9 +48,13 @@ class SongsController < ApplicationController
     # 一時的に以下の３行をコメントアウトして代わりにダミーを使えます、デプロイ時にはコメントアウトを外してください
     @unique_genres = get_unique_genre_names(@list)
     @related_artists_names = get_related_artists_names(@list)
-    @recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names).split(", ")
+
+    @language = params[:language] || 'en'
+    @genre = params[:genre]
+    @recommend_genres = get_recommend_genres(@unique_genres, @related_artists_names, @language, @genre).split(", ")
 
     @recommend_genre = @recommend_genres.sample
+
     select_song
     save_song
 
