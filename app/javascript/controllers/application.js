@@ -62,11 +62,13 @@ document.addEventListener('turbo:load', function() {
     });
   }
 
-  // レコメンドボタンのクリックイベント
+  // レコメンドボタンの要素を取得
   let recommendButton = document.getElementById('RecommendButton');
+  // レコメンドボタンが存在する場合のみ以下の処理を実行
   if (recommendButton) {
+    // クリックイベントのリスナーを設定
     recommendButton.addEventListener('click', function() {
-      // hiddenになっているローディング画面を表示する
+      // hiddenになっているローディング画面を表示
       document.getElementById('loading-screen').classList.remove('hidden');
     });
   }
