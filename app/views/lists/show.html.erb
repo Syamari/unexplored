@@ -51,14 +51,6 @@
     </div>
   </header>
 <% end %>
-
-<!-- ローディング画面ようのHTML（仮） -->
-<div id="loading-screen" class="fixed inset-0 flex flex-col items-center justify-center bg-slate-950 bg-opacity-60 hidden">
-  <p class="btn btn-sm btn-outline btn-ghost font-semibold bg-gradient-to-r from-purple-900 to-indigo-800 text-xl text-gray-300 text-center m-4 pointer-events-none">結果を生成中 <span class="loading loading-dots loading-xs"></span></p>
-  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full', style: 'max-width: 55%; height: auto;' %>
-
-</div>
-
 <p class=" py-2 text-center px-10 text-xs md:text-sm text-gray-600"><i class="fa-solid fa-caret-down"></i> 言語やジャンルを選択すると、選択に関連したレコメンドが生成される確率が高くなります</p>
 <div class='text-center p-2 md:p-4'>
   <%= form_with url: list_song_path(@list), method: :get, local: true, class: 'space-y-6' do |form| %>
