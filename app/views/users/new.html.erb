@@ -25,5 +25,8 @@
       <div class='link-hover text-center font-bold'>
         <%= link_to 'ログインページへ', login_path %>
       </div>
+      <div class='link-hover text-center font-bold'>
+        <%= link_to 'Login with Google', auth_at_provider_path(provider: :google) %>
+      </div>
   </div>
 </div>
