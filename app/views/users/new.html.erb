@@ -1,4 +1,4 @@
-<div class="container mx-auto my-4 py-4 px-4 rounded-lg flex items-center justify-center ">
+<div class="container mx-auto my-4 py-4 px-4 rounded-lg flex flex-col items-center justify-center ">
   <div class="bg-gradient-to-r from-slate-400 to-purple-200 font-medium mx-auto max-w-md py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
       <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-user-plus"></i> ユーザー登録</h1>
       <%= form_with model: @user, local: true do |f| %>
@@ -22,11 +22,16 @@
           <%= f.submit '登録', class: 'btn btn-primary w-full' %>
         </div>
       <% end %>
-      <div class='link-hover text-center font-bold'>
-        <%= link_to 'ログインページへ', login_path %>
+      <p class="flex justify-center font-bold">もしくは</p>
+      <div class="btn flex justify-center my-4">
+        <div class='text-center font-bold'>
+          <a class="text-primary mb-8"><i class="fa-brands fa-google"></i></a>
+          <%= link_to 'Googleで 登録 / ログイン', auth_at_provider_path(provider: :google) %>
+        </div>
       </div>
-      <div class='link-hover text-center font-bold'>
-        <%= link_to 'Login with Google', auth_at_provider_path(provider: :google) %>
+      <div class="divider divider-neutral">ログインは以下から</div>
+      <div class='link-hover text-center text-primary font-bold'>
+        <%= link_to 'ログインページへ', login_path , class: 'btn btn-neutral w-full'%>
       </div>
   </div>
 </div>
