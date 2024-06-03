@@ -34,8 +34,8 @@ def get_recommend_genres(genres, names, language, genre)
 			messages: [
 				{
 					role: 'user',
-					content: language == "Japanese" ? 
-					"
+					content: if language == "Japanese"
+  "
 					あなたはプロの音楽批評家です。あるユーザーが好きなジャンルと、好きなアーティストの例を提供するので、このユーザーが聞いたことがない可能性が高いジャンルを10個、3単語程度の英単語で出力してください。
 					ただし、関連性の低いジャンルをただ上げればいいわけではないです。このユーザーはあくまで日本語の音楽、かつ#{genre}ジャンルの中から、自分が今まで聞いたことがないものを探しています。この２点を必ず厳守したうえで出力してください。
 					また、enka と kayoukyoku は出力しないでください。J-Pop 以外の J-Genre は Japanese Genre というふうに表記してください。
@@ -48,9 +48,9 @@ def get_recommend_genres(genres, names, language, genre)
 					## フォーマット:
 					genre1, genre2, genre3, ..., genre10
 
-					" : 
-
 					"
+              else
+  "
 					You are a popular music genre recommendation professional.
 					I provide you with information on the genres that a given user likes and the artists they are most likely to like. 
 					Please perform the following task considering the granularity of the music genres, BPM, and dynamic tendencies contained in that information as a professional.
@@ -76,6 +76,7 @@ def get_recommend_genres(genres, names, language, genre)
 					**Output only the Specified Format data. Do not write any explanatory text.**
 					This is a complex task where multiple conditions may overlap, so always be cautious and strictly adhere to the status of all conditions.
 					"
+              end
 				}
 			]
 		}

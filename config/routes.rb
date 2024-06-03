@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  constraints(host: 'unexplored.fly.dev') do
+    match '/(*path)' => redirect { |params, req| "https://unexplored-music.com//#{params[:path]}" }, via: :all
+  end
+  get 'oauths/oauth'
+  get 'oauths/callback'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   resources :password_resets, only: [:create, :edit, :update]
   get 'password_resets/new', to: 'password_resets#new', as: 'new_password_reset'
@@ -15,6 +20,9 @@ Rails.application.routes.draw do
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
+  post "oauth/callback" => "oauths#callback"
+  get "oauth/callback" => "oauths#callback"
+  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   get 'terms', to: 'tops#terms'
   get 'policy', to: 'tops#policy'
 

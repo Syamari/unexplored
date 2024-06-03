@@ -4,8 +4,8 @@ class SongsController < ApplicationController
   before_action :require_login
   before_action :set_list
   # リロード対策とAPIチェック用のメソッドです、デプロイ時にはコメントアウトを外してください
-  #before_action :redirect_if_reloaded, only: [:show]
-  #before_action :check_api_limit, only: [:show]
+  before_action :redirect_if_reloaded, only: [:show]
+  before_action :check_api_limit, only: [:show]
 
   MIN_ARTISTS_FOR_RECOMMEND = 3
 
@@ -25,11 +25,11 @@ class SongsController < ApplicationController
     end
 
     # プレイリストの検索数を言語に応じて設定
-    if @language == 'Japanese'
-      search_number = 1
-    else
-      search_number = 3
-    end
+    search_number = if @language == 'Japanese'
+      1
+                    else
+      3
+                    end
 
     # 上記の設定に応じてサーチ、基本的には最初の3つのプレイリストから最もフォロワーが多いものを選択のが良いレコメンドになりやすいので 3つのプレイリストからランダムに選択
     @searched_playlist = @searched_playlists.first(search_number).max_by { |playlist| playlist.followers['total'] }
