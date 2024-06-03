@@ -2,10 +2,7 @@
   <div class="bg-gradient-to-r from-slate-400 to-purple-200 font-medium mx-auto max-w-md py-4 px-4 border border-gray-500 rounded-lg shadow-lg m-auto">
       <h1 class="text-center text-3xl font-bold mb-6"><i class="fa-solid fa-user-plus"></i> ユーザー登録</h1>
       <%= form_with model: @user, local: true do |f| %>
-        <div class="mb-4">
-          <%= f.label :ユーザー名 %>
-          <%= f.text_field :user_name, class: 'input input-bordered w-full', placeholder: "Name" %>
-        </div>
+
         <div class="mb-4">
           <%= f.label :メールアドレス（使用可能なアドレス） %>
           <%= f.email_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
