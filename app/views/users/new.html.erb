@@ -22,14 +22,12 @@
           <%= f.submit '登録', class: 'btn btn-primary w-full' %>
         </div>
       <% end %>
-      <p class="flex justify-center font-bold">もしくは</p>
-      <div class="btn flex justify-center my-4">
-        <div class='text-center font-bold'>
-          <a class="text-primary mb-8"><i class="fa-brands fa-google"></i></a>
-          <%= link_to 'Googleで 登録 / ログイン', auth_at_provider_path(provider: :google) %>
-        </div>
-      </div>
-      <div class="divider divider-neutral">ログインは以下から</div>
+      <p class="flex justify-center font-bold py-2">もしくは</p>
+      <%= link_to auth_at_provider_path(provider: :google), class: "btn w-full" do %>
+        <p class="text-primary"><i class="fa-brands fa-google"></i></p>
+        Googleで 登録 / ログイン
+      <% end %>
+      <div class="divider divider-neutral py-4">ログインは以下から</div>
       <div class='link-hover text-center text-primary font-bold'>
         <%= link_to 'ログインページへ', login_path , class: 'btn btn-neutral w-full'%>
       </div>
