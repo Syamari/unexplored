@@ -10,9 +10,10 @@
           <%= f.submit '申請', class: 'btn btn-primary w-full' %>
         </div>
       <% end %>
-      <p class="text-center text-rose-500 text-bold"><i class="fa-solid fa-circle-info"></i> ユーザー登録がまだの方は、以下のリンクからご登録できます</p>
-      <div class='link-hover font-bold text-center text-xl py-2'>
-        <%= link_to '登録ページへ', new_user_path %>
+      <div class="divider divider-neutral"></div>
+      <p class="text-center font-bold text-sm text-slate-700"><i class="fa-solid fa-circle-info"></i> ユーザー登録がまだの方は以下から登録できます</p>
+      <div class='link-hover font-bold text-center text-lg py-2'>
+        <%= link_to '登録ページへ', new_user_path, class: 'btn btn-neutral w-full' %>
       </div>
   </div>
 </div>
