@@ -88,7 +88,7 @@ end
 		# sessionに保存された最初のタイムスタンプと回数を取得
 		first_timestamp = session[:first_timestamp]
 		count = session[:count] || 0
-		# 最初のタイムスタンプがない、または15分経過している場合はリセット
+		# 最初のタイムスタンプがない、または15分(API_LIMIT_DURATION)経過している場合はリセット
 		if first_timestamp.nil? || Time.now.to_i - first_timestamp > API_LIMIT_DURATION
 			session[:first_timestamp] = Time.now.to_i
 			session[:count] = 1
