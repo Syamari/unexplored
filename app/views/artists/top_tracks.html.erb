@@ -44,7 +44,7 @@
 <div class="bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center py-2 md:block hidden">
   <h1 class="text-2xl text-pink-100 font-bold tracking-tight leading-tight pb-2"> <i class="fa-solid fa-music"></i> : <%= @artist.name %> - <%= @selected_song.name %></h1>
 </div>
-<div class="m-2 md:m-4 flex justify-center">
+<div class="animate-scale-in-hor-center m-2 md:m-4 flex justify-center">
   <iframe class="w-full" src="<%= @player_url %>"  
 	width="60%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
