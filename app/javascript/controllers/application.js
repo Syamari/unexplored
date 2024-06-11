@@ -77,7 +77,7 @@ document.addEventListener('turbo:load', function() {
 const options = {
   root: null,
   rootMargin: '0px',
-  threshold: 0.1
+  threshold: 0
 };
 
 // Intersection Observerのコールバック
@@ -89,9 +89,8 @@ const callback = (entries, observer) => {
     if (entry.isIntersecting) {
       // 要素がビューポートに入ったとき、アニメーションクラスを追加
       entry.target.classList.add(animationClass);
-    } else {
-      // 要素がビューポートから出たとき、アニメーションクラスを削除（コメントアウト）
-      //entry.target.classList.remove(animationClass);
+      // opacity-0クラスを削除
+      entry.target.classList.remove('opacity-0');
     }
   });
 };
@@ -103,7 +102,11 @@ const observer = new IntersectionObserver(callback, options);
 const targets = document.querySelectorAll('.observed');
 
 // 各要素の監視を開始
-targets.forEach(target => observer.observe(target));
+targets.forEach(target => {
+  // 初期状態としてopacity-0クラスを追加
+  target.classList.add('opacity-0');
+  observer.observe(target);
+});
 
 //end
 });
