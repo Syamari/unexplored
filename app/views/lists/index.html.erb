@@ -175,11 +175,11 @@
   </div>
 </div>
 <div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
-  <div class="z-10">
+  <div  data-animation-class="animate-fade-in" class="observed z-10">
     <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
     <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
   </div>
-    <div class="flex flex-col justify-center max-w-xs">
-      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
+    <div data-animation-class="animate-roll-out-right" class="click-on flex flex-col justify-center max-w-xs">
+      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
     </div>
 </div>
