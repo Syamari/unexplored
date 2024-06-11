@@ -108,5 +108,20 @@ targets.forEach(target => {
   observer.observe(target);
 });
 
+
+// Click-on Observer（click-onクラスのある要素はクリックで任意のクラスを適用できる仕組み）の作成
+// クリック対象の要素をすべて取得
+const clickTargets = document.querySelectorAll('.click-on');
+
+// 各要素のクリックイベントを監視
+clickTargets.forEach(target => {
+  target.addEventListener('click', () => {
+    // アニメーションクラスを取得
+    const animationClass = target.dataset.animationClass;
+    // アニメーションクラスを追加
+    target.classList.add(animationClass);
+  });
+});
+
 //end
 });
