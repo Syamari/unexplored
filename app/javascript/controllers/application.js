@@ -73,5 +73,37 @@ document.addEventListener('turbo:load', function() {
     });
   }
 
+// Intersection Observer的なのを設定する
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.1
+};
+
+// Intersection Observerのコールバック
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    // アニメーションクラスを取得
+    const animationClass = entry.target.dataset.animationClass;
+
+    if (entry.isIntersecting) {
+      // 要素がビューポートに入ったとき、アニメーションクラスを追加
+      entry.target.classList.add(animationClass);
+    } else {
+      // 要素がビューポートから出たとき、アニメーションクラスを削除（コメントアウト中）
+      //entry.target.classList.remove(animationClass);
+    }
+  });
+};
+
+// Intersection Observerの作成
+const observer = new IntersectionObserver(callback, options);
+
+// 監視対象の要素
+const target = document.getElementById('observed');
+
+// 要素の監視を開始
+observer.observe(target);
+
 //end
 });
