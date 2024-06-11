@@ -64,7 +64,7 @@
         <%= form.select :genre, options_for_select([['指定なし', 'All Genre'],['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー/オルタナティブ', 'Indie/Alternative'], ['エレクトロニック', 'Electronic Music'], ['アコースティック', 'Acoustic/Folk'], ['エクスペリメンタル', 'Experimental']], selected: params[:genre]), {}, class: "select bg-gray-300 select-sm shadow-lg w-1/2" %>
       </div>
     </div>
-    <div>
+    <div data-animation-class="animate-fade-in" class="observed z-1">
       <%= form.submit "おすすめ楽曲を取得 →", id: 'RecommendButton', class: 'my-2 w-3/4 md:w-auto px-6 py-3 rounded-full btn btn-neutral btn-outline text-white text-lg md:text-xl shadow-lg bg-gradient-to-r from-purple-500 to-blue-400 hover:from-indigo-500 hover:to-rose-500'%>
     </div>
   <% end %>
@@ -139,7 +139,6 @@
     </div>
   </div>
 </div>
-
-<div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
-  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full active:motion-safe:animate-spin' %>
+<div data-animation-class="animate-rotate-out-center" class="click-on container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full animate-pulse object-cover h-full active:motion-safe:animate-spin' %>
 </div>
