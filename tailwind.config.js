@@ -25,7 +25,8 @@ module.exports = {
             "fade-out-top": "fade-out-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940)   both",
             'slide-in-bck-left-out': 'slide-in-bck-left 1s ease-in-out 0s 1 normal forwards, fade-out-top 1s ease-in-out 5s 1 normal forwards',
             "fade-in-bck": "fade-in-bck 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
-            "typing": "typing 2s steps(20)  alternate, blink .7s "
+            "typing": "typing 2s steps(20)  alternate, blink .7s ",
+            "rotate-center": "rotate-center 1.0s cubic-bezier(0.860, 0.000, 0.070, 1.000)  infinite  both"
         },
         keyframes: {
             "heartbeat": {
@@ -236,6 +237,14 @@ module.exports = {
             },
             "100%": {
               borderColor: "white"
+            }
+          },
+          "rotate-center": {
+            "0%": {
+                transform: "rotate(0)"
+            },
+            to: {
+                transform: "rotate(360deg)"
             }
           }
         }
