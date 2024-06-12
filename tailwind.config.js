@@ -26,7 +26,8 @@ module.exports = {
             'slide-in-bck-left-out': 'slide-in-bck-left 1s ease-in-out 0s 1 normal forwards, fade-out-top 1s ease-in-out 5s 1 normal forwards',
             "fade-in-bck": "fade-in-bck 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
             "typing": "typing 2s steps(20)  alternate, blink .7s ",
-            "rotate-center": "rotate-center 1.0s cubic-bezier(0.860, 0.000, 0.070, 1.000)  infinite  both"
+            "rotate-center": "rotate-center 1.0s cubic-bezier(0.860, 0.000, 0.070, 1.000)  infinite  both",
+            "rotate-once": "rotate-center 0.5s cubic-bezier(0.860, 0.000, 0.070, 1.000) both"
         },
         keyframes: {
             "heartbeat": {
