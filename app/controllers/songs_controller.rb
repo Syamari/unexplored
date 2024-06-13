@@ -75,7 +75,14 @@ class SongsController < ApplicationController
   def rate
     @rate = Rate.find_or_initialize_by(song_id: params[:song_id], user_id: current_user.id)
     @rate.score = params[:score]
-    unless @rate.save
+    if @rate.save
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:info] = "レーティングを保存しました"
+          render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end
+      end
+    else
       redirect_to list_path(params[:list_id])
       flash[:info] = 'レーティングに失敗しました'
     end

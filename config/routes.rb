@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   constraints(host: 'unexplored.fly.dev') do
-    match '/(*path)' => redirect { |params, req| "https://unexplored-music.com//#{params[:path]}" }, via: :all
+    match '/(*path)' => redirect { |params, _req| "https://unexplored-music.com//#{params[:path]}" }, via: :all
   end
   get 'oauths/oauth'
   get 'oauths/callback'

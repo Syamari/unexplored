@@ -14,7 +14,14 @@ class RatesController < ApplicationController
 
   def update
     @rate = Rate.find(params[:id])
-    unless @rate.update(rate_params)
+    if @rate.update(rate_params)
+      respond_to do |format|
+        format.turbo_stream do
+          flash.now[:info] = "レーティングを更新しました"
+          render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end
+      end
+    else
       redirect_to rates_path
       flash[:info] = 'レーティングの更新に失敗しました'
     end

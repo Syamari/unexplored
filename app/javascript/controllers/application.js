@@ -73,5 +73,55 @@ document.addEventListener('turbo:load', function() {
     });
   }
 
+// Intersection Observerの設定
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0
+};
+
+// Intersection Observerのコールバック
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    // アニメーションクラスを取得
+    const animationClass = entry.target.dataset.animationClass;
+
+    if (entry.isIntersecting) {
+      // 要素がビューポートに入ったとき、アニメーションクラスを追加
+      entry.target.classList.add(animationClass);
+      // opacity-0クラスを削除
+      entry.target.classList.remove('opacity-0');
+    }
+  });
+};
+
+// Intersection Observerの作成
+const observer = new IntersectionObserver(callback, options);
+
+// 監視対象の要素をすべて取得
+const targets = document.querySelectorAll('.observed');
+
+// 各要素の監視を開始
+targets.forEach(target => {
+  // 初期状態としてopacity-0クラスを追加
+  target.classList.add('opacity-0');
+  observer.observe(target);
+});
+
+
+// Click-on Observer（click-onクラスのある要素はクリックで任意のクラスを適用できる仕組み）の作成
+// クリック対象の要素をすべて取得
+const clickTargets = document.querySelectorAll('.click-on');
+
+// 各要素のクリックイベントを監視
+clickTargets.forEach(target => {
+  target.addEventListener('click', () => {
+    // アニメーションクラスを取得
+    const animationClass = target.dataset.animationClass;
+    // アニメーションクラスを追加
+    target.classList.add(animationClass);
+  });
+});
+
 //end
 });

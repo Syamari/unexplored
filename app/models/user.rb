@@ -27,6 +27,6 @@ class User < ApplicationRecord
   private
 
   def set_username_from_email
-    self.user_name = self.email.split('@').first if email.present?
+    self.user_name = email.split('@').first if email.present?
   end
 end

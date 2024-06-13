@@ -7,15 +7,15 @@
   <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white md:py-4 py-2">
     <div class="container mx-auto px-8 flex justify-between items-center">
       <div class="text-2xl font-bold tracking-tight leading-tight md:block hidden"><i class="fa-solid fa-location-dot"></i> <%= current_user.user_name %>のホーム</div>
-      <div class="md:block hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2">
+      <div class="md:block hidden bg-gradient-to-r from-purple-900 to-indigo-800 flex justify-center md:space-x-2 space-x-1 py-2 whitespace-nowrap">
         <%= link_to lists_path(view: 'own'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view].nil? || params[:view] == 'own'}" do %>
           マイリスト
         <% end %>
         <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
-          一般リスト
+          公開リスト
         <% end %>
         <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
-          <i class="fa-solid fa-bookmark"></i>リスト
+          <i class="fa-solid fa-bookmark"></i>ブックマークしたリスト
         <% end %>
         <%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
           <i class="fa-solid fa-star"></i> 楽曲
@@ -26,7 +26,7 @@
           マイリスト
         <% end %>
         <%= link_to lists_path(view: 'public'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'public'}" do %>
-          一般リスト
+          公開リスト
         <% end %>
         <%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if params[:view] == 'bookmarked'}" do %>
           <i class="fa-solid fa-bookmark"></i>リスト
@@ -117,7 +117,7 @@
   </div>
 <% end %>
 
-<div class="container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="animate-fade-in-bck container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
   <div class="flex flex-wrap justify-center">
     <% @lists.each do |list| %>
       <div class="w-full xl:w-1/2 md:p-4 p-2">
@@ -175,11 +175,11 @@
   </div>
 </div>
 <div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
-  <div class="z-10">
+  <div class="animate-fade-in z-10">
     <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
     <h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
   </div>
-    <div class="flex flex-col justify-center max-w-xs">
-      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'shadow-lg rounded-full object-cover h-full' %>
+    <div data-animation-class="animate-roll-out-right" class="click-on flex flex-col justify-center max-w-xs">
+      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
     </div>
 </div>
