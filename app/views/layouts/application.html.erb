@@ -30,7 +30,8 @@
           <%= render 'shared/before_login_header' %>
         <% end %>
       </header>
-      <main class="flex-grow bg-gradient-to-r from-slate-400 via-slate-200 to-gray-300">
+    <div class="fixed inset-0 z-[-1] bg-gradient-to-r from-slate-400 via-slate-200 to-gray-300"></div>
+      <main class="flex-grow relative">
         <div id="flash_message">
           <%= render 'shared/flash_message' %>
         </div>
