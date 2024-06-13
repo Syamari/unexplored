@@ -47,12 +47,11 @@
 	<% if @rates.empty? %>
 		<div class="container mx-auto md:px-10 px-2">
 			<div class="flex flex-col">
-				<p class="text-slate-400 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> まだレーティングした曲はありません</p>
+				<p class="text-slate-300 py-2 mb-2 md:text-base text-xs"><i class="fa-solid fa-circle-info"></i> まだレーティングした曲はありません</p>
 			</div>
 		</div>
 	<% end %>
 <% end %>
-
 
 <div class="animate-fade-in-bck container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
   <div class="flex flex-wrap justify-center">
@@ -78,12 +77,6 @@
   </div>
 </div>
 
-<div class="container mx-auto py-4 px-8 grid grid-cols-1 md:grid-cols-2 gap-4 ">
-  <div class="animate-fade-in z-10">
-		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">UNEXPLORED</h1>
-		<h1 class="md:text-7xl text-5xl font-bold tracking-tight leading-tight">MUSIC</h1>
-	</div>
-    <div data-animation-class="animate-roll-out-right" class="click-on flex flex-col justify-center max-w-xs">
-      <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
-    </div>
+<div data-animation-class="animate-pulse" class="click-on container item-center mx-auto py-6 px-8 flex flex-col justify-center max-w-md">
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full active:motion-safe:animate-spin' %>
 </div>

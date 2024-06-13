@@ -12,15 +12,9 @@
         <div class="flex items-center justify-between md:py-2">
           <h1 class="md:block hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2">
             <i class="fa-solid fa-location-dot"></i> リスト: <%= @list.name %>
-            <% unless @list.user == current_user %>
-              <span class="font-light text-slate-400  text-base whitespace-nowrap">by <%= @list.user.user_name %></span>
-            <% end %>
             </h1>
           <h1 class="md:hidden md:text-2xl sm:text-xl text-lg font-bold tracking-tight leading-tight pb-2">
             <i class="fa-solid fa-location-dot"></i> <%= @list.name %>
-            <% unless @list.user == current_user %>
-              <span class="font-light text-slate-400 text-sm whitespace-nowrap">by <%= @list.user.user_name %></span>
-            <% end %>
           </h1>
           <% if current_user.bookmarked_lists.include?(@list) %>
             <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
@@ -139,6 +133,7 @@
     </div>
   </div>
 </div>
+
 <div data-animation-class="animate-rotate-out-center" class="click-on container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
-  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full animate-pulse object-cover h-full active:motion-safe:animate-spin' %>
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full active:motion-safe:animate-spin' %>
 </div>
