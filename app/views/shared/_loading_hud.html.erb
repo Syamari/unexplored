@@ -1,5 +1,7 @@
 <!-- ローディング画面用のHTML -->
-<div id="loading-screen" class="fixed inset-0 flex flex-col items-center justify-center bg-slate-950 bg-opacity-60 hidden">
-  <p class="btn btn-sm btn-outline btn-ghost font-semibold bg-gradient-to-r from-purple-900 to-indigo-800 text-xl text-gray-300 text-center m-4 pointer-events-none">結果を生成中 <span class="loading loading-dots loading-xs"></span></p>
-  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-pulse btn btn-ghost shadow-lg rounded-full object-cover h-full', style: 'max-width: 55%; height: auto;' %>
+<div id="loading-screen" class="backdrop-blur-sm fixed inset-0 flex flex-col items-center justify-center bg-slate-950 bg-opacity-65 z-50 hidden">
+  <p data-animation-class="animate-fade-in" class="observed my-6 btn btn-sm btn-outline btn-ghost font-semibold bg-gradient-to-r from-purple-900 to-indigo-800 text-xl text-gray-300 text-center m-4 pointer-events-none">結果を生成中 <span class="loading loading-dots loading-xs"></span></p>
+  <div data-animation-class="animate-swirl-in-fwd" class="observed flex justify-center auto md:w-2/3">
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'animate-rotate-center btn-ghost shadow-lg rounded-full object-cover h-ful', style: 'max-width: 55%; height: auto;' %>
+  </div>
 </div>

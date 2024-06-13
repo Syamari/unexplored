@@ -1,7 +1,7 @@
 <% content_for :header_sub do %>
   <div class="md:hidden">
-    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
-      <%= link_to lists_path do %>
+    <div class="text-left font-bold ">
+      <%= link_to lists_path , class: 'btn btn-xs btn-outline btn-secondary' do %>
         <i class="fa-solid fa-arrow-left"></i>戻る
       <% end %>
     </div>
@@ -35,7 +35,7 @@
         <% if @list.user == current_user %>
           <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> 様々な好きなアーティストをフォームに入力し、リストに追加しましょう !</p>
           <p class="py-1"></p>
-          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、レコメンド楽曲の取得に使われます</p>
+          <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> リスト内の情報は自動でまとめられ、おすすめ楽曲の取得に使われます</p>
         <% else %>
           <p class="text-xs md:text-sm text-gray-300"><i class="fa-solid fa-caret-right"></i> アーティスト名をタップ・クリックすると人気楽曲がランダムで聴けます</p>
           <p class="py-1"></p>
@@ -51,21 +51,21 @@
     </div>
   </header>
 <% end %>
-<p class=" py-2 text-center px-10 text-xs md:text-sm text-gray-600"><i class="fa-solid fa-caret-down"></i> 言語やジャンルを選択すると、選択に関連したレコメンドが生成される確率が高くなります</p>
+<p class=" py-2 text-center px-10 text-xs md:text-sm text-gray-600"><i class="fa-solid fa-caret-down"></i> 言語やジャンルを選択すると、選択に関連した楽曲が推薦される確率が高くなります</p>
 <div class='text-center p-2 md:p-4'>
   <%= form_with url: list_song_path(@list), method: :get, local: true, class: 'space-y-6' do |form| %>
     <div class="flex flex-col md:flex-row md:space-x-4">
       <div class="flex-1 ">
         <%= form.label :language, "言語を選択:", class: " block text-lg font-semibold text-gray-800 mb-2" %>
-        <%= form.select :language, options_for_select([['英語', 'English'], ['日本語', 'Japanese']], selected: params[:language]), {}, class: "select bg-gray-300 select-sm select-secondary " %>
+        <%= form.select :language, options_for_select([['英語', 'English'], ['日本語', 'Japanese']], selected: params[:language]), {}, class: "select bg-gray-300 select-sm shadow-lg w-1/2" %>
       </div>
       <div class="flex-1 mt-4 md:mt-0">
         <%= form.label :genre, "ジャンルを選択:", class: "block text-lg font-semibold text-gray-800 mb-2" %>
-        <%= form.select :genre, options_for_select([['指定なし', 'All Genre'],['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー/オルタナティブ', 'Indie/Alternative'], ['エレクトロニック', 'Electronic Music'], ['アコースティック', 'Acoustic/Folk'], ['エクスペリメンタル', 'Experimental']], selected: params[:genre]), {}, class: "select bg-gray-300 select-sm select-secondary" %>
+        <%= form.select :genre, options_for_select([['指定なし', 'All Genre'],['ポップス', 'Pop'], ['ロック', 'Rock'],['ラップ', 'Hip-Hop'], ['R&B', 'R&B'], ['インディー/オルタナティブ', 'Indie/Alternative'], ['エレクトロニック', 'Electronic Music'], ['アコースティック', 'Acoustic/Folk'], ['エクスペリメンタル', 'Experimental']], selected: params[:genre]), {}, class: "select bg-gray-300 select-sm shadow-lg w-1/2" %>
       </div>
     </div>
-    <div>
-      <%= form.submit "レコメンド！", id: 'RecommendButton', class: 'w-full md:w-auto px-6 py-3 btn text-white font-bold rounded-md btn-secondary btn-outline text-lg md:text-xl hover:bg-gradient-to-r from-indigo-600 to-rose-500' %>
+    <div data-animation-class="animate-fade-in" class="observed z-1">
+      <%= form.submit "おすすめ楽曲を取得 →", id: 'RecommendButton', class: 'my-2 w-3/4 md:w-auto px-6 py-3 rounded-full btn btn-neutral btn-outline text-white text-lg md:text-xl shadow-lg bg-gradient-to-r from-purple-500 to-blue-400 hover:from-indigo-500 hover:to-rose-500'%>
     </div>
   <% end %>
 </div>
@@ -87,14 +87,14 @@
             </div>
             <p class="py-2 text-xs text-slate-300">入力した名前に最も近いアーティストが取得されます</p>
           </div>
-          <%= form.submit "このアーティストを追加", class: "btn btn-sm md:btn-md  btn-secondary btn-outline text-lg md:text-xl text-white rounded-md" %>
+          <%= form.submit "このアーティストを追加", class: "btn btn-sm md:btn-md btn-neutral hover:btn-secondary btn-outline text-lg md:text-xl text-white rounded-full" %>
         <% end %>
       <% end %>
     </div>
   <% end %>
 </div>
 
-<div class="container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="animate-fade-in-bck container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
   <div class="flex flex-wrap justify-center">
     <% if @list.artists.present? %>
       <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
@@ -129,17 +129,16 @@
   </div>
 </div>
 
-<div class="container mx-auto my-4 px-2">
+<div class="animate-fade-in-bck container mx-auto my-4 px-2">
   <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-lg p-4">
     <h2 class="text-md md:text-xl text-gray-300 font-bold mb-4"><i class="fa-solid fa-circle-exclamation"></i> 現在このリストに含まれるジャンル:</h2>
     <div class="flex flex-wrap">
       <% @unique_genres.sort.each do |genre| %>
-        <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs md:text-sm mr-2 mb-2"><%= genre.titleize %></span>
+        <span class="bg-indigo-700 text-white px-3 py-1 rounded-full text-xs md:text-sm mr-2 mb-2"><%= genre.titleize %></span>
       <% end %>
     </div>
   </div>
 </div>
-
-<div class="container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
-  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full object-cover h-full' %>
+<div data-animation-class="animate-rotate-out-center" class="click-on container item-center mx-auto py-4 px-8 flex flex-col justify-center max-w-md">
+  <%= image_tag 'icon_big.jpg', alt: 'Icon', class: 'btn btn-ghost shadow-lg rounded-full animate-pulse object-cover h-full active:motion-safe:animate-spin' %>
 </div>
