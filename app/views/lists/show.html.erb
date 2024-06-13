@@ -1,7 +1,7 @@
 <% content_for :header_sub do %>
   <div class="md:hidden">
-    <div class="text-left font-bold btn btn-xs btn-outline btn-secondary">
-      <%= link_to lists_path do %>
+    <div class="text-left font-bold ">
+      <%= link_to lists_path , class: 'btn btn-xs btn-outline btn-secondary' do %>
         <i class="fa-solid fa-arrow-left"></i>戻る
       <% end %>
     </div>
@@ -94,7 +94,7 @@
   <% end %>
 </div>
 
-<div class="container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="animate-fade-in-bck container mx-auto my-2 md:my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
   <div class="flex flex-wrap justify-center">
     <% if @list.artists.present? %>
       <% @list.list_artists.order(created_at: :desc).each do |list_artist| %>
@@ -129,7 +129,7 @@
   </div>
 </div>
 
-<div class="container mx-auto my-4 px-2">
+<div class="animate-fade-in-bck container mx-auto my-4 px-2">
   <div class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-lg p-4">
     <h2 class="text-md md:text-xl text-gray-300 font-bold mb-4"><i class="fa-solid fa-circle-exclamation"></i> 現在このリストに含まれるジャンル:</h2>
     <div class="flex flex-wrap">
