@@ -17,7 +17,7 @@
 				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary" do %>
 					<i class="fa-solid fa-bookmark"></i>ブックマークしたリスト
 				<% end %>
-				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.path == rates_path }" do %>
 					<i class="fa-solid fa-star"></i> 楽曲
 				<% end %>
 			</div>
@@ -31,7 +31,7 @@
 				<%= link_to lists_path(view: 'bookmarked'), class: "btn btn-sm btn-primary" do %>
 					<i class="fa-solid fa-bookmark"></i>リスト
 				<% end %>
-				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.original_url == rates_url }" do %>
+				<%= link_to rates_path, class: "btn btn-sm btn-primary #{'bg-gradient-to-r from-violet-600 to-fuchsia-700' if request.path == rates_path }" do %>
 					<i class="fa-solid fa-star"></i>
 				<% end %>
 			</div>
@@ -53,7 +53,7 @@
 	<% end %>
 <% end %>
 
-<div class="animate-fade-in-bck container mx-auto md:my-4 my-2 px-2 border border-slate-500 rounded-lg shadow-lg">
+<div class="animate-fade-in-bck container mx-auto md:my-4 my-4 px-2 border border-slate-500 rounded-lg shadow-lg">
   <div class="flex flex-wrap justify-center">
     <% @rates.each do |rate| %>
       <div class="w-full xl:w-1/2 md:p-4 p-2">
@@ -75,6 +75,11 @@
       </div>
     <% end %>
   </div>
+</div>
+
+
+<div class="flex flex-wrap justify-center">
+  <%= paginate @rates %>
 </div>
 
 <div data-animation-class="animate-pulse" class="click-on container item-center mx-auto py-6 px-8 flex flex-col justify-center max-w-md">
