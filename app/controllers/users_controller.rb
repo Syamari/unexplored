@@ -17,10 +17,12 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           flash.clear
-          flash.now[:error] = if @user.errors.messages[:password].any?
+          flash.now[:error] = if @user.errors.messages[:email].any?
+            "ユーザー登録に失敗しました (メールアドレスは既に使用されています)"
+          elsif @user.errors.messages[:password].any?
             "ユーザー登録に失敗しました (なお、パスワードは英小文字と数字を含む8文字以上が必要です)"
-                              else
-            "ユーザー登録に失敗しました "
+          else
+            "ユーザー登録に失敗しました"
                               end
           render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
         end   
@@ -34,8 +36,13 @@ class UsersController < ApplicationController
       flash[:success] = 'ユーザー情報を更新しました'
       redirect_to @user
     else
-      flash.now[:error] = 'ユーザー情報の更新に失敗しました'
-      render :edit
+      respond_to do |format|
+        format.turbo_stream do
+          flash.clear
+          flash.now[:error] = @user.errors.full_messages.join(', ')
+          render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
+        end
+      end
     end
   end
 
