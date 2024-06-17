@@ -17,7 +17,7 @@
         </div>
         <div class="mb-4">
           <%= f.label :メールアドレス %>
-          <%= f.email_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
+          <a class=' w-full'>: <%= @user.email %></a>
         </div>
         <div class="mb-4">
           <%= f.submit 'ユーザー情報を保存', class: 'btn btn-primary w-full', data: {turbo_confirm: 'この内容でユーザー情報を更新しますか?' } %>

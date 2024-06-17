@@ -49,6 +49,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :user_name)
+    if action_name == 'update'
+      params.require(:user).permit(:user_name)
+    else
+      params.require(:user).permit(:email, :password, :password_confirmation, :user_name)
+    end
   end
 end
