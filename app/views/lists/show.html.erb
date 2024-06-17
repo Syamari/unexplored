@@ -67,10 +67,10 @@
   <% if current_user == @list.user %>
     <div class="mx-auto max-w-xl md:p-4 p-2 bg-gradient-to-r from-purple-900 to-indigo-800 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
       <% if @list.artists.count >= 15 %>
-        <p class="text-base md:text-lg text-center text-slate-100"><i class="fa-solid fa-check"></i></p>
+        <p class="text-base md:text-lg text-center text-slate-100 animate-scale-in-hor-center"><i class="fa-solid fa-check"></i></p>
         <p class="text-xs md:text-base text-center text-slate-300">・追加できるアーティストは合計15までです</p>
         <p class="py-1"></p>
-        <p class="text-xs md:text-base text-center text-slate-300">・類似ジャンルで共通リスナーが多い、関連アーティストも考慮される可能性があります</p>
+        <p class="text-xs md:text-base text-center text-slate-300">・類似ジャンルや、共通のリスナーを多く持つ関連アーティストも考慮の対象になります</p>
       <% else %>
         <%= form_with(url: list_artists_path(@list), method: :post, class: "flex flex-col space-y-4") do |form| %>
           <div class="flex flex-col">
