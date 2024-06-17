@@ -27,7 +27,8 @@ module.exports = {
             "fade-in-bck": "fade-in-bck 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
             "typing": "typing 2s steps(20)  alternate, blink .7s ",
             "rotate-center": "rotate-center 1.0s cubic-bezier(0.860, 0.000, 0.070, 1.000)  infinite  both",
-            "rotate-once": "rotate-center 0.5s cubic-bezier(0.860, 0.000, 0.070, 1.000) both"
+            "rotate-once": "rotate-center 0.5s cubic-bezier(0.860, 0.000, 0.070, 1.000) both",
+            "scale-out-center": "scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530)   both"
         },
         keyframes: {
             "heartbeat": {
@@ -246,6 +247,16 @@ module.exports = {
             },
             to: {
                 transform: "rotate(360deg)"
+            }
+          },
+          "scale-out-center": {
+            "0%": {
+                transform: "scale(1)",
+                opacity: "1"
+            },
+            to: {
+                transform: "scale(0)",
+                opacity: "1"
             }
           }
         }

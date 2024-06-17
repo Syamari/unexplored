@@ -24,3 +24,8 @@ ja:
   defaults:
     password_reset: 'パスワードリセット'
     password_reset_subject: 'パスワード再設定のご案内'
+  views:
+    pagination:
+      previous: '«'
+      next: '»'
+      truncate: '...'

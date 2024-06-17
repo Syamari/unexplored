@@ -17,7 +17,7 @@
         </div>
         <div class="mb-4">
           <%= f.label :メールアドレス %>
-          <%= f.email_field :email, class: 'input input-bordered w-full', placeholder: "email@sample.com" %>
+          <a class=' w-full'>: <%= @user.email %></a>
         </div>
         <div class="mb-4">
           <%= f.submit 'ユーザー情報を保存', class: 'btn btn-primary w-full', data: {turbo_confirm: 'この内容でユーザー情報を更新しますか?' } %>
@@ -25,6 +25,11 @@
       <% end %>
       <div class='link-hover text-center'>
         <%= link_to 'ホームへ', lists_path %>
+      </div>
+      <div class="divider divider-neutral"></div>
+      <p class="text-center font-semibold text-sm text-slate-700"><i class="fa-solid fa-circle-info"></i> パスワードの変更はログイン画面での「パスワードをお忘れの方はこちら」から可能です</p>
+      <div class='link-hover text-center text-primary font-bold py-4'>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか?' } , class: 'btn btn-secondary w-full'%>
       </div>
   </div>
 </div>

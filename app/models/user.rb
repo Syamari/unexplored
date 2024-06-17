@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :reset_password_token, presence: true, uniqueness: true, allow_nil: true
 
-  validates :email, uniqueness: true, presence: true
+  validates :email, uniqueness: { message: 'は既に使用されています' }, presence: true
   validates :user_name, presence: true, length: { maximum: 255 }
 
   def password_complexity

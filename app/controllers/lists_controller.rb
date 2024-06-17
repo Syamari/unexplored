@@ -8,11 +8,11 @@ def index
 
   @lists = case params[:view]
            when 'public'
-    List.includes(:artists).where(public: true)
+    List.includes(:artists).where(public: true).page(params[:page]).per(20)
            when 'bookmarked'
-    current_user.bookmarked_lists.includes(:artists)
+    current_user.bookmarked_lists.includes(:artists).page(params[:page]).per(20)
   else
-    current_user.lists.includes(:artists)
+    current_user.lists.includes(:artists).page(params[:page]).per(20)
            end
 end
 
