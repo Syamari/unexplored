@@ -1,6 +1,6 @@
 class RatesController < ApplicationController
   def index
-    @rates = Rate.where(user_id: current_user.id).includes(:song, song: :artist).order(created_at: :desc)
+    @rates = Rate.where(user_id: current_user.id).includes(:song, song: :artist).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
