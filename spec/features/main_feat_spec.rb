@@ -48,7 +48,7 @@ RSpec.feature "UserLogins", type: :feature do
   scenario "レコメンドの生成" do
     visit lists_path
     click_link @list_name2
-    click_link "レコメンド"
-    expect(page).to have_content('レコメンド')
+    click_link "おすすめ楽曲を取得"
+    expect(page).to have_selector('iframe')
   end
 end
