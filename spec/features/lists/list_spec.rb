@@ -46,13 +46,17 @@ RSpec.feature "リスト", type: :feature do
       expect(page).to have_content('Arctic Monkeys')
     end
 
-    it "レコメンドの生成, 楽曲再生画面の機能" do
+    it "レコメンドの生成, 楽曲再生画面, レーティング" do
       visit lists_path
       click_link @list_name2
       click_button "おすすめ楽曲を取得 →"
       expect(page).to have_selector('iframe')
       click_button "レーティングを保存"
       expect(page).to have_content('レーティングを保存しました')
+      visit rates_path
+      song_name = Rate.first.song.name
+      click_link song_name.to_s
+      expect(page).to have_selector('iframe')
     end
   end
 end
