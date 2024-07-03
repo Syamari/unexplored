@@ -81,5 +81,14 @@ RSpec.feature "リスト", type: :feature do
       visit '/lists?view=bookmarked'
       expect(page).not_to have_content @list_name
     end
+
+    it "リストを公開し、公開リスト一覧で確認する" do
+      visit edit_list_path(@list1)
+      # 非公開設定のチェックを外す
+      find('input[name="list[public]"][type="checkbox"]').set(false)
+      click_button 'リスト名を保存する'
+      visit '/lists?view=public'
+      expect(page).to have_content @list1.name
+    end
   end
 end
