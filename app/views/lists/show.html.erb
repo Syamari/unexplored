@@ -17,11 +17,11 @@
             <i class="fa-solid fa-location-dot"></i> <%= @list.name %>
           </h1>
           <% if current_user.bookmarked_lists.include?(@list) %>
-            <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
+            <%= button_to list_bookmark_path(@list, current_user.bookmarks.find_by(list: @list)), method: :delete, id: 'bookmark-button', class: 'bookmark-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
               <i class="fa-solid fa-bookmark"></i>
             <% end %>
           <% else %>
-            <%= button_to list_bookmark_path(@list), class: 'bookmark-button bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
+            <%= button_to list_bookmark_path(@list), id: 'bookmark-button', class: 'bookmark-button bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full ml-2' do %>
               <i class="fa-regular fa-bookmark"></i>
             <% end %>
           <% end %>

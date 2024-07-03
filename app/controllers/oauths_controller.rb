@@ -12,7 +12,7 @@ class OauthsController < ApplicationController
     if (@user = login_from(provider))
       redirect_to lists_path, notice: "#{provider.titleize}アカウントでログインしました"
     # プロバイダ情報ではユーザーが存在しないが、同メールアドレスのユーザーが存在する場合は、そのユーザーでログイン
-    elsif (@user = User.find_by(email: email))
+    elsif (@user = User.find_by(email:))
       reset_session
       auto_login(@user)
       redirect_to lists_path, info: "メールアドレスを使用してログインしました"

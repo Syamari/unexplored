@@ -19,9 +19,9 @@ class UsersController < ApplicationController
           flash.clear
           flash.now[:error] = if @user.errors.messages[:email].any?
             "ユーザー登録に失敗しました (メールアドレスは既に使用されています)"
-          elsif @user.errors.messages[:password].any?
+                              elsif @user.errors.messages[:password].any?
             "ユーザー登録に失敗しました (なお、パスワードは英小文字と数字を含む8文字以上が必要です)"
-          else
+                              else
             "ユーザー登録に失敗しました"
                               end
           render turbo_stream: turbo_stream.replace("flash_message", partial: "shared/flash_message")
