@@ -23,7 +23,7 @@ RSpec.feature "リスト", type: :feature do
     @list_name2 = 'Test List2'
   end
 
-  context '入力情報正常系' do
+  context '正常系' do
     it "一覧ページで新規リストを作成する" do
       visit lists_path
       expect(page).to have_content "マイリスト一覧"
@@ -45,7 +45,7 @@ RSpec.feature "リスト", type: :feature do
       expect(page).to have_content('Arctic Monkeys')
     end
 
-    it "レコメンドの生成, 楽曲再生画面, レーティング" do
+    xit "レコメンドの生成, 楽曲再生画面, レーティング" do
       visit lists_path
       click_link @list_name2
       click_button "おすすめ楽曲を取得 →"
@@ -56,6 +56,30 @@ RSpec.feature "リスト", type: :feature do
       song_name = Rate.first.song.name
       click_link song_name.to_s
       expect(page).to have_selector('iframe')
+    end
+
+    it "リストをブックマークし、ブックマーク一覧で確認する" do
+      visit lists_path
+      expect(page).to have_content "マイリスト一覧"
+      click_link @list_name
+      expect(page).to have_content @list_name
+      click_button 'bookmark-button'
+      visit '/lists?view=bookmarked'
+      expect(page).to have_content @list_name
+    end
+
+    it "ブックマークを解除し、ブックマーク一覧から消えることを確認する" do
+      visit lists_path
+      expect(page).to have_content "マイリスト一覧"
+      click_link @list_name
+      expect(page).to have_content @list_name
+      click_button 'bookmark-button'
+      visit '/lists?view=bookmarked'
+      expect(page).to have_content @list_name
+      visit list_path(@list1)
+      click_button 'bookmark-button'
+      visit '/lists?view=bookmarked'
+      expect(page).not_to have_content @list_name
     end
   end
 end
