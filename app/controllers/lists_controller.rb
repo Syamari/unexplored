@@ -3,18 +3,18 @@ class ListsController < ApplicationController
 
   before_action :require_login
 
-def index
-  @list = List.new
+  def index
+    @list = List.new
 
-  @lists = case params[:view]
-           when 'public'
-    List.includes(:artists).where(public: true).page(params[:page]).per(20)
-           when 'bookmarked'
-    current_user.bookmarked_lists.includes(:artists).page(params[:page]).per(20)
-  else
-    current_user.lists.includes(:artists).page(params[:page]).per(20)
-           end
-end
+    @lists = case params[:view]
+             when 'public'
+      List.includes(:artists).where(public: true).order(created_at: :desc).page(params[:page]).per(20)
+             when 'bookmarked'
+          current_user.bookmarked_lists.includes(:artists).order('bookmarks.created_at DESC').page(params[:page]).per(20)
+             else
+      current_user.lists.includes(:artists).order(created_at: :desc).page(params[:page]).per(20)
+             end
+  end
 
   def show
     session[:visited] = nil
