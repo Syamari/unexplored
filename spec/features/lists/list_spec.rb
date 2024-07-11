@@ -18,6 +18,11 @@ RSpec.feature "リスト", type: :feature do
       ListArtist.create!(list_id: @list2.id, artist_id: artist.id)
     end
 
+    ['Arctic Monkeys', 'Porcupine Tree'].each do |artist_name|
+      artist = Artist.create!(name: artist_name)
+      ListArtist.create!(list_id: @list1.id, artist_id: artist.id)
+    end
+
     # リスト作成のために必要な変数を定義
     @list_name = 'Test List'
     @list_name2 = 'Test List2'
@@ -89,6 +94,16 @@ RSpec.feature "リスト", type: :feature do
       click_button 'リスト名を保存する'
       visit '/lists?view=public'
       expect(page).to have_content @list1.name
+    end
+  end
+
+  context '異常系' do
+    it "リスト名が未入力の場合、エラーメッセージが表示される" do
+      visit lists_path
+      click_button "新規リスト作成"
+      fill_in "list_name", with: ""
+      click_button "登録"
+      expect(page).to have_content "リストの作成に失敗しました"
     end
   end
 end
