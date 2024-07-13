@@ -105,5 +105,12 @@ RSpec.feature "リスト", type: :feature do
       click_button "登録"
       expect(page).to have_content "リストの作成に失敗しました"
     end
+
+    it "アーティストが３人未満の場合はエラー" do
+      visit lists_path
+      click_link @list_name
+      click_button "おすすめ楽曲を取得 →"
+      expect(page).to have_content "レコメンドを行うにはリスト内にアーティストが3人以上必要です"
+    end
   end
 end
