@@ -10,9 +10,13 @@ RSpec.feature "リスト", type: :feature do
     click_button "ログイン"
     expect(page).to have_content "ログインしました"
 
+    # リストの名前を定義
+    @list_name = 'Test List'
+    @list_name2 = 'Test List2'
+
     # リストの作成とアーティストの追加
-    @list1 = List.create!(name: 'Test List', user_id: user.id)
-    @list2 = List.create!(name: 'Test List2', user_id: user.id)
+    @list1 = List.create!(name: @list_name, user_id: user.id)
+    @list2 = List.create!(name: @list_name2, user_id: user.id)
     ['Arctic Monkeys', 'Porcupine Tree', 'Portishead'].each do |artist_name|
       artist = Artist.create!(name: artist_name)
       ListArtist.create!(list_id: @list2.id, artist_id: artist.id)
@@ -22,10 +26,6 @@ RSpec.feature "リスト", type: :feature do
       artist = Artist.create!(name: artist_name)
       ListArtist.create!(list_id: @list1.id, artist_id: artist.id)
     end
-
-    # リスト作成のために必要な変数を定義
-    @list_name = 'Test List'
-    @list_name2 = 'Test List2'
   end
 
   context '正常系' do
@@ -106,7 +106,7 @@ RSpec.feature "リスト", type: :feature do
       expect(page).to have_content "リストの作成に失敗しました"
     end
 
-    it "アーティストが３人未満の場合はエラー" do
+    it "レコメンド時にアーティストが３人未満の場合はエラー" do
       visit lists_path
       click_link @list_name
       click_button "おすすめ楽曲を取得 →"
