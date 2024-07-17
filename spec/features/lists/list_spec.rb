@@ -89,11 +89,17 @@ RSpec.feature "リスト", type: :feature do
 
     it "リストを公開し、公開リスト一覧で確認する" do
       visit edit_list_path(@list1)
-      # 非公開設定のチェックを外す
       find('input[name="list[public]"][type="checkbox"]').set(false)
       click_button 'リスト名を保存する'
       visit '/lists?view=public'
       expect(page).to have_content @list1.name
+    end
+
+    it "リスト内のアーティスト名をクリックすると、そのアーティストのトップトラック視聴画面に遷移できる" do
+      visit lists_path
+      click_link @list_name
+      click_link 'Porcupine Tree'
+      expect(page).to have_selector('iframe')
     end
   end
 
