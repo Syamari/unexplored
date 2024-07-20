@@ -10,7 +10,12 @@ class ArtistsController < ApplicationController
 
     url = @selected_song.embed.match(%r{https://embed\.spotify\.com/\?uri=spotify:track:(\w+)})
     @player_url = "https://open.spotify.com/embed/track/#{url[1]}"
-    generate_genre_description_artist
+
+    # 不要なメソッド？ private以下を参照
+    # なお、このメソッドはrspec時にエラーなのでコメントアウト
+    # エラー理由はrspecではartistはフォーム入力ではなく、単一で生成しているため、
+    # spotifyを通してgenresテーブルに紐づいたデータが作成されないためエラーが出る
+    # generate_genre_description_artist
   end
 
   def save_song
@@ -31,9 +36,13 @@ class ArtistsController < ApplicationController
 
   private
 
+  # ↓不要なメソッドの疑惑あり、内容もミスがあるが、書かれた目的が確定するまで消去を留保
+  # おそらく、songs_controller.rbを参考に現在のこのコントローラーを書いた際に、
+  # このメソッドを書いたと思われるが、実際には不要だった可能性がある
+
   def generate_genre_description_artist
     genre1 = @artist.genres.first.name.titleize
-    genre2 = @artist.genres.first.name.titleize
+    genre2 = @artist.genres.first.name.titleize # ←firstではなくsecondとしたかったのかもしれない
 
     @genre_description = if genre1.blank?
                            genre2
