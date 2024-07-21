@@ -10,17 +10,17 @@ RSpec.feature "リスト", type: :feature do
     click_button "ログイン"
     expect(page).to have_content "ログインしました"
 
-    # リストの作成とアーティストの追加
-    @list1 = List.create!(name: 'Test List', user_id: user.id)
-    @list2 = List.create!(name: 'Test List2', user_id: user.id)
+    @list1 = create(:list, user:)
+    @list2 = create(:list, user:)
     ['Arctic Monkeys', 'Porcupine Tree', 'Portishead'].each do |artist_name|
-      artist = Artist.create!(name: artist_name)
-      ListArtist.create!(list_id: @list2.id, artist_id: artist.id)
+      artist = create(:artist, name: artist_name)
+      create(:list_artist, list: @list2, artist:)
     end
 
-    # リスト作成のために必要な変数を定義
-    @list_name = 'Test List'
-    @list_name2 = 'Test List2'
+    ['Arctic Monkeys', 'Porcupine Tree'].each do |artist_name|
+      artist = create(:artist, name: artist_name)
+      create(:list_artist, list: @list1, artist:)
+    end
   end
 
   context '正常系' do
@@ -29,9 +29,9 @@ RSpec.feature "リスト", type: :feature do
       expect(page).to have_content "マイリスト一覧"
       click_button "新規リスト作成"
       expect(page).to have_content "新規リスト"
-      fill_in "list_name", with: @list_name
+      fill_in "list_name", with: "New Test List"
       click_button "登録"
-      expect(page).to have_content @list_name
+      expect(page).to have_content "New Test List"
     end
 
     it "リストにアーティストを追加する" do
@@ -47,7 +47,7 @@ RSpec.feature "リスト", type: :feature do
 
     xit "レコメンドの生成, 楽曲再生画面, レーティング" do
       visit lists_path
-      click_link @list_name2
+      click_link @list2.name
       click_button "おすすめ楽曲を取得 →"
       expect(page).to have_selector('iframe')
       click_button "レーティングを保存"
@@ -61,34 +61,57 @@ RSpec.feature "リスト", type: :feature do
     it "リストをブックマークし、ブックマーク一覧で確認する" do
       visit lists_path
       expect(page).to have_content "マイリスト一覧"
-      click_link @list_name
-      expect(page).to have_content @list_name
+      click_link @list1.name
+      expect(page).to have_content @list1.name
       click_button 'bookmark-button'
       visit '/lists?view=bookmarked'
-      expect(page).to have_content @list_name
+      expect(page).to have_content @list1.name
     end
 
     it "ブックマークを解除し、ブックマーク一覧から消えることを確認する" do
       visit lists_path
       expect(page).to have_content "マイリスト一覧"
-      click_link @list_name
-      expect(page).to have_content @list_name
+      click_link @list1.name
+      expect(page).to have_content @list1.name
       click_button 'bookmark-button'
       visit '/lists?view=bookmarked'
-      expect(page).to have_content @list_name
+      expect(page).to have_content @list1.name
       visit list_path(@list1)
       click_button 'bookmark-button'
       visit '/lists?view=bookmarked'
-      expect(page).not_to have_content @list_name
+      expect(page).not_to have_content @list1.name
     end
 
     it "リストを公開し、公開リスト一覧で確認する" do
       visit edit_list_path(@list1)
-      # 非公開設定のチェックを外す
       find('input[name="list[public]"][type="checkbox"]').set(false)
       click_button 'リスト名を保存する'
       visit '/lists?view=public'
       expect(page).to have_content @list1.name
+    end
+
+    it "リスト内のアーティスト名をクリックすると、そのアーティストのトップトラック視聴画面に遷移できる" do
+      visit lists_path
+      click_link @list1.name
+      click_link 'Porcupine Tree'
+      expect(page).to have_selector('iframe')
+    end
+  end
+
+  context '異常系' do
+    it "リスト名が未入力の場合、エラーメッセージが表示される" do
+      visit lists_path
+      click_button "新規リスト作成"
+      fill_in "list_name", with: ""
+      click_button "登録"
+      expect(page).to have_content "リストの作成に失敗しました"
+    end
+
+    it "レコメンド時にアーティストが３人未満の場合はエラー" do
+      visit lists_path
+      click_link @list1.name
+      click_button "おすすめ楽曲を取得 →"
+      expect(page).to have_content "レコメンドを行うにはリスト内にアーティストが3人以上必要です"
     end
   end
 end
